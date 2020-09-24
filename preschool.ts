@@ -1,4 +1,4 @@
-class Preschool {
+class preschool implements IPreschoolAccess {
 
   private _preschoolName : string;
   private _isInEarlyRegistration : boolean;
@@ -10,6 +10,13 @@ class Preschool {
     this._endOfEarlyRegistrationDate = endOfEarlyRegistrationDate;
     this._preschoolName = preschoolName;
     this._price = price;
+  }
+  get IsInEarlyRegistration() {
+    return this._isInEarlyRegistration;
+  } 
+
+  set IsInEarlyRegistration(isInEarlyRegistration) {
+    this._isInEarlyRegistration = isInEarlyRegistration;
   }
 
   get PreschoolName () {

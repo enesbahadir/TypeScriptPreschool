@@ -1,4 +1,5 @@
 import './style.css';
+import {database} from "./database";
 
 const discountCalculateDiv : HTMLElement = document.getElementById('discount-calculate');
 const discountManagementDiv : HTMLElement = document.getElementById('discount-management');
@@ -178,8 +179,34 @@ preschoolManagementButton.onclick = function () {
 								<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
 							</ul>
      </section>`;
+     let db = new database();
+     let list = db.createPreschoolList().length;
+     alert(list);
+   //  preschoolManagementDiv.innerHTML += createTable(list.values);
      discountCalculateDiv.innerHTML =``;
      discountManagementDiv.innerHTML = ``;
 };
+
+function createTable(tableData) {
+  var table = document.createElement('table');
+  var tableBody = document.createElement('tbody');
+
+  tableData.forEach(function(rowData) {
+    var row = document.createElement('tr');
+
+    rowData.forEach(function(cellData) {
+      var cell = document.createElement('td');
+      cell.appendChild(document.createTextNode(cellData));
+      row.appendChild(cell);
+    });
+
+    tableBody.appendChild(row);
+  });
+
+  table.appendChild(tableBody);
+  document.body.appendChild(table);
+}
+
+
 
 
