@@ -68,6 +68,74 @@ discountManagementButton.onclick = function() {
                   <th>İndirimin Uygulancağı Anaokulu</th>
                   <th>İndirim Miktarı</th>
                   <th>Uygulanacağı Kişi Tipi</th>
+                  <th>Düzenle</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+                  <td>Item 1</td>
+                  <td>Ante turpis integer aliquet porttitor.</td>
+                  <td>29.99</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Item 1</td>
+                  <td>Ante turpis integer aliquet porttitor.</td>
+                  <td>29.99</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Item 1</td>
+                  <td>Ante turpis integer aliquet porttitor.</td>
+                  <td>29.99</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Item 1</td>
+                  <td>Ante turpis integer aliquet porttitor.</td>
+                  <td>29.99</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Item 1</td>
+                  <td>Ante turpis integer aliquet porttitor.</td>
+                  <td>29.99</td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+       </div>
+       <ul class="actions stacked align-center">
+								<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
+							</ul>
+     </section>`;
+  discountCalculateDiv.innerHTML = ``;
+  preschoolManagementDiv.innerHTML = ``;
+};
+const preschoolManagementButton: HTMLElement = document.getElementById('preschool-management-button');
+preschoolManagementButton.onclick = function () {
+  preschoolManagementDiv.innerHTML =`
+    <section class="wrapper style1 align-center" id = "fourth"> 
+      <div class="inner">
+        <header>
+					<h3>Anaokulu Düzenleme Tablosu</h3>
+				</header>
+				<div class="content">
+					<div class="table-wrapper">
+						<table>
+							<thead>
+								<tr>
+                  <th>Anaokulunun Adı</th>
+                  <th>Anlaşmalı Kurum</th>
+                  <th>Erken Kayıt Dönemi Sonu</th>
+                  <th>Düzenle</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -110,10 +178,8 @@ discountManagementButton.onclick = function() {
 								<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
 							</ul>
      </section>`;
-                    discountCalculateDiv.innerHTML = ``;
-                    preschoolManagementDiv.innerHTML = ``;
-
+     discountCalculateDiv.innerHTML =``;
+     discountManagementDiv.innerHTML = ``;
 };
-
 
 
