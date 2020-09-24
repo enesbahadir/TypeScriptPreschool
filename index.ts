@@ -5,6 +5,9 @@ const discountCalculateDiv : HTMLElement = document.getElementById('discount-cal
 const discountManagementDiv : HTMLElement = document.getElementById('discount-management');
 const preschoolManagementDiv : HTMLElement = document.getElementById('preschool');
 
+let db = new database();
+let preschoolList = db.createPreschoolList();
+
 const discountCalculateButton: HTMLElement = document.getElementById('discount-button');
 discountCalculateButton.onclick = function() {
   discountManagementDiv.innerHTML = ``;
@@ -122,65 +125,60 @@ discountManagementButton.onclick = function() {
 };
 const preschoolManagementButton: HTMLElement = document.getElementById('preschool-management-button');
 preschoolManagementButton.onclick = function () {
-
-  let db = new database();
-  let list = db.createPreschoolList();
-     
-
-  createTable();
-  
-    function createTable() {
-       
-        preschoolManagementDiv.innerHTML =
-        `<section class="wrapper style1 align-center" id = "fourth"> 
-            <div class="inner">
-            <header>
-              <h3>Anaokulu Düzenleme Tablosu</h3>
-            </header>
-            <div class="content">
-              <div class="table-wrapper">
-              <table id="table">
-							<thead>
-								<tr>
-                  <th>Anaokulunun Adı</th>
-                  <th>Anlaşmalı Kurum</th>
-                  <th>Erken Kayıt Dönemi Sonu</th>
-                  <th>Düzenle</th>
-								</tr>
-							</thead>`;
-       let table = document.getElementById('table');
-        let tableBody = document.createElement('tbody');
-         table.appendChild(tableBody);
-        document.body.appendChild(table);
-        
-        list.forEach(function(rowData) {
-          let row = document.createElement('tr');
-          let cell = document.createElement('td');
-          cell.appendChild(document.createTextNode(rowData.PreschoolName));
-          let cell2 = document.createElement('td');
-          cell2.appendChild(document.createTextNode(rowData.Price.toString()));
-          let cell3 = document.createElement('td');
-          cell3.appendChild(document.createTextNode(rowData.EndOfEarlyRegistrationDate));
-          row.appendChild(cell);   
-          row.appendChild(cell2);
-          row.appendChild(cell3);
-          tableBody.appendChild(row); 
-        });
-        
-        table.appendChild(tableBody);
-        document.body.appendChild(table);
-        preschoolManagementDiv.innerHTML = `</tbody>
-            </table>
-          </div>
-        </div>
-       </div>
-       <ul class="actions stacked align-center">
-								<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
-							</ul>
-     </section>`;
-     };
-     discountCalculateDiv.innerHTML =``;
-     discountManagementDiv.innerHTML = ``;
+createTable();
+function createTable() {
+    
+    preschoolManagementDiv.innerHTML =
+    `<section class="wrapper style1 align-center" id = "fourth"> 
+        <div class="inner">
+        <header>
+          <h3>Anaokulu Düzenleme Tablosu</h3>
+        </header>
+        <div class="content">
+          <div class="table-wrapper">
+          <table id="table">
+          <thead>
+            <tr>
+              <th>Anaokulunun Adı</th>
+              <th>Anaokulu Ücreti</th>
+              <th>Erken Kayıt Dönemi Sonu</th>
+              <th>Düzenle</th>
+            </tr>
+          </thead>
+          <tbody id = "tableBody">`;
+    let table = document.getElementById('table');
+    let tableBody = document.getElementById('tableBody');
+    table.appendChild(tableBody);
+    document.body.appendChild(table);
+    
+    preschoolList.forEach(function(rowData) {
+      let row = document.createElement('tr');
+      let cell = document.createElement('td');
+      cell.appendChild(document.createTextNode(rowData.PreschoolName));
+      let cell2 = document.createElement('td');
+      cell2.appendChild(document.createTextNode(rowData.Price.toString()));
+      let cell3 = document.createElement('td');
+      cell3.appendChild(document.createTextNode(rowData.EndOfEarlyRegistrationDate));
+      row.appendChild(cell);   
+      row.appendChild(cell2);
+      row.appendChild(cell3);
+      tableBody.appendChild(row); 
+    });
+    
+    table.appendChild(tableBody);
+    document.body.appendChild(table);
+    preschoolManagementDiv.innerHTML = `</tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+    <ul class="actions stacked align-center">
+            <li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
+          </ul>
+  </section>`;
+  };
+  discountCalculateDiv.innerHTML =``;
+  discountManagementDiv.innerHTML = ``;
 };
 
 
