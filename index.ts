@@ -122,15 +122,24 @@ discountManagementButton.onclick = function() {
 };
 const preschoolManagementButton: HTMLElement = document.getElementById('preschool-management-button');
 preschoolManagementButton.onclick = function () {
-  preschoolManagementDiv.innerHTML =`
-    <section class="wrapper style1 align-center" id = "fourth"> 
-      <div class="inner">
-        <header>
-					<h3>Anaokulu Düzenleme Tablosu</h3>
-				</header>
-				<div class="content">
-					<div class="table-wrapper">
-						<table>
+
+  let db = new database();
+  let list = db.createPreschoolList();
+     
+
+  createTable();
+  
+    function createTable() {
+       
+        preschoolManagementDiv.innerHTML =
+        `<section class="wrapper style1 align-center" id = "fourth"> 
+            <div class="inner">
+            <header>
+              <h3>Anaokulu Düzenleme Tablosu</h3>
+            </header>
+            <div class="content">
+              <div class="table-wrapper">
+              <table id="table">
 							<thead>
 								<tr>
                   <th>Anaokulunun Adı</th>
@@ -138,39 +147,29 @@ preschoolManagementButton.onclick = function () {
                   <th>Erken Kayıt Dönemi Sonu</th>
                   <th>Düzenle</th>
 								</tr>
-							</thead>
-							<tbody>
-								<tr>
-                  <td>Item 1</td>
-                  <td>Ante turpis integer aliquet porttitor.</td>
-                  <td>29.99</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Item 1</td>
-                  <td>Ante turpis integer aliquet porttitor.</td>
-                  <td>29.99</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Item 1</td>
-                  <td>Ante turpis integer aliquet porttitor.</td>
-                  <td>29.99</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Item 1</td>
-                  <td>Ante turpis integer aliquet porttitor.</td>
-                  <td>29.99</td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Item 1</td>
-                  <td>Ante turpis integer aliquet porttitor.</td>
-                  <td>29.99</td>
-                  <td></td>
-                </tr>
-              </tbody>
+							</thead>`;
+       let table = document.getElementById('table');
+        let tableBody = document.createElement('tbody');
+         table.appendChild(tableBody);
+        document.body.appendChild(table);
+        
+        list.forEach(function(rowData) {
+          let row = document.createElement('tr');
+          let cell = document.createElement('td');
+          cell.appendChild(document.createTextNode(rowData.PreschoolName));
+          let cell2 = document.createElement('td');
+          cell2.appendChild(document.createTextNode(rowData.Price.toString()));
+          let cell3 = document.createElement('td');
+          cell3.appendChild(document.createTextNode(rowData.EndOfEarlyRegistrationDate));
+          row.appendChild(cell);   
+          row.appendChild(cell2);
+          row.appendChild(cell3);
+          tableBody.appendChild(row); 
+        });
+        
+        table.appendChild(tableBody);
+        document.body.appendChild(table);
+        preschoolManagementDiv.innerHTML = `</tbody>
             </table>
           </div>
         </div>
@@ -179,33 +178,11 @@ preschoolManagementButton.onclick = function () {
 								<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
 							</ul>
      </section>`;
-     let db = new database();
-     let list = db.createPreschoolList().length;
-     alert(list);
-   //  preschoolManagementDiv.innerHTML += createTable(list.values);
+     };
      discountCalculateDiv.innerHTML =``;
      discountManagementDiv.innerHTML = ``;
 };
 
-function createTable(tableData) {
-  var table = document.createElement('table');
-  var tableBody = document.createElement('tbody');
-
-  tableData.forEach(function(rowData) {
-    var row = document.createElement('tr');
-
-    rowData.forEach(function(cellData) {
-      var cell = document.createElement('td');
-      cell.appendChild(document.createTextNode(cellData));
-      row.appendChild(cell);
-    });
-
-    tableBody.appendChild(row);
-  });
-
-  table.appendChild(tableBody);
-  document.body.appendChild(table);
-}
 
 
 

@@ -1,8 +1,10 @@
+import { UserType } from "./types";
+
 class Discount {
   
   private _discountName : string;
   private _discountType;
-  private _userTypes : Array<any>;
+  private _userTypes : Array<UserType>;
   private _organizationName;
   private _preschoolNamesAndTheirDiscounts :Array<string | number>;
 

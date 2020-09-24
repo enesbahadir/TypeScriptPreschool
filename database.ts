@@ -1,3 +1,5 @@
+import { DiscountType, UserType } from "./types";
+
 export class database {
   createPreschoolList() {
     const preschools = [
@@ -9,8 +11,8 @@ export class database {
 
   createDiscountList() {
     const discounts = [
-      {},
-      {},
+      {_discountName : "Erken Kayıt İndirimi", _discountType : DiscountType.PERCENTAGE, _userTypes : [UserType.PERSONEL, UserType.IHVAN, UserType.STANDART], _preschoolNamesAndTheirDiscounts : [["Madenler Lalebahçesi"][50],["Yunus Emre Lalebahçesi"][50]] },
+      {_discountName : "Ihvan Indirimi", _discountType : DiscountType.PERCENTAGE, _userTypes : [ UserType.IHVAN], _preschoolNamesAndTheirDiscounts : [["Madenler Lalebahçesi"][5],["Yunus Emre Lalebahçesi"][5]] },
       
     ];
   }
