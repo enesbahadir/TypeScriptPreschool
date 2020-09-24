@@ -1,13 +1,14 @@
-import discountCalculateHtml from './discount-calculate.html';
-// Import stylesheets
 import './style.css';
 
-// Write TypeScript code!
-const appDiv: HTMLElement = document.getElementById('discount-button');
-appDiv.onclick = function() {
-  const discountDiv : HTMLElement = document.getElementById('discount-calculate');
+const discountCalculateDiv : HTMLElement = document.getElementById('discount-calculate');
+const discountManagementDiv : HTMLElement = document.getElementById('discount-management');
+const preschoolManagementDiv : HTMLElement = document.getElementById('preschool');
 
-  discountDiv.innerHTML = 
+const discountCalculateButton: HTMLElement = document.getElementById('discount-button');
+discountCalculateButton.onclick = function() {
+  discountManagementDiv.innerHTML = ``;
+  preschoolManagementDiv.innerHTML = ``;
+  discountCalculateDiv.innerHTML = 
           `<section class="wrapper style1 align-center" id = "second">
 						<div class="inner">
               <div class="content">
@@ -45,6 +46,74 @@ appDiv.onclick = function() {
                 </form>
               </div>  
 						</div>
+            <ul class="actions stacked align-center">
+								<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
+							</ul>
     </section>`;
 };
+const discountManagementButton: HTMLElement = document.getElementById('discount-management-button');
+discountManagementButton.onclick = function() {
+  discountManagementDiv.innerHTML = `
+    <section class="wrapper style1 align-center" id = "third"> 
+      <div class="inner">
+        <header>
+					<h3>İndirim Düzenleme Tablosu</h3>
+				</header>
+				<div class="content">
+					<div class="table-wrapper">
+						<table>
+							<thead>
+								<tr>
+                  <th>İndirimin Adı</th>
+                  <th>İndirimin Uygulancağı Anaokulu</th>
+                  <th>İndirim Miktarı</th>
+                  <th>Uygulanacağı Kişi Tipi</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+                  <td>Item 1</td>
+                  <td>Ante turpis integer aliquet porttitor.</td>
+                  <td>29.99</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Item 1</td>
+                  <td>Ante turpis integer aliquet porttitor.</td>
+                  <td>29.99</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Item 1</td>
+                  <td>Ante turpis integer aliquet porttitor.</td>
+                  <td>29.99</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Item 1</td>
+                  <td>Ante turpis integer aliquet porttitor.</td>
+                  <td>29.99</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Item 1</td>
+                  <td>Ante turpis integer aliquet porttitor.</td>
+                  <td>29.99</td>
+                  <td></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+       </div>
+       <ul class="actions stacked align-center">
+								<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
+							</ul>
+     </section>`;
+                    discountCalculateDiv.innerHTML = ``;
+                    preschoolManagementDiv.innerHTML = ``;
+
+};
+
+
 
