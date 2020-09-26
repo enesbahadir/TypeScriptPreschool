@@ -17,7 +17,8 @@ discountCalculateButton2.onclick =
 function updateTable(){
 
   const tableString: string = /*html*/`
-          
+          <div class="content">
+            <div class="table-wrapper">
             <table>
             <thead>
               <tr>
@@ -28,38 +29,39 @@ function updateTable(){
                 <th>Sil</th>
               </tr>
             </thead>
-            <tbody id = "tableBody">`;
+            <tbody></tbody>
+            </table>
+            </div>
+            </div>`;
 
 
   const parser = new DOMParser();
   const parse = <T extends HTMLElement>(str: string) =>
           <T>parser.parseFromString(str, 'text/html').documentElement;
   const table = parse<HTMLTableElement>(tableString);
+
   preschoolList.forEach((preschool, index) => {
-   
     const rowString = toTableString(index, preschool);
     const row = parse<HTMLTableRowElement>(rowString);
-    //
-    
-    table.appendChild(row);
+   
+    table.tBodies[0].appendChild(row);
     //const existingTable = document.getElementById("table");
-    document.body.appendChild(table);
+    
     //existingTable.parentElement.replaceChild(table, existingTable);
 
   });
-
+  document.body.appendChild(table);
 }
 
 function toTableString(row: number, preschool: IPreschool): string
 {
-  alert(preschool.PreschoolName);
-    return /*html*/`<tr>
-        <th scope="row">${row + 1}</th>
+  
+    return `<tr>
         <td>${preschool.PreschoolName}</td>
         <td>${preschool.Price}</td>
         <td>${preschool.EndOfEarlyRegistrationDate}</td>
-        <td><span class="glyphicon glyphicon-pencil"></span></td>
-        <td><span class="glyphicon glyphicon-trash" data-delete-button></span></td>
+        <td><span class="icon solid style2 major fa-cog"></span></td>
+        <td><span class="icon solid style2 major fa-hashtag" ></span></td>
     </tr>`;
 }
 
