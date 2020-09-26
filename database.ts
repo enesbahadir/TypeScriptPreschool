@@ -2,7 +2,7 @@ import { DiscountType, UserType } from "./types";
 
 export class database {
   createPreschoolList() {
-    const preschools = [
+    let preschools : Array<IPreschool> = [
       {PreschoolName : "Madenler Lalebahçesi", Price : 1200, EndOfEarlyRegistrationDate : "01/10/2020"},
       {PreschoolName : "Yunus Emre Lalebahçesi", Price : 1000, EndOfEarlyRegistrationDate : "01/09/2020"}
     ];

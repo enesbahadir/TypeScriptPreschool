@@ -1,185 +1,68 @@
 import './style.css';
 import {database} from "./database";
 
-const discountCalculateDiv : HTMLElement = document.getElementById('discount-calculate');
-const discountManagementDiv : HTMLElement = document.getElementById('discount-management');
-const preschoolManagementDiv : HTMLElement = document.getElementById('preschool');
+const preschoolManagement : HTMLElement = document.getElementById('preschool-management-button');
+preschoolManagement.onclick =  updateTable;
+ 
 
 let db = new database();
 let preschoolList = db.createPreschoolList();
 
-const discountCalculateButton: HTMLElement = document.getElementById('discount-button');
-discountCalculateButton.onclick = function() {
-  discountManagementDiv.innerHTML = ``;
-  preschoolManagementDiv.innerHTML = ``;
-  discountCalculateDiv.innerHTML = 
-          `<section class="wrapper style1 align-center" id = "second">
-						<div class="inner">
-              <div class="content">
-                <form method="post" action="#">
-                  <div class="fields">
-                    <div class="field">
-                      <label for="name">Name</label>
-                      <input type="text" name="name" id="name" value="" />
-                    </div>                
-                    <div class="field">
-                      <label for="preschool">Anaokulu</label>
-                      <select name="preschool" id="preschool">
-                        <option value="">- Anaokulu Seçiniz -</option>
-                        <option value="1">Yunus Emre Lalebahçesi</option>
-                        <option value="2">Madenler Lalebahçesi</option>
-                      </select>
-                    </div>
-                    <div class="field third">
-                      <input type="radio" id="user-personel" name="priority" checked />
-                      <label for="user-personel">Personel</label>
-                    </div>
-                    <div class="field third">
-                      <input type="radio" id="user-ihvan" name="priority" />
-                      <label for="user-ihvan">Ihvan</label>
-                    </div>
-                    <div class="field third">
-                      <input type="radio" id="user-standart" name="priority" />
-                      <label for="user-standart">Standart</label>
-                    </div>
-                    <div class="field ">
-                      <ul class="actions stacked ">
-                        <li><a href="#" class="button fit" onclick="a()">İndirim Hesapla</a></li>
-                      </ul>
-                    </div>
-                </form>
-              </div>  
-						</div>
-            <ul class="actions stacked align-center">
-								<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
-							</ul>
-    </section>`;
+const discountCalculateButton2 : HTMLElement = document.getElementById(`calculate`);
+discountCalculateButton2.onclick = 
+  function () {
+    alert ("indirim hesaplama metodu");
 };
-const discountManagementButton: HTMLElement = document.getElementById('discount-management-button');
-discountManagementButton.onclick = function() {
-  discountManagementDiv.innerHTML = `
-    <section class="wrapper style1 align-center" id = "third"> 
-      <div class="inner">
-        <header>
-					<h3>İndirim Düzenleme Tablosu</h3>
-				</header>
-				<div class="content">
-					<div class="table-wrapper">
-						<table>
-							<thead>
-								<tr>
-                  <th>İndirimin Adı</th>
-                  <th>İndirimin Uygulancağı Anaokulu</th>
-                  <th>İndirim Miktarı</th>
-                  <th>Uygulanacağı Kişi Tipi</th>
-                  <th>Düzenle</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-                  <td>Item 1</td>
-                  <td>Ante turpis integer aliquet porttitor.</td>
-                  <td>29.99</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Item 1</td>
-                  <td>Ante turpis integer aliquet porttitor.</td>
-                  <td>29.99</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Item 1</td>
-                  <td>Ante turpis integer aliquet porttitor.</td>
-                  <td>29.99</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Item 1</td>
-                  <td>Ante turpis integer aliquet porttitor.</td>
-                  <td>29.99</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Item 1</td>
-                  <td>Ante turpis integer aliquet porttitor.</td>
-                  <td>29.99</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-       </div>
-       <ul class="actions stacked align-center">
-								<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
-							</ul>
-     </section>`;
-  discountCalculateDiv.innerHTML = ``;
-  preschoolManagementDiv.innerHTML = ``;
-};
-const preschoolManagementButton: HTMLElement = document.getElementById('preschool-management-button');
-preschoolManagementButton.onclick = function () {
-createTable();
-function createTable() {
+
+function updateTable(){
+
+  const tableString: string = /*html*/`
+          
+            <table>
+            <thead>
+              <tr>
+                <th>Anaokulunun Adı</th>
+                <th>Anaokulu Ücreti</th>
+                <th>Erken Kayıt Dönemi Sonu</th>
+                <th>Düzenle</th>
+                <th>Sil</th>
+              </tr>
+            </thead>
+            <tbody id = "tableBody">`;
+
+
+  const parser = new DOMParser();
+  const parse = <T extends HTMLElement>(str: string) =>
+          <T>parser.parseFromString(str, 'text/html').documentElement;
+  const table = parse<HTMLTableElement>(tableString);
+  preschoolList.forEach((preschool, index) => {
+   
+    const rowString = toTableString(index, preschool);
+    const row = parse<HTMLTableRowElement>(rowString);
+    //
     
-    preschoolManagementDiv.innerHTML =
-    `<section class="wrapper style1 align-center" id = "fourth"> 
-        <div class="inner">
-        <header>
-          <h3>Anaokulu Düzenleme Tablosu</h3>
-        </header>
-        <div class="content">
-          <div class="table-wrapper">
-          <table id="table">
-          <thead>
-            <tr>
-              <th>Anaokulunun Adı</th>
-              <th>Anaokulu Ücreti</th>
-              <th>Erken Kayıt Dönemi Sonu</th>
-              <th>Düzenle</th>
-            </tr>
-          </thead>
-          <tbody id = "tableBody">`;
-    let table = document.getElementById('table');
-    let tableBody = document.getElementById('tableBody');
-    table.appendChild(tableBody);
+    table.appendChild(row);
+    //const existingTable = document.getElementById("table");
     document.body.appendChild(table);
-    
-    preschoolList.forEach(function(rowData) {
-      let row = document.createElement('tr');
-      let cell = document.createElement('td');
-      cell.appendChild(document.createTextNode(rowData.PreschoolName));
-      let cell2 = document.createElement('td');
-      cell2.appendChild(document.createTextNode(rowData.Price.toString()));
-      let cell3 = document.createElement('td');
-      cell3.appendChild(document.createTextNode(rowData.EndOfEarlyRegistrationDate));
-      row.appendChild(cell);   
-      row.appendChild(cell2);
-      row.appendChild(cell3);
-      tableBody.appendChild(row); 
-    });
-    
-    table.appendChild(tableBody);
-    document.body.appendChild(table);
-    preschoolManagementDiv.innerHTML = `</tbody>
-        </table>
-      </div>
-    </div>
-    </div>
-    <ul class="actions stacked align-center">
-            <li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
-          </ul>
-  </section>`;
-  };
-  discountCalculateDiv.innerHTML =``;
-  discountManagementDiv.innerHTML = ``;
-};
+    //existingTable.parentElement.replaceChild(table, existingTable);
+
+  });
+
+}
+
+function toTableString(row: number, preschool: IPreschool): string
+{
+  alert(preschool.PreschoolName);
+    return /*html*/`<tr>
+        <th scope="row">${row + 1}</th>
+        <td>${preschool.PreschoolName}</td>
+        <td>${preschool.Price}</td>
+        <td>${preschool.EndOfEarlyRegistrationDate}</td>
+        <td><span class="glyphicon glyphicon-pencil"></span></td>
+        <td><span class="glyphicon glyphicon-trash" data-delete-button></span></td>
+    </tr>`;
+}
+
 
 
 

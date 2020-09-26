@@ -1,10 +1,9 @@
 /**
  * Preschool sınıfına erişmek için kullanılan interface
  */
-interface IPreschoolAccess {
+interface IPreschool {
 
   PreschoolName : string;
-  IsInEarlyRegistration : boolean;
   Price : number;
   EndOfEarlyRegistrationDate : string;
   
