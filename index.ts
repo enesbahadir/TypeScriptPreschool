@@ -18,7 +18,7 @@ preschoolManagement.onclick =  updateTable;
 
 function updateTable(){
   const tableString: string = `
-        <table>
+        <table id= "table">
           <thead>
             <tr>
               <th scope="col">Anaokulunun Adı</th>
@@ -40,23 +40,25 @@ function updateTable(){
           <T>parser.parseFromString(str, 'text/html').documentElement;
   const table = parse<HTMLTableElement>(tableString);
 
-  preschoolList.forEach((preschool, index) => {
-    const rowString = toTableString(index, preschool);
+  preschoolList.forEach((preschool) => {
+    const rowString = toTableString( preschool);
     const row = parse<HTMLTableRowElement>(rowString);
     debugger;
-    table.appendChild(row);
-
+    table.children[1].appendChild(row);
   });
 
-  const existingTable = document.getElementById("table");
-  existingTable.parentElement.replaceChild(table, existingTable);
+  const existingTable = document.getElementById("tableEx");
+  if(existingTable)
+    existingTable.parentElement.replaceChild(table, existingTable);
+    
+    
   
 }
 
-function toTableString(row: number, preschool: IPreschool): string
+function toTableString( preschool: IPreschool): string
 {
   
-    return `<tr>
+    return `<tr scope = "row">
         <td>${preschool.PreschoolName}</td>
         <td>${preschool.Price}</td>
         <td>${preschool.EndOfEarlyRegistrationDate}</td>
