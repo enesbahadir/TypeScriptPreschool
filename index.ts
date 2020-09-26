@@ -1,8 +1,7 @@
 import './style.css';
 import {database} from "./database";
 
-const preschoolManagement : HTMLElement = document.getElementById('preschool-management-button');
-preschoolManagement.onclick =  updateTable;
+
  
 
 let db = new database();
@@ -14,25 +13,26 @@ discountCalculateButton2.onclick =
     alert ("indirim hesaplama metodu");
 };
 
-function updateTable(){
+const preschoolManagement : HTMLElement = document.getElementById('preschool-management-button');
+preschoolManagement.onclick =  updateTable;
 
-  const tableString: string = /*html*/`
-          <div class="content">
-            <div class="table-wrapper">
-            <table>
-            <thead>
-              <tr>
-                <th>Anaokulunun Adı</th>
-                <th>Anaokulu Ücreti</th>
-                <th>Erken Kayıt Dönemi Sonu</th>
-                <th>Düzenle</th>
-                <th>Sil</th>
-              </tr>
-            </thead>
-            <tbody></tbody>
-            </table>
-            </div>
-            </div>`;
+function updateTable(){
+  const tableString: string = `
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Anaokulunun Adı</th>
+              <th scope="col">Anaokulu Ücreti</th>
+              <th scope="col">Erken Kayıt Dönemi Sonu</th>
+              <th scope="col">Düzenle</th>
+              <th scope="col">Sil</th>
+            </tr>
+          </thead>
+          <tbody>
+          </tbody>
+        </table>
+      </div>
+    </div>`;
 
 
   const parser = new DOMParser();
@@ -43,14 +43,14 @@ function updateTable(){
   preschoolList.forEach((preschool, index) => {
     const rowString = toTableString(index, preschool);
     const row = parse<HTMLTableRowElement>(rowString);
-   
-    table.tBodies[0].appendChild(row);
-    //const existingTable = document.getElementById("table");
-    
-    //existingTable.parentElement.replaceChild(table, existingTable);
+    debugger;
+    table.appendChild(row);
 
   });
-  document.body.appendChild(table);
+
+  const existingTable = document.getElementById("table");
+  existingTable.parentElement.replaceChild(table, existingTable);
+  
 }
 
 function toTableString(row: number, preschool: IPreschool): string
