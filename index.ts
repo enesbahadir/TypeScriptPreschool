@@ -138,7 +138,6 @@ function createPreschoolTable () {
 
 }
 
-
 function createOrganizationNameSelectList() {
   let myOrganizationParent = document.getElementById("selectOrganizationField");
   let selectOrganizationList = document.createElement("select");
