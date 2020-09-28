@@ -181,14 +181,47 @@ function createDiscountTable() {
       cellText = document.createTextNode("Miktar");
       else
       cellText = document.createTextNode("Yüzde");
-      debugger;
+      
     cell.appendChild(cellText);
     row.appendChild(cell);
 
+    cell = document.createElement("td");
+    let cellString = "";
+    for(let j = 0; j<discountList[i].UserTypes.length; j++)
+    {
+      debugger;
+      switch(discountList[i].UserTypes[j])
+      {
+        case 0 :
+        {
+          cellString += "Personel- ";
+          break;
+        }
+        case 1:
+        {
+          cellString += "Ihvan- ";
+          break;
+        }
+        case 2:
+        {
+          cellString += "Standart";
+          break;
+        }
+      }
+        
+    }
+    
+    cellText = document.createTextNode( cellString );
+    cell.appendChild(cellText);
+    row.appendChild(cell);
 
     tblBody.appendChild(row);
   }
   table.appendChild(tblBody);
+
+
+
+
   discountTableParent.appendChild(table);
 }
 
