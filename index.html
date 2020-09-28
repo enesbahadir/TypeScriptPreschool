@@ -1,81 +1,83 @@
 <html>
-	<head>
-		<title>Preschool Discount Calculator</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-	</head>
-	<body class="is-preload">
-			<div id="wrapper" class="divided">
-					<section class="banner style1 orient-left content-align-left image-position-right fullscreen ">
-						<div class="content">
-							<h1>Preschool Discount Calculator</h1>
-							<p class="major">Anaokulu indirimlerinizi hesaplayan program.</p>
-							<p>Bu program ile indirim hesaplayabilir, anaokulu ve indirim ekleyip düzenleyebilirsiniz.</p>
-							<ul class="actions stacked">
-								<li><a href="#first" class="button large wide smooth-scroll-middle">Hadi Başlayalım</a></li>
-							</ul>
+
+<head>
+	<title>Preschool Discount Calculator</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+</head>
+
+<body class="is-preload">
+	<div id="wrapper" class="divided">
+		<section class="banner style1 orient-left content-align-left image-position-right fullscreen ">
+			<div class="content">
+				<h1>Preschool Discount Calculator</h1>
+				<p class="major">Anaokulu indirimlerinizi hesaplayan program.</p>
+				<p>Bu program ile indirim hesaplayabilir, anaokulu ve indirim ekleyip düzenleyebilirsiniz.</p>
+				<ul class="actions stacked">
+					<li><a href="#first" class="button large wide smooth-scroll-middle">Hadi Başlayalım</a></li>
+				</ul>
+			</div>
+			<div class="image">
+				<img src="https://i.ibb.co/fGjYgKr/Ads-z-tasar-m-1.png" alt="Ads-z-tasar-m-1" border="0">
+
 						</div>
-						<div class="image">
-             <img src="https://i.ibb.co/fGjYgKr/Ads-z-tasar-m-1.png" alt="Ads-z-tasar-m-1" border="0">
-							
-						</div>
-					</section>
-          <section class="wrapper style1 align-center fullscreen" id="first">
-              <div class="inner">
-                 <h3>Lütfen Yapmak İstediğiniz İşlemi Seçiniz</h3>
-                <div class="content">
-                  <ul class="actions stacked">
-                    <li><a href="#second" class="button  fit" id="discount-button" >İndirim Hesaplama</a></li>
-                    <li><a href="#third" class="button fit" id="discount-management-button">İndirim Yönetim Sistemi</a></li>
-                    <li><a href="#fourth" class="button fit" id="preschool-management-button">Anaokulu Yönetim Sistemi</a></li>
-                  </ul>
-                </div>
-              </div>
-          </section>
-          <section class="wrapper style1 align-center" id = "second">
-						<div class="inner">
-              <div class="content">
-                <form method="post" action="#">
-                  <div class="fields">
-                    <div class="field">
-                      <label for="name">Name</label>
-                      <input type="text" name="name" id="name" value="" />
-                    </div>                
-                    <div class="field">
-                      <label for="preschool">Anaokulu</label>
-                      <select name="preschool" id="preschool">
-                        <option value="">- Anaokulu Seçiniz -</option>
-                        <option value="1">Yunus Emre Lalebahçesi</option>
-                        <option value="2">Madenler Lalebahçesi</option>
-                      </select>
+		</section>
+		<section class="wrapper style1 align-center fullscreen" id="first">
+			<div class="inner">
+				<h3>Lütfen Yapmak İstediğiniz İşlemi Seçiniz</h3>
+				<div class="content">
+					<ul class="actions stacked">
+						<li><a href="#second" class="button  fit" id="discount-button">İndirim Hesaplama</a></li>
+						<li><a href="#third" class="button fit" id="discount-management-button">İndirim Yönetim
+								Sistemi</a></li>
+						<li><a href="#fourth" class="button fit" id="preschool-management-button">Anaokulu Yönetim
+								Sistemi</a></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+		<section class="wrapper style1 align-center" id="second">
+			<div class="inner">
+				<div class="content">
+					<form method="post" action="#">
+						<div class="fields">
+							<div class="field">
+								<label for="name">Kullanıcı İsmi</label>
+								<input type="text" name="name" id="userName" value="" />
                     </div>
-                    <div class="field third">
-                      <input type="radio" id="user-personel" name="priority" checked />
-                      <label for="user-personel">Personel</label>
-                    </div>
-                    <div class="field third">
-                      <input type="radio" id="user-ihvan" name="priority" />
-                      <label for="user-ihvan">Ihvan</label>
-                    </div>
-                    <div class="field third">
-                      <input type="radio" id="user-standart" name="priority" />
-                      <label for="user-standart">Standart</label>
-                    </div>
-                    <div class="field ">
-                      <ul class="actions stacked ">
-                        <li><a href="#" class="button fit" id="calculate">İndirim Hesapla</a></li>
-                      </ul>
-                    </div>
-                </form>
-              </div>  
-						</div>
-            <ul class="actions stacked align-center">
-								<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
-							</ul>
-    </section>
-          <section class="wrapper style1 align-center" id = "third"> 
-      <div class="inner">
-        <header>
+								<div class="field" id = "selectField">
+									<label for="preschool">Anaokulu</label>
+								</div>
+                <div class="field" id = "selectOrganizationField">
+									<label for="orgazationName">Çalışılan Kurum</label>
+								</div>
+								<div class="field third">
+									<input type="radio" id="user-personel" name="priority" checked />
+									<label for="user-personel">Personel</label>
+								</div>
+								<div class="field third">
+									<input type="radio" id="user-ihvan" name="priority" />
+									<label for="user-ihvan">Ihvan</label>
+								</div>
+								<div class="field third">
+									<input type="radio" id="user-standart" name="priority" />
+									<label for="user-standart">Standart</label>
+								</div>
+								<div class="field ">
+									<ul class="actions stacked ">
+										<li><a href="#" class="button fit" id="calculate">İndirim Hesapla</a></li>
+									</ul>
+								</div>
+					</form>
+				</div>
+			</div>
+			<ul class="actions stacked align-center">
+				<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
+			</ul>
+		</section>
+		<section class="wrapper style1 align-center" id="third">
+			<div class="inner">
+				<header>
 					<h3>İndirim Düzenleme Tablosu</h3>
 				</header>
 				<div class="content">
@@ -83,79 +85,79 @@
 						<table>
 							<thead>
 								<tr>
-                  <th>İndirimin Adı</th>
-                  <th>İndirimin Uygulancağı Anaokulu</th>
-                  <th>İndirim Miktarı</th>
-                  <th>Uygulanacağı Kişi Tipi</th>
-                  <th>Düzenle</th>
-                  <th>Sil</th>
+									<th>İndirimin Adı</th>
+									<th>İndirimin Uygulancağı Anaokulu</th>
+									<th>İndirim Miktarı</th>
+									<th>Uygulanacağı Kişi Tipi</th>
+									<th>Düzenle</th>
+									<th>Sil</th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-                  <td>Erken Kayıt İndirimi</td>
-                  <td>M Lalebahçesi - Y Lalebahçesi</td>
-                  <td>% 20</td>
-                  <td>Personel - İhvan - Standart</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Personel İndirimi</td>
-                  <td>M Lalebahçesi - Y Lalebahçesi</td>
-                  <td>% 50</td>
-                  <td>Personel</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>İhvan İndirimi</td>
-                  <td>M Lalebahçesi - Y Lalebahçesi</td>
-                  <td>% 5</td>
-                  <td>İhvan</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Sağlık İndirimi</td>
-                  <td>M Lalebahçesi </td>
-                  <td>% 10</td>
-                  <td>İhvan - Standart</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-                <tr>
-                  <td>Anadolu İndirimi</td>
-                  <td>Y Lalebahçesi</td>
-                  <td>100 TL</td>
-                  <td>İhvan - Standart</td>
-                  <td></td>
-                  <td></td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-       </div>
-       <ul class="actions stacked align-center">
-								<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
-							</ul>
-     </section>
-     <section class="wrapper style1 align-center" id = "fourth"> 
-          <div class="inner">
-          <header>
-            <h3>Anaokulu Düzenleme Tablosu</h3>
-          </header>
-          <div class="content">
-            <div class="table-wrapper">
-              <table id="tableEx"> 
-                <tbody></tbody>
-              </table>
-            </div>
-          </div>
-          </div>
-     </section>
+									<td>Erken Kayıt İndirimi</td>
+									<td>M Lalebahçesi - Y Lalebahçesi</td>
+									<td>% 20</td>
+									<td>Personel - İhvan - Standart</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Personel İndirimi</td>
+									<td>M Lalebahçesi - Y Lalebahçesi</td>
+									<td>% 50</td>
+									<td>Personel</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>İhvan İndirimi</td>
+									<td>M Lalebahçesi - Y Lalebahçesi</td>
+									<td>% 5</td>
+									<td>İhvan</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Sağlık İndirimi</td>
+									<td>M Lalebahçesi </td>
+									<td>% 10</td>
+									<td>İhvan - Standart</td>
+									<td></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td>Anadolu İndirimi</td>
+									<td>Y Lalebahçesi</td>
+									<td>100 TL</td>
+									<td>İhvan - Standart</td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
 			</div>
-    </body>
-</html>
+			<ul class="actions stacked align-center">
+				<li><a href="#first" class="button large wide smooth-scroll-middle">Listeye Dön</a></li>
+			</ul>
+		</section>
+		<section class="wrapper style1 align-center" id="fourth">
+			<div class="inner">
+				<header>
+					<h3>Anaokulu Düzenleme Tablosu</h3>
+				</header>
+				<div class="content">
+					<div class="table-wrapper">
+						<table id="tableEx">
+							<tbody></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</section>
+	</div>
+</body>
 
+</html>

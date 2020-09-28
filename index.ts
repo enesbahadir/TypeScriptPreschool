@@ -1,22 +1,26 @@
-import './style.css';
-import {database} from "./database";
-
-
- 
+import "./style.css";
+import { database } from "./database";
+import { OrganizationName } from "./types";
 
 let db = new database();
 let preschoolList = db.createPreschoolList();
+let discountList = db.createDiscountList();
+preschoolSelectList();
+organizatinNameSelectList();
 
-const discountCalculateButton2 : HTMLElement = document.getElementById(`calculate`);
-discountCalculateButton2.onclick = 
-  function () {
-    alert ("indirim hesaplama metodu");
+const discountCalculateButton: HTMLElement = document.getElementById(
+  `calculate`
+);
+discountCalculateButton.onclick = function() {
+  alert("indirim hesaplama metodu");
 };
 
-const preschoolManagement : HTMLElement = document.getElementById('preschool-management-button');
-preschoolManagement.onclick =  updateTable;
+const preschoolManagement: HTMLElement = document.getElementById(
+  "preschool-management-button"
+);
+preschoolManagement.onclick = updateTable;
 
-function updateTable(){
+function updateTable() {
   const tableString: string = `
         <table id= "table">
           <thead>
@@ -34,31 +38,25 @@ function updateTable(){
       </div>
     </div>`;
 
-
   const parser = new DOMParser();
   const parse = <T extends HTMLElement>(str: string) =>
-          <T>parser.parseFromString(str, 'text/html').documentElement;
+    <T>parser.parseFromString(str, "text/html").documentElement;
   const table = parse<HTMLTableElement>(tableString);
 
-  preschoolList.forEach((preschool) => {
-    const rowString = toTableString( preschool);
+  preschoolList.forEach(preschool => {
+    const rowString = toTableString(preschool);
     const row = parse<HTMLTableRowElement>(rowString);
     debugger;
     table.children[1].appendChild(row);
   });
 
   const existingTable = document.getElementById("tableEx");
-  if(existingTable)
+  if (existingTable)
     existingTable.parentElement.replaceChild(table, existingTable);
-    
-    
-  
 }
 
-function toTableString( preschool: IPreschool): string
-{
-  
-    return `<tr scope = "row">
+function toTableString(preschool: IPreschool): string {
+  return `<tr scope = "row">
         <td>${preschool.PreschoolName}</td>
         <td>${preschool.Price}</td>
         <td>${preschool.EndOfEarlyRegistrationDate}</td>
@@ -67,8 +65,36 @@ function toTableString( preschool: IPreschool): string
     </tr>`;
 }
 
+function preschoolSelectList() {
+  let myParent = document.getElementById("selectField");
 
+  let selectList = document.createElement("select");
+  selectList.id = "myPreschoolSelect";
+  selectList.innerHTML = `<option value="none" selected disabled hidden> 
+          Lütfen Anaokulu Seçiniz`;
+  myParent.appendChild(selectList);
 
+  for (let i = 0; i < preschoolList.length; i++) {
+    let option = document.createElement("option");
+    option.value = i.toString();
+    option.text = preschoolList[i].PreschoolName;
+    selectList.appendChild(option);
+  }
+}
 
+function organizatinNameSelectList() {
+  let myOrganizationParent = document.getElementById("selectOrganizationField");
+  let selectOrganizationList = document.createElement("select");
+  selectOrganizationList.id = "myOrganizationSelect";
+  selectOrganizationList.innerHTML = `<option value="none" selected disabled hidden> 
+          Lütfen Çalışılan Kurumu Seçiniz`;
+  myOrganizationParent.appendChild(selectOrganizationList);
 
-
+  for (let i in OrganizationName) {
+    if (isNaN(Number(i))) {
+      let option = document.createElement("option");
+      option.text = i;
+      selectOrganizationList.appendChild(option);
+    }
+  }
+}

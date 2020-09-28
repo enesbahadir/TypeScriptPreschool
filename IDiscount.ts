@@ -6,7 +6,7 @@ export interface IDiscount {
    DiscountType : DiscountType;
    UserTypes : Array<UserType>;
    OrganizationName : OrganizationName;
-   PreschoolNamesAndTheirDiscounts :Array<string | number>;
+   PreschoolNamesAndTheirDiscounts :Array <string | number>;
 
 
 }
