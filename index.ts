@@ -1,6 +1,6 @@
 import "./style.css";
 import { database } from "./database";
-import { OrganizationName } from "./types";
+import { DiscountType, OrganizationName } from "./types";
 
 let db = new database();
 let preschoolList = db.createPreschoolList();
@@ -8,6 +8,7 @@ let discountList = db.createDiscountList();
 
 createPreschoolSelectList();
 createOrganizationNameSelectList();
+createDiscountTable();
 
 const discountCalculateButton: HTMLElement = document.getElementById(
   `calculate`
@@ -49,7 +50,7 @@ function updatePreschoolTable() {
   const parse = <T extends HTMLElement>(str: string) =>
     <T>parser.parseFromString(str, "text/html").documentElement;
   const table = parse<HTMLTableElement>(tableString);
-  
+
   preschoolList.forEach(preschool => {
     const rowString = toTableString(preschool);
     const row = parse<HTMLTableRowElement>(rowString);
@@ -89,17 +90,16 @@ function createPreschoolSelectList() {
   }
 }
 
-function createPreschoolTable () {
-  if(document.getElementById("preschoolTableId"))
-  {
+function createPreschoolTable() {
+  if (document.getElementById("preschoolTableId")) {
     return;
   }
 
-  let myPreschoolTableParent = document.getElementById("preschoolTable");
+  let myPreschoolTableParent = document.getElementById("preschoolTable"); // div
 
-  let table = document.createElement("table");
-  let tblBody = document.createElement("tbody");
-  table.id="preschoolTableId";
+  let table = document.createElement("table"); // <table>
+  let tblBody = document.createElement("tbody"); // <tbody>
+  table.id = "preschoolTableId"; // <table id= "preschoolTableId">
   table.innerHTML = `<thead>
             <tr>
               <th scope="col">Anaokulunun Adı</th>
@@ -112,9 +112,9 @@ function createPreschoolTable () {
   myPreschoolTableParent.appendChild(table);
 
   for (let i = 0; i < preschoolList.length; i++) {
-    let row = document.createElement("tr");
+    let row = document.createElement("tr"); //<tr>
 
-    let cell = document.createElement("td");
+    let cell = document.createElement("td"); //<td>
     let cellText = document.createTextNode(preschoolList[i].PreschoolName);
     cell.appendChild(cellText);
     row.appendChild(cell);
@@ -125,17 +125,71 @@ function createPreschoolTable () {
     row.appendChild(cell);
 
     cell = document.createElement("td");
-    cellText = document.createTextNode(preschoolList[i].EndOfEarlyRegistrationDate);
+    cellText = document.createTextNode(
+      preschoolList[i].EndOfEarlyRegistrationDate
+    );
     cell.appendChild(cellText);
     row.appendChild(cell);
 
     tblBody.appendChild(row);
-
-   
   }
   table.appendChild(tblBody);
   myPreschoolTableParent.appendChild(table);
+}
 
+function createDiscountTable() {
+  
+  if (document.getElementById("discountTableId")) {
+    return;
+  }
+  let discountTableParent = document.getElementById("discountTable");
+  let table = document.createElement("table");
+  let tblBody = document.createElement("tbody");
+  table.id = "discountTableId";
+  table.innerHTML = `<thead>
+								<tr>
+									<th>İndirimin Adı</th>
+									<th>İndirimin Uygulancağı Anaokulu ve Miktarı</th>
+                  <th>İndirim Tipi</th>
+									<th>Uygulanacağı Kişi Tipi</th>
+									<th>Düzenle</th>
+									<th>Sil</th>
+								</tr>
+							</thead>`;
+  discountTableParent.appendChild(table);
+  for (let i = 0; i < discountList.length; i++) {
+    let row = document.createElement("tr");
+    let cell = document.createElement("td");
+    let cellText = document.createTextNode(discountList[i].DiscountName);
+    cell.appendChild(cellText);
+    row.appendChild(cell);
+
+    cell = document.createElement("td");
+    for (let j = 0, k=1 ; j <= discountList[i].PreschoolNamesAndTheirDiscounts.length/2; j += 2, k += 2)
+    {
+      let cellString = discountList[i].PreschoolNamesAndTheirDiscounts[j].toString();
+      cellString += " ";
+      cellString += discountList[i].PreschoolNamesAndTheirDiscounts[k].toString();
+      cellString += "-";
+      cellText = document.createTextNode( cellString );
+      cell.appendChild(cellText);
+    }
+    row.appendChild(cell);
+
+    cell = document.createElement("td");
+    if(discountList[i].DiscountType)
+      cellText = document.createTextNode("Miktar");
+      else
+      cellText = document.createTextNode("Yüzde");
+      debugger;
+    cell.appendChild(cellText);
+    row.appendChild(cell);
+
+
+    tblBody.appendChild(row);
+  }
+  table.appendChild(tblBody);
+  discountTableParent.appendChild(table);
 }
 
 function createOrganizationNameSelectList() {
@@ -154,5 +208,3 @@ function createOrganizationNameSelectList() {
     }
   }
 }
-
-

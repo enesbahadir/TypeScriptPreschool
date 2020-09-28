@@ -8,7 +8,7 @@ export class Discount implements IDiscount {
   private _discountType : DiscountType;
   private _userTypes : Array<UserType>;
   private _organizationName : OrganizationName;
-  private _preschoolNamesAndTheirDiscounts :Array<string | number>;
+  private _preschoolNamesAndTheirDiscounts : Array <string | number>;
 
   constructor(discountName : string, discountType : DiscountType, userTypes : Array<UserType>, organizationName : OrganizationName, preschoolNamesAndTheirDiscounts :Array<string | number>) {
     this._discountName = discountName;
