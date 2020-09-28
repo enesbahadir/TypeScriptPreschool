@@ -1,12 +1,20 @@
-import { UserType } from "./types";
+import { DiscountType, OrganizationName, UserType } from "./types";
 
-class Discount {
+export class Discount {
   
   private _discountName : string;
-  private _discountType;
+  private _discountType : DiscountType;
   private _userTypes : Array<UserType>;
-  private _organizationName;
+  private _organizationName : OrganizationName;
   private _preschoolNamesAndTheirDiscounts :Array<string | number>;
+
+  constructor(discountName : string, discountType : DiscountType, userTypes : Array<UserType>, organizationName : OrganizationName, preschoolNamesAndTheirDiscounts :Array<string | number>) {
+    this._discountName = discountName;
+    this._discountType = discountType;
+    this._userTypes = userTypes;
+    this._organizationName = organizationName;
+    this._preschoolNamesAndTheirDiscounts = preschoolNamesAndTheirDiscounts;
+  }
 
   get DiscountName() {
     return this._discountName;

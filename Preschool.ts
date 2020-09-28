@@ -1,4 +1,4 @@
-class Preschool implements IPreschoolAccess {
+class Preschool implements IPreschool {
 
   private _preschoolName : string;
   private _isInEarlyRegistration : boolean;
