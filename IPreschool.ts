@@ -1,6 +1,3 @@
-/**
- * Preschool sınıfına erişmek için kullanılan interface
- */
 interface IPreschool {
 
   PreschoolName : string;

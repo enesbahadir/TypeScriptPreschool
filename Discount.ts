@@ -1,6 +1,8 @@
+import { IDiscount } from "./IDiscount";
 import { DiscountType, OrganizationName, UserType } from "./types";
 
-export class Discount {
+
+export class Discount implements IDiscount {
   
   private _discountName : string;
   private _discountType : DiscountType;

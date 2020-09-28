@@ -1,9 +1,9 @@
-import { Discount } from "./Discount";
+import { IDiscount } from "./IDiscount";
 import { DiscountType, UserType, OrganizationName } from "./types";
 
 export class database {
   public preschools : Array<IPreschool>;
-  public discounts : Array<Discount>;
+  public discounts : Array<IDiscount>;
 
   createPreschoolList() {
     this.preschools.push( 
@@ -15,7 +15,7 @@ export class database {
 
   createDiscountList() {
     this.discounts.push(
-      
+      {DiscountName : "Erken", DiscountType : DiscountType.PERCENTAGE, UserTypes : [UserType.PERSONEL], OrganizationName : OrganizationName.NONE, PreschoolNamesAndTheirDiscounts : [["Madenler Lalebahçesi"][50],["Yunus Emre Lalebahçesi"][50]]}
     );
     return this.discounts;
   }
