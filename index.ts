@@ -5,8 +5,9 @@ import { OrganizationName } from "./types";
 let db = new database();
 let preschoolList = db.createPreschoolList();
 let discountList = db.createDiscountList();
-preschoolSelectList();
-organizatinNameSelectList();
+
+createPreschoolSelectList();
+createOrganizationNameSelectList();
 
 const discountCalculateButton: HTMLElement = document.getElementById(
   `calculate`
@@ -18,9 +19,9 @@ discountCalculateButton.onclick = function() {
 const preschoolManagement: HTMLElement = document.getElementById(
   "preschool-management-button"
 );
-preschoolManagement.onclick = updateTable;
+preschoolManagement.onclick = createPreschoolTable;
 
-function updateTable() {
+function updatePreschoolTable() {
   const tableString: string = `
         <table id= "table">
           <thead>
@@ -33,21 +34,27 @@ function updateTable() {
             </tr>
           </thead>
           <tbody>
+          <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            </tr>
           </tbody>
         </table>
-      </div>
-    </div>`;
+      `;
 
   const parser = new DOMParser();
   const parse = <T extends HTMLElement>(str: string) =>
     <T>parser.parseFromString(str, "text/html").documentElement;
   const table = parse<HTMLTableElement>(tableString);
-
+  
   preschoolList.forEach(preschool => {
     const rowString = toTableString(preschool);
     const row = parse<HTMLTableRowElement>(rowString);
     debugger;
-    table.children[1].appendChild(row);
+    table.createTBody().append(row);
   });
 
   const existingTable = document.getElementById("tableEx");
@@ -65,7 +72,7 @@ function toTableString(preschool: IPreschool): string {
     </tr>`;
 }
 
-function preschoolSelectList() {
+function createPreschoolSelectList() {
   let myParent = document.getElementById("selectField");
 
   let selectList = document.createElement("select");
@@ -82,7 +89,57 @@ function preschoolSelectList() {
   }
 }
 
-function organizatinNameSelectList() {
+function createPreschoolTable () {
+  if(document.getElementById("preschoolTableId"))
+  {
+    return;
+  }
+
+  let myPreschoolTableParent = document.getElementById("preschoolTable");
+
+  let table = document.createElement("table");
+  let tblBody = document.createElement("tbody");
+  table.id="preschoolTableId";
+  table.innerHTML = `<thead>
+            <tr>
+              <th scope="col">Anaokulunun Adı</th>
+              <th scope="col">Anaokulu Ücreti</th>
+              <th scope="col">Erken Kayıt Dönemi Sonu</th>
+              <th scope="col">Düzenle</th>
+              <th scope="col">Sil</th>
+            </tr>
+          </thead>`;
+  myPreschoolTableParent.appendChild(table);
+
+  for (let i = 0; i < preschoolList.length; i++) {
+    let row = document.createElement("tr");
+
+    let cell = document.createElement("td");
+    let cellText = document.createTextNode(preschoolList[i].PreschoolName);
+    cell.appendChild(cellText);
+    row.appendChild(cell);
+
+    cell = document.createElement("td");
+    cellText = document.createTextNode(preschoolList[i].Price.toString());
+    cell.appendChild(cellText);
+    row.appendChild(cell);
+
+    cell = document.createElement("td");
+    cellText = document.createTextNode(preschoolList[i].EndOfEarlyRegistrationDate);
+    cell.appendChild(cellText);
+    row.appendChild(cell);
+
+    tblBody.appendChild(row);
+
+   
+  }
+  table.appendChild(tblBody);
+  myPreschoolTableParent.appendChild(table);
+
+}
+
+
+function createOrganizationNameSelectList() {
   let myOrganizationParent = document.getElementById("selectOrganizationField");
   let selectOrganizationList = document.createElement("select");
   selectOrganizationList.id = "myOrganizationSelect";
@@ -98,3 +155,5 @@ function organizatinNameSelectList() {
     }
   }
 }
+
+
