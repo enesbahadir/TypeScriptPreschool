@@ -1,7 +1,7 @@
 import { database } from "./database";
 import { IDiscount } from "./IDiscount";
 import { IUser } from "./IUser";
-import { OrganizationName } from "./types";
+import { DiscountType, OrganizationName } from "./types";
 
 export class DiscountCalculator {
   /**
@@ -9,19 +9,48 @@ export class DiscountCalculator {
    * databse sınıfıda tanımlı discount listesini kullanır.
    */
   static calculateDiscount(user: IUser, preschool: IPreschool) {
-    let discount = 0;
+    let percent = 0;
+    let amount = 0;
     database.discounts.forEach(function(value, index, array) {
-      discount += <number>(
-        DiscountCalculator.calculateEarlyRegistrationDiscount(value, preschool)
-      );
-      discount += <number>(
-        DiscountCalculator.calculateOrganizationDiscount(value, user, preschool)
-      );
-      discount += <number>(
-        DiscountCalculator.calculateUserTypeDiscount(value, user, preschool)
-      );
+      switch(value.DiscountType)
+      {
+        case DiscountType.PERCENTAGE :
+        {
+          percent += DiscountCalculator.executeCalculateMethods(user, preschool, value);
+          break;
+        }
+        case DiscountType.AMOUNT :
+        {
+          amount += DiscountCalculator.executeCalculateMethods(user, preschool, value);
+          break;
+        }
+      }
     });
-    return discount;
+    return DiscountCalculator.calculatePriceWithDiscount(percent, amount,preschool);;
+  }
+
+  static executeCalculateMethods(
+    user: IUser,
+    preschool: IPreschool,
+    discount: IDiscount
+  ) {
+    let result = 0;
+
+    result += <number>(
+      DiscountCalculator.calculateEarlyRegistrationDiscount(discount, preschool)
+    );
+    result += <number>(
+      DiscountCalculator.calculateOrganizationDiscount(
+        discount,
+        user,
+        preschool
+      )
+    );
+    result += <number>(
+      DiscountCalculator.calculateUserTypeDiscount(discount, user, preschool)
+    );
+
+    return result;
   }
   /**
    * @TODO erken kayıt indirim kontrolü yapıalcak
@@ -86,7 +115,7 @@ export class DiscountCalculator {
   /**
    * Yüzde ve miktar olarak hesaplanan indirimlerin anaokulu ücretine uygulanmış halini dönen metod
    */
-  calculatePriceWithDiscount(
+  static calculatePriceWithDiscount(
     percent: number,
     amount: number,
     preschool: IPreschool

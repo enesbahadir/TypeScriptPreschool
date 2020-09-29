@@ -1,4 +1,5 @@
 import "./style.css";
+import "./fontawesome-all.min.css"
 import { database } from "./database";
 import {  OrganizationName, UserType } from "./types";
 import { User } from "./User";
@@ -93,7 +94,7 @@ function createPreschoolSelectList() {
 
   let selectList = document.createElement("select");
   selectList.id = "myPreschoolSelect";
-  selectList.innerHTML = `<option value="none" selected disabled hidden> 
+  selectList.innerHTML = `<option value="none" selected disabled hidden required> 
           Lütfen Anaokulu Seçiniz`;
   myParent.appendChild(selectList);
 
@@ -147,6 +148,14 @@ function createPreschoolTable() {
       preschoolList[i].EndOfEarlyRegistrationDate
     );
     cell.appendChild(cellText);
+    row.appendChild(cell);
+
+    cell = document.createElement("td");
+    cell.innerHTML= "<td><span class=\"icon style2 major fa-hashtag\"></span></td>";
+    row.appendChild(cell);
+
+    cell = document.createElement("td");
+    cell.innerHTML= "<td><span class=\"icon style2 major fa-cog\"></span></td>";
     row.appendChild(cell);
 
     tblBody.appendChild(row);
