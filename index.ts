@@ -1,6 +1,7 @@
 import "./style.css";
 import { database } from "./database";
-import { DiscountType, OrganizationName } from "./types";
+import { DiscountType, OrganizationName, UserType } from "./types";
+import { User } from "./User";
 
 let db = new database();
 let preschoolList = db.createPreschoolList();
@@ -18,10 +19,11 @@ createPreschoolTable();
 /**
  * İndirim Hesapla butonuna basıldığında kişi bilgilerine göre User nesnesi oluşturan ve inidrim hesaplama metodunu çağırır.
  */
-const discountCalculateButton: HTMLElement = document.getElementById(`calculate`);
+const discountCalculateButton: HTMLElement = document.getElementById(
+  `calculate`
+);
 discountCalculateButton.onclick = function() {
   createUserFromUserInput();
-  
 };
 
 /**
@@ -82,7 +84,7 @@ function toTableString(preschool: IPreschool): string {
 }
 
 /**
- * İndirim hesaplama bölümünde kullanıcının, indirimin hesaplayanacağı anaokulunu dinamik olarak preschoolList üzerinden 
+ * İndirim hesaplama bölümünde kullanıcının, indirimin hesaplayanacağı anaokulunu dinamik olarak preschoolList üzerinden
  * dropdown olarak dolduran metod.
  */
 function createPreschoolSelectList() {
@@ -156,7 +158,6 @@ function createPreschoolTable() {
  * İndirim yönetim sistemi bölümündeki indiriö tablosunun dinamik olarak discountList üzerinden oluşturan metod
  */
 function createDiscountTable() {
-  
   if (document.getElementById("discountTableId")) {
     return;
   }
@@ -183,62 +184,58 @@ function createDiscountTable() {
     row.appendChild(cell);
 
     cell = document.createElement("td");
-    for (let j = 0, k=1 ; j <= discountList[i].PreschoolNamesAndTheirDiscounts.length/2; j += 2, k += 2)
-    {
-      let cellString = discountList[i].PreschoolNamesAndTheirDiscounts[j].toString();
+    for (
+      let j = 0, k = 1;
+      j <= discountList[i].PreschoolNamesAndTheirDiscounts.length / 2;
+      j += 2, k += 2
+    ) {
+      let cellString = discountList[i].PreschoolNamesAndTheirDiscounts[
+        j
+      ].toString();
       cellString += " ";
-      cellString += discountList[i].PreschoolNamesAndTheirDiscounts[k].toString();
+      cellString += discountList[i].PreschoolNamesAndTheirDiscounts[
+        k
+      ].toString();
       cellString += "-";
-      cellText = document.createTextNode( cellString );
+      cellText = document.createTextNode(cellString);
       cell.appendChild(cellText);
     }
     row.appendChild(cell);
 
     cell = document.createElement("td");
-    if(discountList[i].DiscountType)
+    if (discountList[i].DiscountType)
       cellText = document.createTextNode("Miktar");
-      else
-      cellText = document.createTextNode("Yüzde");
-      
+    else cellText = document.createTextNode("Yüzde");
+
     cell.appendChild(cellText);
     row.appendChild(cell);
 
     cell = document.createElement("td");
     let cellString = "";
-    for(let j = 0; j<discountList[i].UserTypes.length; j++)
-    {
-      debugger;
-      switch(discountList[i].UserTypes[j])
-      {
-        case 0 :
-        {
+    for (let j = 0; j < discountList[i].UserTypes.length; j++) {
+      switch (discountList[i].UserTypes[j]) {
+        case 0: {
           cellString += "Personel- ";
           break;
         }
-        case 1:
-        {
+        case 1: {
           cellString += "Ihvan- ";
           break;
         }
-        case 2:
-        {
+        case 2: {
           cellString += "Standart";
           break;
         }
       }
-        
     }
-    
-    cellText = document.createTextNode( cellString );
+
+    cellText = document.createTextNode(cellString);
     cell.appendChild(cellText);
     row.appendChild(cell);
 
     tblBody.appendChild(row);
   }
   table.appendChild(tblBody);
-
-
-
 
   discountTableParent.appendChild(table);
 }
@@ -267,6 +264,22 @@ function createOrganizationNameSelectList() {
  * İndirim hesaplama bölümünde kullanıcının girdiği bilgiler doğrultusunda User nesnesi oluşturan metod
  */
 function createUserFromUserInput() {
-  const userName = <HTMLInputElement> document.getElementById("userName");
-  alert(userName.value);
+  const userName = <HTMLInputElement>document.getElementById("userName");
+  const preschoolChoose = <HTMLInputElement>(
+    document.getElementById("myPreschoolSelect")
+  );
+  const organizationChoose = <HTMLInputElement>(
+    document.getElementById("myOrganizationSelect")
+  );
+  let userTypeChoose;
+  const list = document.querySelectorAll("input[type=radio]");
+  for (let i = 0; i < list.length; i++) {
+    let item = <HTMLInputElement>list[i];
+    if (item.checked) {
+      userTypeChoose = item;
+    }
+  }
+  userTypeChoose.toString();
+  let preschool = preschoolList[preschoolChoose.value];
+  debugger;
 }

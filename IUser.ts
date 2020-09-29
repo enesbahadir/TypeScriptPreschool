@@ -8,4 +8,8 @@ export interface IUser {
   TypeOfUser : UserType;
   OrganizationOfUser : OrganizationName;
 
+  
+
+  
+
 }

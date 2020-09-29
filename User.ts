@@ -3,7 +3,7 @@ import { UserType, OrganizationName } from "./types";
 /**
  * Sistemde kullanılan kişi bilgilerinin saklandığı sınıf
  */
-class User implements IUser {
+export class User implements IUser {
   
   private _userName: string;
   private _typeOfUser: UserType;
