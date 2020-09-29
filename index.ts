@@ -1,7 +1,8 @@
 import "./style.css";
 import { database } from "./database";
-import { DiscountType, OrganizationName, UserType } from "./types";
+import {  OrganizationName, UserType } from "./types";
 import { User } from "./User";
+import { DiscountCalculator } from "./discountCalculator";
 
 let db = new database();
 let preschoolList = db.createPreschoolList();
@@ -268,9 +269,24 @@ function createUserFromUserInput() {
   const preschoolChoose = <HTMLInputElement>(
     document.getElementById("myPreschoolSelect")
   );
-  const organizationChoose = <HTMLInputElement>(
+  const organizationChooseInput = <HTMLInputElement>(
     document.getElementById("myOrganizationSelect")
   );
+  let organizationChoose;
+  switch (organizationChooseInput.value) {
+    case "ANADOLU": {
+      organizationChoose = OrganizationName.ANADOLU;
+      break;
+    }
+    case "SAGLIK": {
+      organizationChoose = OrganizationName.SAGLIK;
+      break;
+    }
+    default: {
+      organizationChoose = OrganizationName.NONE;
+    }
+  }
+
   let userTypeChoose;
   const list = document.querySelectorAll("input[type=radio]");
   for (let i = 0; i < list.length; i++) {
@@ -279,7 +295,25 @@ function createUserFromUserInput() {
       userTypeChoose = item;
     }
   }
-  userTypeChoose.toString();
+  switch (userTypeChoose.value) {
+    case "PERSONEL": {
+      userTypeChoose = UserType.PERSONEL;
+      break;
+    }
+    case "IHVAN": {
+      userTypeChoose = UserType.IHVAN;
+      break;
+    }
+    case "STANDART": {
+      userTypeChoose = UserType.STANDART;
+    }
+  }
+
+  let user = new User(userName.value, userTypeChoose, organizationChoose);
   let preschool = preschoolList[preschoolChoose.value];
-  debugger;
+  DiscountCalculator.calculateDiscount(user, preschool);
 }
+/**
+ * Kullanıcı ve Anaokulu nesneleri alarak indirim hesaplamasını yapan metod
+ */
+
