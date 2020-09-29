@@ -5,10 +5,10 @@ import { DiscountType, UserType, OrganizationName } from "./types";
  * Sistemde kullanıcak olan Anaokulu ve İndirim listelerinin saklandığı ve oluşturulduğu sınıf
  */
 export class database {
-  preschools: Array<IPreschool> = new Array();
-  discounts: Array<IDiscount> = new Array();
+  static preschools: Array<IPreschool> = new Array();
+  static discounts: Array<IDiscount> = new Array();
 
-  createPreschoolList() {
+  static createPreschoolList() {
     this.preschools.push(
       {
         PreschoolName: "M Lalebahçesi",
@@ -24,7 +24,7 @@ export class database {
     return this.preschools;
   }
 
-  createDiscountList() {
+  static createDiscountList() {
     this.discounts.push(
       {
         DiscountName: "Erken Kayıt İndirimi",
@@ -33,7 +33,7 @@ export class database {
         OrganizationName: OrganizationName.NONE,
         PreschoolNamesAndTheirDiscounts: [
           "M Lalebahçesi",20,
-          "Y Lalebahçesi",20
+          "Y Lalebahçesi",25
         ]
       },
 
@@ -65,7 +65,6 @@ export class database {
         OrganizationName: OrganizationName.SAGLIK,
         PreschoolNamesAndTheirDiscounts: [
           "M Lalebahçesi",10,
-          "Y Lalebahçesi",10
         ]
       },
 
@@ -75,7 +74,6 @@ export class database {
         UserTypes: [UserType.IHVAN, UserType.STANDART],
         OrganizationName: OrganizationName.ANADOLU,
         PreschoolNamesAndTheirDiscounts: [
-          "M Lalebahçesi",100,
           "Y Lalebahçesi",100
         ]
       }

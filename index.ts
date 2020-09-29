@@ -4,9 +4,9 @@ import {  OrganizationName, UserType } from "./types";
 import { User } from "./User";
 import { DiscountCalculator } from "./discountCalculator";
 
-let db = new database();
-let preschoolList = db.createPreschoolList();
-let discountList = db.createDiscountList();
+
+let preschoolList = database.createPreschoolList();
+let discountList = database.createDiscountList();
 
 /**
  * Sayfa ilk açıldığında indirim ve anaokulu tablolarının dinamik olarak preschoolList ve discountList üzerinden oluşmalarını ve
@@ -311,9 +311,8 @@ function createUserFromUserInput() {
 
   let user = new User(userName.value, userTypeChoose, organizationChoose);
   let preschool = preschoolList[preschoolChoose.value];
-  DiscountCalculator.calculateDiscount(user, preschool);
+  let discount = DiscountCalculator.calculateDiscount(user, preschool);
+  alert(discount);
 }
-/**
- * Kullanıcı ve Anaokulu nesneleri alarak indirim hesaplamasını yapan metod
- */
+
 
