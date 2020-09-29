@@ -1,5 +1,8 @@
 import { DiscountType, UserType, OrganizationName } from "./types"; 
 
+/**
+ * İndirim sınıfına erişmek için kullanılan interface
+ */
 export interface IDiscount {
 
    DiscountName : string;

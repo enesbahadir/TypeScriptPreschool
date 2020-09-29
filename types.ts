@@ -1,3 +1,7 @@
+/**
+ * Sistemde tanımlı kişi tiplerini, İndirim tiplerinin ve Kurumların Listelendiği enum sınıfları
+ */
+
 export enum UserType{
   PERSONEL,
   IHVAN,

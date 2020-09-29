@@ -1,6 +1,8 @@
 import { IUser } from "./IUser";
 import { UserType, OrganizationName } from "./types";
-
+/**
+ * Sistemde kullanılan kişi bilgilerinin saklandığı sınıf
+ */
 class User implements IUser {
   
   private _userName: string;

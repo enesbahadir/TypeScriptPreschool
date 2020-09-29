@@ -6,22 +6,27 @@ let db = new database();
 let preschoolList = db.createPreschoolList();
 let discountList = db.createDiscountList();
 
+/**
+ * Sayfa ilk açıldığında indirim ve anaokulu tablolarının dinamik olarak preschoolList ve discountList üzerinden oluşmalarını ve
+ * İndirim hesaplama sayfasındaki anaokulu - kurum dropdown'ların dinamik olarak dolmasını sağlayan metodlar
+ */
 createPreschoolSelectList();
 createOrganizationNameSelectList();
 createDiscountTable();
+createPreschoolTable();
 
-const discountCalculateButton: HTMLElement = document.getElementById(
-  `calculate`
-);
+/**
+ * İndirim Hesapla butonuna basıldığında kişi bilgilerine göre User nesnesi oluşturan ve inidrim hesaplama metodunu çağırır.
+ */
+const discountCalculateButton: HTMLElement = document.getElementById(`calculate`);
 discountCalculateButton.onclick = function() {
-  alert("indirim hesaplama metodu");
+  createUserFromUserInput();
+  
 };
 
-const preschoolManagement: HTMLElement = document.getElementById(
-  "preschool-management-button"
-);
-preschoolManagement.onclick = createPreschoolTable;
-
+/**
+ * @TODO Anaokulu eklendiği zaman tabloyu yenileyecek olan metod, düzenlenmesi lazım
+ */
 function updatePreschoolTable() {
   const tableString: string = `
         <table id= "table">
@@ -63,6 +68,9 @@ function updatePreschoolTable() {
     existingTable.parentElement.replaceChild(table, existingTable);
 }
 
+/**
+ * updatePreschoolTable metodunun kullandığı bir Anaokulu nesnesini tablonun hücrelerine ayıran metod
+ */
 function toTableString(preschool: IPreschool): string {
   return `<tr scope = "row">
         <td>${preschool.PreschoolName}</td>
@@ -73,6 +81,10 @@ function toTableString(preschool: IPreschool): string {
     </tr>`;
 }
 
+/**
+ * İndirim hesaplama bölümünde kullanıcının, indirimin hesaplayanacağı anaokulunu dinamik olarak preschoolList üzerinden 
+ * dropdown olarak dolduran metod.
+ */
 function createPreschoolSelectList() {
   let myParent = document.getElementById("selectField");
 
@@ -90,6 +102,9 @@ function createPreschoolSelectList() {
   }
 }
 
+/**
+ * Anaokulu yönetim sistemi bölümündeki anaokulu tablosunun dinamik olarak preschoolList üzerinden oluşturan metod
+ */
 function createPreschoolTable() {
   if (document.getElementById("preschoolTableId")) {
     return;
@@ -137,6 +152,9 @@ function createPreschoolTable() {
   myPreschoolTableParent.appendChild(table);
 }
 
+/**
+ * İndirim yönetim sistemi bölümündeki indiriö tablosunun dinamik olarak discountList üzerinden oluşturan metod
+ */
 function createDiscountTable() {
   
   if (document.getElementById("discountTableId")) {
@@ -225,6 +243,9 @@ function createDiscountTable() {
   discountTableParent.appendChild(table);
 }
 
+/**
+ * İndirim hesaplama bölümünde kullanıcının, indirimin hesaplayanacağı kurumun dinamik olarak enum sınıfları içerisindeki OrganizationName'den dropdown olarak dolduran metod.
+ */
 function createOrganizationNameSelectList() {
   let myOrganizationParent = document.getElementById("selectOrganizationField");
   let selectOrganizationList = document.createElement("select");
@@ -240,4 +261,12 @@ function createOrganizationNameSelectList() {
       selectOrganizationList.appendChild(option);
     }
   }
+}
+
+/**
+ * İndirim hesaplama bölümünde kullanıcının girdiği bilgiler doğrultusunda User nesnesi oluşturan metod
+ */
+function createUserFromUserInput() {
+  const userName = <HTMLInputElement> document.getElementById("userName");
+  alert(userName.value);
 }

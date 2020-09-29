@@ -1,6 +1,9 @@
 import { IDiscount } from "./IDiscount";
 import { DiscountType, UserType, OrganizationName } from "./types";
 
+/**
+ * Sistemde kullanıcak olan Anaokulu ve İndirim listelerinin saklandığı ve oluşturulduğu sınıf
+ */
 export class database {
   preschools: Array<IPreschool> = new Array();
   discounts: Array<IDiscount> = new Array();

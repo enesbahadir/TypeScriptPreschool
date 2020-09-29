@@ -1,3 +1,6 @@
+/**
+ * Sistemde kullanılan anaokulu sınıfının bilgilerinin saklandığı sınıf
+ */
 class Preschool implements IPreschool {
 
   private _preschoolName : string;
