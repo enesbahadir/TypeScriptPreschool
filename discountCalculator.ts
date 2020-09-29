@@ -6,9 +6,9 @@ import { OrganizationName } from "./types";
 export class DiscountCalculator {
   /**
    * Kullanıcı ve Anaokulu nesneleri alarak indirim hesaplamasını yapan metod
+   * databse sınıfıda tanımlı discount listesini kullanır.
    */
   static calculateDiscount(user: IUser, preschool: IPreschool) {
-    debugger;
     let discount = 0;
     database.discounts.forEach(function(value, index, array) {
       discount += <number>(
@@ -24,7 +24,8 @@ export class DiscountCalculator {
     return discount;
   }
   /**
-   * @TODO erken kayıt indirim kontrolü
+   * @TODO erken kayıt indirim kontrolü yapıalcak
+   * Erken kayıt indirimini hesaplar, erken kayıt bilgisi kullanıcının seçtği anaokulundan gelmektedir.
    */
   static calculateEarlyRegistrationDiscount(
     discount: IDiscount,
@@ -35,11 +36,13 @@ export class DiscountCalculator {
         preschool.PreschoolName
       );
       return discount.PreschoolNamesAndTheirDiscounts[index + 1];
-      if(index < 0) return 0;
+      if (index < 0) return 0;
     }
     return 0;
   }
-
+  /**
+   * Kişi tip indirimni hesaplar, kişiye özel indirim çalışılan kurum seçilmeden ve tek bir kişi tipi seçilmiş olduğunda hesaplamaktadır.
+   */
   static calculateUserTypeDiscount(
     discount: IDiscount,
     user: IUser,
@@ -53,13 +56,15 @@ export class DiscountCalculator {
       let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
         preschool.PreschoolName
       );
-      if(index < 0) return 0;
+      if (index < 0) return 0;
       return discount.PreschoolNamesAndTheirDiscounts[index + 1];
     }
 
     return 0;
   }
-
+  /**
+   * Çalışılan kurum indirimini hesaplar, Kurumun NONE olmaması, kullanıcının girdiği kurum ile indirimin kurumunun aynı olması ve indirim listesinde kurumun bulunması kontrollerini sağlar.
+   */
   static calculateOrganizationDiscount(
     discount: IDiscount,
     user: IUser,
@@ -67,18 +72,20 @@ export class DiscountCalculator {
   ) {
     if (
       discount.OrganizationName != OrganizationName.NONE &&
-      discount.OrganizationName == user.OrganizationOfUser && 
+      discount.OrganizationName == user.OrganizationOfUser &&
       discount.UserTypes.includes(user.TypeOfUser)
     ) {
       let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
         preschool.PreschoolName
       );
-      if(index < 0) return 0;
+      if (index < 0) return 0;
       return discount.PreschoolNamesAndTheirDiscounts[index + 1];
     }
     return 0;
   }
-
+  /**
+   * Yüzde ve miktar olarak hesaplanan indirimlerin anaokulu ücretine uygulanmış halini dönen metod
+   */
   calculatePriceWithDiscount(
     percent: number,
     amount: number,
