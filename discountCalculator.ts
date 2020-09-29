@@ -35,6 +35,7 @@ export class DiscountCalculator {
         preschool.PreschoolName
       );
       return discount.PreschoolNamesAndTheirDiscounts[index + 1];
+      if(index < 0) return 0;
     }
     return 0;
   }
@@ -52,6 +53,7 @@ export class DiscountCalculator {
       let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
         preschool.PreschoolName
       );
+      if(index < 0) return 0;
       return discount.PreschoolNamesAndTheirDiscounts[index + 1];
     }
 
@@ -65,11 +67,13 @@ export class DiscountCalculator {
   ) {
     if (
       discount.OrganizationName != OrganizationName.NONE &&
-      discount.OrganizationName == user.OrganizationOfUser
+      discount.OrganizationName == user.OrganizationOfUser && 
+      discount.UserTypes.includes(user.TypeOfUser)
     ) {
       let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
         preschool.PreschoolName
       );
+      if(index < 0) return 0;
       return discount.PreschoolNamesAndTheirDiscounts[index + 1];
     }
     return 0;
