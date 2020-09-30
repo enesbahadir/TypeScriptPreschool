@@ -1,10 +1,9 @@
 import "./css/style.css";
-import "./css/fontawesome-all.min.css"
+import "./css/fontawesome-all.min.css";
 import { database } from "./database";
-import {  OrganizationName, UserType } from "./enum/types";
+import { OrganizationName, UserType } from "./enum/types";
 import { User } from "./User";
 import { DiscountCalculator } from "./discountCalculator";
-
 
 let preschoolList = database.createPreschoolList();
 let discountList = database.createDiscountList();
@@ -13,7 +12,8 @@ let discountList = database.createDiscountList();
  * Sayfa ilk açıldığında indirim ve anaokulu tablolarının dinamik olarak preschoolList ve discountList üzerinden oluşmalarını ve
  * İndirim hesaplama sayfasındaki anaokulu - kurum dropdown'ların dinamik olarak dolmasını sağlayan metodlar
  */
-createPreschoolSelectList();
+let myParent = document.getElementById("selectField");
+createPreschoolSelectList(myParent);
 createOrganizationNameSelectList();
 createDiscountTable();
 createPreschoolTable();
@@ -89,11 +89,11 @@ function toTableString(preschool: IPreschool): string {
  * İndirim hesaplama bölümünde kullanıcının, indirimin hesaplayanacağı anaokulunu dinamik olarak preschoolList üzerinden
  * dropdown olarak dolduran metod.
  */
-function createPreschoolSelectList() {
-  let myParent = document.getElementById("selectField");
+function createPreschoolSelectList(myParent) {
+  //
 
   let selectList = document.createElement("select");
-  selectList.id = "myPreschoolSelect";
+  //selectList.id = "myPreschoolSelect";
   selectList.innerHTML = `<option value="none" selected disabled hidden required> 
           Lütfen Anaokulu Seçiniz`;
   myParent.appendChild(selectList);
@@ -151,11 +151,12 @@ function createPreschoolTable() {
     row.appendChild(cell);
 
     cell = document.createElement("td");
-    cell.innerHTML= "<td><span class=\"icon style2 major fa-hashtag\"></span></td>";
+    cell.innerHTML =
+      '<td><span class="icon style2 major fa-hashtag"></span></td>';
     row.appendChild(cell);
 
     cell = document.createElement("td");
-    cell.innerHTML= "<td><span class=\"icon style2 major fa-cog\"></span></td>";
+    cell.innerHTML = '<td><span class="icon style2 major fa-cog"></span></td>';
     row.appendChild(cell);
 
     tblBody.appendChild(row);
@@ -322,18 +323,75 @@ function createUserFromUserInput() {
   let preschool = preschoolList[preschoolChoose.value];
   let discount = DiscountCalculator.calculateDiscount(user, preschool);
   const discountResult: HTMLElement = document.getElementById(
-  `discount-result`
+    `discount-result`
   );
-  discountResult.innerHTML = 
-                    `<p>`+preschool.PreschoolName+` Anaokulunun ücreti `+ preschool.Price+` TL'dir. Sizin ödemeniz gereken ücret</p>
-                    <h3 >`+ discount+` TL</h3>`;
+  discountResult.innerHTML =
+    `<p>` +
+    preschool.PreschoolName +
+    ` Anaokulunun ücreti ` +
+    preschool.Price +
+    ` TL'dir. Sizin ödemeniz gereken ücret</p>
+                    <h3 >` +
+    discount +
+    ` TL</h3>`;
 }
 
 const discountAppendButton: HTMLElement = document.getElementById(
   `append-discount`
 );
 discountAppendButton.onclick = function() {
-  
+  createAppendDiscountForm();
 };
 
+function createAppendDiscountForm() {
+  let discountAppendParent = document.getElementById("discountAppendFormDiv"); // formun oluşturulacağı div
 
+  let discountAppendForm = document.createElement("form");
+
+  let discountAppendNameLabel = <HTMLElement>document.createElement("p");
+  discountAppendNameLabel.innerText = "İndirim İsmi";
+  let discountAppendNameInput = <HTMLInputElement>(
+    document.createElement("input")
+  );
+  discountAppendNameInput.type = "text";
+
+  let discountAppendFormFieldPreschool = document.createElement("p");
+
+  debugger;
+  createPreschoolCheckboxAndDiscountInput(discountAppendFormFieldPreschool);
+  /*
+  let discountAppendPreschoolSelectField =  <HTMLInputElement> document.createElement("input");
+  discountAppendPreschoolSelectField.type = "checkbox";
+  let discountAppendPreschoolDiscount = <HTMLInputElement>(
+    document.createElement("input")
+  );
+  discountAppendNameInput.type = "text";
+
+  createPreschoolSelectList(discountAppendPreschoolSelectField);
+  discountAppendForm.appendChild(discountAppendPreschoolSelectField);
+  discountAppendFormFieldPreschool.appendChild(
+    discountAppendPreschoolSelectField
+  );
+*/
+  discountAppendForm.appendChild(discountAppendNameLabel);
+  discountAppendForm.appendChild(discountAppendNameInput);
+
+  discountAppendForm.appendChild(discountAppendFormFieldPreschool);
+  discountAppendParent.appendChild(discountAppendForm);
+}
+
+function createPreschoolCheckboxAndDiscountInput(parentDiv) {
+  for (let i = 0; i < preschoolList.length; i++) {
+    let option = <HTMLInputElement>document.createElement("input");
+    option.type = "checkbox";
+    option.id = "checkbox" + i.toString();
+    option.name = preschoolList[i].PreschoolName;
+
+    let label = document.createElement("label");
+    label.setAttribute("for", option.id);
+    let labelText = document.createTextNode(preschoolList[i].PreschoolName);
+    label.appendChild(labelText);
+    parentDiv.appendChild(option);
+    parentDiv.appendChild(label);
+  }
+}
