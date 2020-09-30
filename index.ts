@@ -321,7 +321,12 @@ function createUserFromUserInput() {
   let user = new User(userName.value, userTypeChoose, organizationChoose);
   let preschool = preschoolList[preschoolChoose.value];
   let discount = DiscountCalculator.calculateDiscount(user, preschool);
-  alert(discount);
+  const discountResult: HTMLElement = document.getElementById(
+  `discount-result`
+  );
+  discountResult.innerHTML = 
+                    `<p>`+preschool.PreschoolName+` Anaokulunun ücreti `+ preschool.Price+` TL'dir. Sizin ödemeniz gereken ücret</p>
+                    <h3 >`+ discount+` TL</h3>`;
 }
 
 
