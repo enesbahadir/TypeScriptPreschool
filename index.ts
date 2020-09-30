@@ -345,7 +345,6 @@ discountAppendButton.onclick = function() {
 
 function createAppendDiscountForm() {
   let discountAppendParent = document.getElementById("discountAppendFormDiv"); // formun oluşturulacağı div
-
   let discountAppendForm = document.createElement("form");
 
   let discountAppendNameLabel = <HTMLElement>document.createElement("p");
@@ -355,24 +354,10 @@ function createAppendDiscountForm() {
   );
   discountAppendNameInput.type = "text";
 
-  let discountAppendFormFieldPreschool = document.createElement("p");
-
-  debugger;
+  let discountAppendFormFieldPreschool = document.createElement("div");
+  discountAppendFormFieldPreschool.className = "fields";
   createPreschoolCheckboxAndDiscountInput(discountAppendFormFieldPreschool);
-  /*
-  let discountAppendPreschoolSelectField =  <HTMLInputElement> document.createElement("input");
-  discountAppendPreschoolSelectField.type = "checkbox";
-  let discountAppendPreschoolDiscount = <HTMLInputElement>(
-    document.createElement("input")
-  );
-  discountAppendNameInput.type = "text";
 
-  createPreschoolSelectList(discountAppendPreschoolSelectField);
-  discountAppendForm.appendChild(discountAppendPreschoolSelectField);
-  discountAppendFormFieldPreschool.appendChild(
-    discountAppendPreschoolSelectField
-  );
-*/
   discountAppendForm.appendChild(discountAppendNameLabel);
   discountAppendForm.appendChild(discountAppendNameInput);
 
@@ -382,6 +367,9 @@ function createAppendDiscountForm() {
 
 function createPreschoolCheckboxAndDiscountInput(parentDiv) {
   for (let i = 0; i < preschoolList.length; i++) {
+    let div1 = document.createElement("div");
+    div1.className = "field half";
+
     let option = <HTMLInputElement>document.createElement("input");
     option.type = "checkbox";
     option.id = "checkbox" + i.toString();
@@ -391,7 +379,18 @@ function createPreschoolCheckboxAndDiscountInput(parentDiv) {
     label.setAttribute("for", option.id);
     let labelText = document.createTextNode(preschoolList[i].PreschoolName);
     label.appendChild(labelText);
-    parentDiv.appendChild(option);
-    parentDiv.appendChild(label);
+    div1.appendChild(option);
+    div1.appendChild(label);
+
+let div2 = document.createElement("div");
+    div2.className = "field half";
+    let discountAppendNameInput = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    discountAppendNameInput.type = "text";
+    div2.appendChild(discountAppendNameInput);
+
+    parentDiv.appendChild(div1);
+    parentDiv.appendChild(div2);
   }
 }
