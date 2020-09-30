@@ -1,4 +1,4 @@
-import { DiscountType, UserType, OrganizationName } from "./types"; 
+import { DiscountType, UserType, OrganizationName } from "./../enum/types"; 
 
 /**
  * İndirim sınıfına erişmek için kullanılan interface

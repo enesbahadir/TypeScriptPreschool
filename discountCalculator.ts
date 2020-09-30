@@ -1,7 +1,7 @@
 import { database } from "./database";
-import { IDiscount } from "./IDiscount";
-import { IUser } from "./IUser";
-import { DiscountType, OrganizationName } from "./types";
+import { IDiscount } from "./interface/IDiscount";
+import { IUser } from "./interface/IUser";
+import { DiscountType, OrganizationName } from "./enum/types";
 
 export class DiscountCalculator {
   /**

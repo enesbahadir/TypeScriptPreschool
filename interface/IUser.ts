@@ -1,4 +1,4 @@
-import { OrganizationName, UserType } from "./types";
+import { OrganizationName, UserType } from "./../enum/types";
 /**
  * Kişi sınıfına erişmek için kullanılan interface
  */

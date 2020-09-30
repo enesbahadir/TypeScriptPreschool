@@ -1,5 +1,5 @@
-import { IDiscount } from "./IDiscount";
-import { DiscountType, UserType, OrganizationName } from "./types";
+import { IDiscount } from "./interface/IDiscount";
+import { DiscountType, UserType, OrganizationName } from "./enum/types";
 
 /**
  * Sistemde kullanıcak olan Anaokulu ve İndirim listelerinin saklandığı ve oluşturulduğu sınıf

@@ -1,7 +1,7 @@
-import "./style.css";
-import "./fontawesome-all.min.css"
+import "./css/style.css";
+import "./css/fontawesome-all.min.css"
 import { database } from "./database";
-import {  OrganizationName, UserType } from "./types";
+import {  OrganizationName, UserType } from "./enum/types";
 import { User } from "./User";
 import { DiscountCalculator } from "./discountCalculator";
 
