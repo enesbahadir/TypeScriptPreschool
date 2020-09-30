@@ -329,4 +329,11 @@ function createUserFromUserInput() {
                     <h3 >`+ discount+` TL</h3>`;
 }
 
+const discountAppendButton: HTMLElement = document.getElementById(
+  `append-discount`
+);
+discountAppendButton.onclick = function() {
+  
+};
+
 

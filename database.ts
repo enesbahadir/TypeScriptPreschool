@@ -13,12 +13,12 @@ export class database {
       {
         PreschoolName: "M Lalebahçesi",
         Price: 1200,
-        EndOfEarlyRegistrationDate: "01/10/2020"
+        EndOfEarlyRegistrationDate: "10/01/2020"
       },
       {
         PreschoolName: "Y Lalebahçesi",
         Price: 1000,
-        EndOfEarlyRegistrationDate: "01/09/2020"
+        EndOfEarlyRegistrationDate: "09/01/2020"
       }
     );
     return this.preschools;

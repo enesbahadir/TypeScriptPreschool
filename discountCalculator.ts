@@ -5,30 +5,41 @@ import { DiscountType, OrganizationName } from "./types";
 
 export class DiscountCalculator {
   /**
-   * Kullanıcı ve Anaokulu nesneleri alarak indirim hesaplamasını yapan metod
-   * databse sınıfıda tanımlı discount listesini kullanır.
+   * Kullanıcı ve Anaokulu nesneleri alarak indirim hesaplamasını, indirim tipi olan yüzde ve miktar cinsinden hesaplamasını yapan metod databse sınıfıda tanımlı discount listesini kullanır.
    */
   static calculateDiscount(user: IUser, preschool: IPreschool) {
     let percent = 0;
     let amount = 0;
     database.discounts.forEach(function(value, index, array) {
-      switch(value.DiscountType)
-      {
-        case DiscountType.PERCENTAGE :
-        {
-          percent += DiscountCalculator.executeCalculateMethods(user, preschool, value);
+      switch (value.DiscountType) {
+        case DiscountType.PERCENTAGE: {
+          percent += DiscountCalculator.executeCalculateMethods(
+            user,
+            preschool,
+            value
+          );
           break;
         }
-        case DiscountType.AMOUNT :
-        {
-          amount += DiscountCalculator.executeCalculateMethods(user, preschool, value);
+        case DiscountType.AMOUNT: {
+          amount += DiscountCalculator.executeCalculateMethods(
+            user,
+            preschool,
+            value
+          );
           break;
         }
       }
     });
-    return DiscountCalculator.calculatePriceWithDiscount(percent, amount,preschool);;
+    return DiscountCalculator.calculatePriceWithDiscount(
+      percent,
+      amount,
+      preschool
+    );
   }
-
+  /**
+   * İndirim hesaplaması yapan 3 metod calculateEarlyRegistrationDiscount, calculateOrganizationDiscount, calculateUserTypeDiscount
+   * yönlendirme yaparak toplam sonucu döner
+   */
   static executeCalculateMethods(
     user: IUser,
     preschool: IPreschool,
@@ -60,7 +71,10 @@ export class DiscountCalculator {
     discount: IDiscount,
     preschool: IPreschool
   ) {
-    if (discount.DiscountName == "Erken Kayıt İndirimi") {
+    if (
+      DiscountCalculator.calculateEarlyRegistration(preschool) &&
+      discount.DiscountName == "Erken Kayıt İndirimi"
+    ) {
       let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
         preschool.PreschoolName
       );
@@ -121,5 +135,16 @@ export class DiscountCalculator {
     preschool: IPreschool
   ) {
     return preschool.Price - (preschool.Price * percent) / 100 - amount;
+  }
+
+  /**
+   * Anaokulunun erken kayıt tarihini bugün ile kıyaslayarak 
+   */
+  static calculateEarlyRegistration(preschool: IPreschool) {
+    let preschoolEarltRegistrationDate = new Date(
+      preschool.EndOfEarlyRegistrationDate
+    );
+    let now = new Date();
+    return preschoolEarltRegistrationDate > now;
   }
 }
