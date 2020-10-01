@@ -43,7 +43,7 @@ const discountAppendButton: HTMLElement = document.getElementById(
   const discountAppend: HTMLElement = document.getElementById(`appendDiscount`);
   discountAppend.onclick = function() {
     discountHelper.createDiscountFromInput();
-    tableHelper.updateDiscountTable(discountList);
+    tableHelper.updateDiscountTable(database.discounts);
   };
 };
 
