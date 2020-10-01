@@ -1,3 +1,4 @@
+import { database } from "./database";
 import { IDiscount } from "./interface/IDiscount";
 
 export class tableHelper {
@@ -80,7 +81,21 @@ export class tableHelper {
       }
 
       cellText = document.createTextNode(cellString);
+
       cell.appendChild(cellText);
+      row.appendChild(cell);
+
+      let cellButton = document.createElement("button");
+      cell = document.createElement("td");
+      cellButton.innerHTML = "Do Something";
+
+      cellButton.addEventListener("click", function() {
+        debugger;
+        database.discounts = database.discounts.filter(discount => discount.DiscountName != discountList[i].DiscountName);
+        tableHelper.updateDiscountTable(database.discounts);
+        return;
+      });
+      cell.appendChild(cellButton);
       row.appendChild(cell);
 
       tblBody.appendChild(row);
@@ -205,9 +220,9 @@ export class tableHelper {
   }
 
   static updateDiscountTable(discountList) {
-    let element = document. getElementById("discountTableId");
-    element. parentNode. removeChild(element);
-    
+    let element = document.getElementById("discountTableId");
+    element.parentNode.removeChild(element);
+
     tableHelper.createDiscountTable(discountList);
   }
 }
