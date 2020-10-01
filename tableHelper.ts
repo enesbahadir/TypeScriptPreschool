@@ -94,7 +94,6 @@ export class tableHelper {
       cellButton.innerHTML = "Sil";
 
       cellButton.addEventListener("click", function() {
-        debugger;
         database.discounts = database.discounts.filter(discount => discount.DiscountName != discountList[i].DiscountName);
         tableHelper.updateDiscountTable(database.discounts);
         return;
