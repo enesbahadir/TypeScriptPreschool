@@ -43,7 +43,6 @@ export class userHelper {
     if (userPersonelRadio.checked) userTypeChoose = UserType.STANDART;
 
     let user = new User(userName.value, userTypeChoose, organizationChoose);
-    debugger;
     let preschool = database.preschools[preschoolChoose.value];
     let discount = DiscountCalculator.calculateDiscount(user, preschool);
     const discountResult: HTMLElement = document.getElementById(

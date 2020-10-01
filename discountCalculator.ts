@@ -9,8 +9,8 @@ export class DiscountCalculator {
    */
   static calculateDiscount(user: IUser, preschool: IPreschool) {
     debugger;
-    let percent = 0;
-    let amount = 0;
+    let percent : number = 0 ;
+    let amount : number = 0;
     database.discounts.forEach(function(value, index, array) {
       switch (value.DiscountType) {
         case DiscountType.PERCENTAGE: {
@@ -48,17 +48,17 @@ export class DiscountCalculator {
   ) {
     let result = 0;
 
-    result += <number>(
+    result += Number(
       DiscountCalculator.calculateEarlyRegistrationDiscount(discount, preschool)
     );
-    result += <number>(
+    result += Number(
       DiscountCalculator.calculateOrganizationDiscount(
         discount,
         user,
         preschool
       )
     );
-    result += <number>(
+    result += Number(
       DiscountCalculator.calculateUserTypeDiscount(discount, user, preschool)
     );
 
@@ -79,10 +79,10 @@ export class DiscountCalculator {
       let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
         preschool.PreschoolName
       );
-      return <number> discount.PreschoolNamesAndTheirDiscounts[index + 1];
+      return Number( discount.PreschoolNamesAndTheirDiscounts[index + 1]);
       
     }
-    return 0;
+    return Number(0);
   }
   /**
    * Kişi tip indirimni hesaplar, kişiye özel indirim çalışılan kurum seçilmeden ve tek bir kişi tipi seçilmiş olduğunda hesaplamaktadır.
@@ -100,11 +100,11 @@ export class DiscountCalculator {
       let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
         preschool.PreschoolName
       );
-      if (index < 0) return 0;
-      return <number> discount.PreschoolNamesAndTheirDiscounts[index + 1];
+      if (index < 0) return Number(0);
+      return Number( discount.PreschoolNamesAndTheirDiscounts[index + 1]);
     }
 
-    return 0;
+    return Number(0);
   }
   /**
    * Çalışılan kurum indirimini hesaplar, Kurumun NONE olmaması, kullanıcının girdiği kurum ile indirimin kurumunun aynı olması ve indirim listesinde kurumun bulunması kontrollerini sağlar.
@@ -122,10 +122,10 @@ export class DiscountCalculator {
       let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
         preschool.PreschoolName
       );
-      if (index < 0) return 0;
-      return <number> discount.PreschoolNamesAndTheirDiscounts[index + 1];
+      if (index < 0) return Number(0);
+      return Number( discount.PreschoolNamesAndTheirDiscounts[index + 1]);
     }
-    return 0;
+    return Number(0);
   }
   /**
    * Yüzde ve miktar olarak hesaplanan indirimlerin anaokulu ücretine uygulanmış halini dönen metod
@@ -135,14 +135,13 @@ export class DiscountCalculator {
     amount: number,
     preschool: IPreschool
   ) {
-    return preschool.Price - (preschool.Price * percent) / 100 - amount;
+    return Number(preschool.Price - (preschool.Price * percent) / 100 - amount);
   }
 
   /**
    * Anaokulunun erken kayıt tarihini bugün ile kıyaslayarak 
    */
   static calculateEarlyRegistration(preschool: IPreschool) {
-    debugger;
     let preschoolEarltRegistrationDate = new Date(
       preschool.EndOfEarlyRegistrationDate
     );

@@ -205,7 +205,6 @@ export class tableHelper {
   }
 
   static updateDiscountTable(discountList) {
-    debugger;
     let element = document. getElementById("discountTableId");
     element. parentNode. removeChild(element);
     
