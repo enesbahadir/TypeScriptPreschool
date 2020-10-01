@@ -79,7 +79,7 @@ export class DiscountCalculator {
         preschool.PreschoolName
       );
       return discount.PreschoolNamesAndTheirDiscounts[index + 1];
-      if (index < 0) return 0;
+      
     }
     return 0;
   }
@@ -141,6 +141,7 @@ export class DiscountCalculator {
    * Anaokulunun erken kayıt tarihini bugün ile kıyaslayarak 
    */
   static calculateEarlyRegistration(preschool: IPreschool) {
+    debugger;
     let preschoolEarltRegistrationDate = new Date(
       preschool.EndOfEarlyRegistrationDate
     );

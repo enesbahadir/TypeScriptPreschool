@@ -13,7 +13,7 @@ export class database {
       {
         PreschoolName: "M Lalebahçesi",
         Price: 1200,
-        EndOfEarlyRegistrationDate: "10/01/2020"
+        EndOfEarlyRegistrationDate: "11/01/2020"
       },
       {
         PreschoolName: "Y Lalebahçesi",
