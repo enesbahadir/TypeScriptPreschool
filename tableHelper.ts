@@ -1,16 +1,20 @@
 import { database } from "./database";
 import { IDiscount } from "./interface/IDiscount";
-
+/**
+ * Sistemde gözükecek olan tabloların oluşturulduğu sınıftır. 
+ */
 export class tableHelper {
   /**
-   * İndirim yönetim sistemi bölümündeki indiriö tablosunun dinamik olarak discountList üzerinden oluşturan metod
+   * İndirim tablosunun daha önceden sayfa olup-olmadığı kontrol eder.
    */
   static createDiscountTable(discountList) {
     if (!document.getElementById("discountTableId")) {
       tableHelper.printDiscountTable(discountList);
     }
   }
-
+/**
+ * İndirim yönetim sistemi bölümündeki indirim tablosunun dinamik olarak database'de tutulan discounts üzerinden oluşturan metod
+ */
   static printDiscountTable(discountList) {
     let discountTableParent = document.getElementById("discountTableDiv");
     let table = document.createElement("table");
@@ -87,7 +91,7 @@ export class tableHelper {
 
       let cellButton = document.createElement("button");
       cell = document.createElement("td");
-      cellButton.innerHTML = "Do Something";
+      cellButton.innerHTML = "Sil";
 
       cellButton.addEventListener("click", function() {
         debugger;
@@ -104,8 +108,20 @@ export class tableHelper {
 
     discountTableParent.appendChild(table);
   }
+
   /**
-   * Anaokulu yönetim sistemi bölümündeki anaokulu tablosunun dinamik olarak preschoolList üzerinden oluşturan metod
+   * İndirim tablosunda değişiklik yapıldığı zaman, mecvut tabloyu silerek yenisini ekler.
+   */
+  static updateDiscountTable(discountList) {
+    let element = document.getElementById("discountTableId");
+    element.parentNode.removeChild(element);
+
+    tableHelper.createDiscountTable(discountList);
+  }
+
+
+  /**
+   * Anaokulu yönetim sistemi bölümündeki anaokulu tablosunun dinamik olarak database'de tutulan preschools üzerinden oluşturan metod
    */
   static createPreschoolTable(preschoolList) {
     if (document.getElementById("preschoolTableId")) {
@@ -218,11 +234,5 @@ export class tableHelper {
         <td><span class="icon solid style2 major fa-hashtag" ></span></td>
     </tr>`;
   }
-
-  static updateDiscountTable(discountList) {
-    let element = document.getElementById("discountTableId");
-    element.parentNode.removeChild(element);
-
-    tableHelper.createDiscountTable(discountList);
-  }
+  
 }

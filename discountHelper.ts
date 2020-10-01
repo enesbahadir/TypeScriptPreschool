@@ -1,11 +1,14 @@
 import { database } from "./database";
 import { DiscountType, OrganizationName, UserType } from "./enum/types";
 
+/**
+ * İndirim ekleme işleminin yapıldığı sınıftır.
+ */
 export class discountHelper 
 {
    /**
- *
- */
+    *  Kullanıcının girdiği bilgiler ile yeni indirim tanımlar. Yeni indirimi databse'de tutulan Anaokulu Listesine ekler.
+    */
 static createDiscountFromInput() {
   let discountName = <HTMLInputElement>(
     document.getElementById("discountAppend-discountName")

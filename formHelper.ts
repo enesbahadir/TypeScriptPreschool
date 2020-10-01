@@ -1,6 +1,9 @@
 import { DiscountType, OrganizationName, UserType } from "./enum/types";
 import { database } from "./database";
 
+/**
+ * Sistemde giriş yapılacak olan formların oluşturulduğu sınıftır.
+ */
 export class formHelper {
   /**
    * İndirim hesaplama bölümünde kullanıcının, indirimin hesaplayanacağı anaokulunu dinamik olarak preschoolList üzerinden
@@ -41,7 +44,7 @@ export class formHelper {
   }
 
   /**
-   *
+   * Kişi tiplerini checkbox olarak tek satırda 3 hücre olacak şekilde pararmetre olarak alınan parent nesnesine child olarak ekler.
    */
   static createUserTypeCheckBox(parent) {
     let div = document.createElement("div");

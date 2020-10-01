@@ -7,7 +7,9 @@ import { DiscountType, UserType, OrganizationName } from "./enum/types";
 export class database {
   static preschools: Array<IPreschool> = new Array();
   static discounts: Array<IDiscount> = new Array();
-
+  /**
+   * Sistemde kullanılacak olan Anaokulu Listesinin default değerlerini listeye ekler.
+   */
   static createPreschoolList() {
     this.preschools.push(
       {
@@ -23,7 +25,9 @@ export class database {
     );
     return this.preschools;
   }
-
+  /**
+   *Sistemde kullanılacak olan İndirim Listesinin default değerlerini listeye ekler.
+   */
   static createDiscountList() {
     this.discounts.push(
       {
@@ -32,8 +36,10 @@ export class database {
         UserTypes: [UserType.PERSONEL, UserType.IHVAN, UserType.STANDART],
         OrganizationName: OrganizationName.NONE,
         PreschoolNamesAndTheirDiscounts: [
-          "M Lalebahçesi",20,
-          "Y Lalebahçesi",25
+          "M Lalebahçesi",
+          20,
+          "Y Lalebahçesi",
+          25
         ]
       },
 
@@ -43,8 +49,10 @@ export class database {
         UserTypes: [UserType.PERSONEL],
         OrganizationName: OrganizationName.NONE,
         PreschoolNamesAndTheirDiscounts: [
-          "M Lalebahçesi",50,
-          "Y Lalebahçesi",50
+          "M Lalebahçesi",
+          50,
+          "Y Lalebahçesi",
+          50
         ]
       },
       {
@@ -53,8 +61,10 @@ export class database {
         UserTypes: [UserType.IHVAN],
         OrganizationName: OrganizationName.NONE,
         PreschoolNamesAndTheirDiscounts: [
-          "M Lalebahçesi",5,
-          "Y Lalebahçesi",5
+          "M Lalebahçesi",
+          5,
+          "Y Lalebahçesi",
+          5
         ]
       },
 
@@ -63,9 +73,7 @@ export class database {
         DiscountType: DiscountType.PERCENTAGE,
         UserTypes: [UserType.IHVAN, UserType.STANDART],
         OrganizationName: OrganizationName.SAGLIK,
-        PreschoolNamesAndTheirDiscounts: [
-          "M Lalebahçesi",10,
-        ]
+        PreschoolNamesAndTheirDiscounts: ["M Lalebahçesi", 10]
       },
 
       {
@@ -73,11 +81,8 @@ export class database {
         DiscountType: DiscountType.AMOUNT,
         UserTypes: [UserType.IHVAN, UserType.STANDART],
         OrganizationName: OrganizationName.ANADOLU,
-        PreschoolNamesAndTheirDiscounts: [
-          "Y Lalebahçesi",100
-        ]
+        PreschoolNamesAndTheirDiscounts: ["Y Lalebahçesi", 100]
       }
-
     );
     return this.discounts;
   }

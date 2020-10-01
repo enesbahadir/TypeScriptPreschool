@@ -3,6 +3,9 @@ import { IDiscount } from "./interface/IDiscount";
 import { IUser } from "./interface/IUser";
 import { DiscountType, OrganizationName } from "./enum/types";
 
+/**
+ * İndirim hesaplamalarının yapıldığı sınıftır.
+ */
 export class DiscountCalculator {
   /**
    * Kullanıcı ve Anaokulu nesneleri alarak indirim hesaplamasını, indirim tipi olan yüzde ve miktar cinsinden hesaplamasını yapan metod databse sınıfıda tanımlı discount listesini kullanır.
@@ -65,7 +68,6 @@ export class DiscountCalculator {
     return result;
   }
   /**
-   * @TODO erken kayıt indirim kontrolü yapıalcak
    * Erken kayıt indirimini hesaplar, erken kayıt bilgisi kullanıcının seçtği anaokulundan gelmektedir.
    */
   static calculateEarlyRegistrationDiscount(
