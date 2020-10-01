@@ -41,56 +41,192 @@ export class formHelper {
   }
 
   /**
- *
+   *
+   */
+  static createUserTypeCheckBox(parent) {
+    let div = document.createElement("div");
+    div.className = "field third";
+
+    let option = <HTMLInputElement>document.createElement("input");
+    option.type = "checkbox";
+    option.id = "user-type-personel";
+    option.name = "user-type-personel";
+
+    let label = document.createElement("label");
+    label.setAttribute("for", option.id);
+    let labelText = document.createTextNode("Personel");
+    label.appendChild(labelText);
+    div.appendChild(option);
+    div.appendChild(label);
+
+    let div2 = document.createElement("div");
+    div2.className = "field third";
+
+    let option2 = <HTMLInputElement>document.createElement("input");
+    option2.type = "checkbox";
+    option2.id = "user-type-ihvan";
+    option2.name = "user-type-ihvan";
+
+    let label2 = document.createElement("label");
+    label2.setAttribute("for", option2.id);
+    let labelText2 = document.createTextNode("Ihvan");
+    label2.appendChild(labelText2);
+    div2.appendChild(option2);
+    div2.appendChild(label2);
+
+    let div3 = document.createElement("div");
+    div3.className = "field third";
+
+    let option3 = <HTMLInputElement>document.createElement("input");
+    option3.type = "checkbox";
+    option3.id = "user-type-standart";
+    option3.name = "user-type-standart";
+
+    let label3 = document.createElement("label");
+    label3.setAttribute("for", option3.id);
+    let labelText3 = document.createTextNode("Standart");
+    label3.appendChild(labelText3);
+    div3.appendChild(option3);
+    div3.appendChild(label3);
+
+    parent.appendChild(div);
+    parent.appendChild(div2);
+    parent.appendChild(div3);
+  }
+  /**
+ * Yeni indirim ekleme için gerekli bilgilerin istendiği formunu oluşturur, 
+ * <form>
+		<div class="fields">
+      <div class="field"> ... html yapısını kullanır.
  */
-static createUserTypeCheckBox(parent) {
-  let div = document.createElement("div");
-  div.className = "field third";
+  static createAppendDiscountForm() {
+    let discountAppendParent = document.getElementById("discountAppendFormDiv"); // formun oluşturulacağı div
+    let discountAppendHeader = document.createElement("header");
+    discountAppendHeader.innerHTML =
+      "<header> <h3> İndirim Ekleme Tablosu </h3> </header>";
+    let discountAppendForm = document.createElement("form");
+    discountAppendForm.id = "discountAppendForm";
+    let discountAppendFieldsDiv = document.createElement("div"); // her bir input satırının toplanacağı div, fields
+    discountAppendFieldsDiv.className = "fields";
 
-  let option = <HTMLInputElement>document.createElement("input");
-  option.type = "checkbox";
-  option.id = "user-type-personel";
-  option.name = "user-type-personel";
+    let discountNameInputFieldDiv = document.createElement("div"); // indirim isminin istendiği div, field
+    discountNameInputFieldDiv.className = "field";
 
-  let label = document.createElement("label");
-  label.setAttribute("for", option.id);
-  let labelText = document.createTextNode("Personel");
-  label.appendChild(labelText);
-  div.appendChild(option);
-  div.appendChild(label);
+    let discountAppendNameLabel = <HTMLElement>document.createElement("p");
+    discountAppendNameLabel.innerText = "İndirim İsmi";
+    let discountAppendNameInput = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    discountAppendNameInput.type = "text";
+    discountAppendNameInput.id = "discountAppend-discountName";
 
-  let div2 = document.createElement("div");
-  div2.className = "field third";
+    discountNameInputFieldDiv.appendChild(discountAppendNameLabel);
+    discountNameInputFieldDiv.appendChild(discountAppendNameInput);
+    discountAppendFieldsDiv.appendChild(discountNameInputFieldDiv);
 
-  let option2 = <HTMLInputElement>document.createElement("input");
-  option2.type = "checkbox";
-  option2.id = "user-type-ihvan";
-  option2.name = "user-type-ihvan";
+    formHelper.createPreschoolCheckboxAndDiscountInput(discountAppendFieldsDiv);
 
-  let label2 = document.createElement("label");
-  label2.setAttribute("for", option2.id);
-  let labelText2 = document.createTextNode("Ihvan");
-  label2.appendChild(labelText2);
-  div2.appendChild(option2);
-  div2.appendChild(label2);
+    let discountTypePercentFieldDiv = document.createElement("div");
+    discountTypePercentFieldDiv.className = "field half";
+    let discountTypePercentRadio = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    discountTypePercentRadio.type = "radio";
+    discountTypePercentRadio.name = "priority";
+    discountTypePercentRadio.value = "PERCENTAGE";
+    discountTypePercentRadio.id = "discount-append-percentage-radio";
 
-  let div3 = document.createElement("div");
-  div3.className = "field third";
+    let discountTypePercentRadioLabel = document.createElement("label");
+    discountTypePercentRadioLabel.setAttribute(
+      "for",
+      "discount-append-percentage-radio"
+    );
+    discountTypePercentRadioLabel.innerText = "Yüzde";
 
-  let option3 = <HTMLInputElement>document.createElement("input");
-  option3.type = "checkbox";
-  option3.id = "user-type-standart";
-  option3.name = "user-type-standart";
+    let discountTypeAmountFieldDiv = document.createElement("div");
+    discountTypeAmountFieldDiv.className = "field half";
 
-  let label3 = document.createElement("label");
-  label3.setAttribute("for", option3.id);
-  let labelText3 = document.createTextNode("Standart");
-  label3.appendChild(labelText3);
-  div3.appendChild(option3);
-  div3.appendChild(label3);
+    let discountTypeAmountRadio = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    discountTypeAmountRadio.type = "radio";
+    discountTypeAmountRadio.name = "priority";
+    discountTypeAmountRadio.value = "AMOUNT";
+    discountTypeAmountRadio.id = "discount-append-amount-radio";
 
-  parent.appendChild(div);
-  parent.appendChild(div2);
-  parent.appendChild(div3);
-}
+    let discountTypeAmountRadioLabel = document.createElement("label");
+    discountTypeAmountRadioLabel.setAttribute(
+      "for",
+      "discount-append-amount-radio"
+    );
+    discountTypeAmountRadioLabel.innerText = "Miktar";
+
+    discountTypePercentFieldDiv.appendChild(discountTypePercentRadio);
+    discountTypePercentFieldDiv.appendChild(discountTypePercentRadioLabel);
+    discountTypeAmountFieldDiv.appendChild(discountTypeAmountRadio);
+    discountTypeAmountFieldDiv.appendChild(discountTypeAmountRadioLabel);
+
+    discountAppendFieldsDiv.appendChild(discountTypePercentFieldDiv);
+    discountAppendFieldsDiv.appendChild(discountTypeAmountFieldDiv);
+
+    formHelper.createUserTypeCheckBox(discountAppendFieldsDiv);
+
+    let discountOrganizationFieldDiv = document.createElement("div");
+    discountOrganizationFieldDiv.className = "field";
+    discountOrganizationFieldDiv.id = "discountOrganizationFieldDiv";
+
+    formHelper.createOrganizationNameSelectList(
+      discountOrganizationFieldDiv,
+      "discountAppend"
+    );
+    discountAppendFieldsDiv.appendChild(discountOrganizationFieldDiv);
+
+    discountAppendForm.appendChild(discountAppendFieldsDiv);
+    discountAppendParent.appendChild(discountAppendHeader);
+    discountAppendForm.innerHTML += `<div class="field ">
+									<ul class="actions stacked ">
+										<li><a href="" class="button fit" id="appendDiscount">İndirim
+												Ekle</a></li>
+									</ul>
+								</div>`;
+
+    discountAppendParent.appendChild(discountAppendForm);
+  }
+  /**
+   * Yeni indirim ekleme tablosunda indirimin ekleneceği anaokullarını ve miktarlarını checkbox ve text input olarak dinanik olarak doldurur.
+   */
+  static createPreschoolCheckboxAndDiscountInput(parentDiv) {
+    for (let i = 0; i < database.preschools.length; i++) {
+      let div1 = document.createElement("div");
+      div1.className = "field half";
+
+      let option = <HTMLInputElement>document.createElement("input");
+      option.type = "checkbox";
+      option.id = "discountAppendPreschoolCheckbox-" + i.toString();
+      option.name = database.preschools[i].PreschoolName;
+
+      let label = document.createElement("label");
+      label.setAttribute("for", option.id);
+      let labelText = document.createTextNode(
+        database.preschools[i].PreschoolName
+      );
+      label.appendChild(labelText);
+      div1.appendChild(option);
+      div1.appendChild(label);
+
+      let div2 = document.createElement("div");
+      div2.className = "field half";
+      let discountAppendPreschoolInput = <HTMLInputElement>(
+        document.createElement("input")
+      );
+      discountAppendPreschoolInput.type = "text";
+      discountAppendPreschoolInput.id =
+        "discountAppendPreschoolText-" + i.toString();
+
+      div2.appendChild(discountAppendPreschoolInput);
+
+      parentDiv.appendChild(div1);
+      parentDiv.appendChild(div2);
+    }
+  }
 }
