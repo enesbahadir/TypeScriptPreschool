@@ -1,7 +1,7 @@
 import "./css/style.css";
 import "./css/fontawesome-all.min.css";
 import { database } from "./database";
-import { OrganizationName, UserType } from "./enum/types";
+import { DiscountType, OrganizationName, UserType } from "./enum/types";
 import { User } from "./User";
 import { DiscountCalculator } from "./discountCalculator";
 
@@ -14,7 +14,7 @@ let discountList = database.createDiscountList();
  */
 let myParent = document.getElementById("selectField");
 createPreschoolSelectList(myParent);
-createOrganizationNameSelectList(document.getElementById("selectOrganizationField"));
+createOrganizationNameSelectList( document.getElementById("selectOrganizationField"), "userInput" );
 createDiscountTable();
 createPreschoolTable();
 
@@ -63,7 +63,6 @@ function updatePreschoolTable() {
   preschoolList.forEach(preschool => {
     const rowString = toTableString(preschool);
     const row = parse<HTMLTableRowElement>(rowString);
-    debugger;
     table.createTBody().append(row);
   });
 
@@ -254,9 +253,9 @@ function createDiscountTable() {
 /**
  * İndirim hesaplama bölümünde kullanıcının, indirimin hesaplayanacağı kurumun dinamik olarak enum sınıfları içerisindeki OrganizationName'den dropdown olarak dolduran metod.
  */
-function createOrganizationNameSelectList(myOrganizationParent) {
+function createOrganizationNameSelectList(myOrganizationParent, id) {
   let selectOrganizationList = document.createElement("select");
-  selectOrganizationList.id = "myOrganizationSelect";
+  selectOrganizationList.id = "organizationSelect-" +id;
   selectOrganizationList.innerHTML = `<option value="none" selected disabled hidden> 
           Lütfen Çalışılan Kurumu Seçiniz`;
   myOrganizationParent.appendChild(selectOrganizationList);
@@ -274,13 +273,12 @@ function createOrganizationNameSelectList(myOrganizationParent) {
  * İndirim hesaplama bölümünde kullanıcının girdiği bilgiler doğrultusunda User nesnesi oluşturan metod
  */
 function createUserFromUserInput() {
-  debugger;
   const userName = <HTMLInputElement>document.getElementById("userName");
   const preschoolChoose = <HTMLInputElement>(
     document.getElementById("myPreschoolSelect")
   );
   const organizationChooseInput = <HTMLInputElement>(
-    document.getElementById("myOrganizationSelect")
+    document.getElementById("organizationSelect-" + "userInput")
   );
   let organizationChoose;
   switch (organizationChooseInput.value) {
@@ -338,13 +336,19 @@ function createUserFromUserInput() {
 }
 
 /**
- *
+ *@TODO isimlendirmeler düzeltilecek
  */
 const discountAppendButton: HTMLElement = document.getElementById(
   `append-discount`
- );
- discountAppendButton.onclick = function() {
-  createAppendDiscountForm();
+);
+discountAppendButton.onclick = function() {
+  if (!document.getElementById("discountAppendForm"))
+    createAppendDiscountForm();
+  const discountAppend: HTMLElement = document.getElementById(`appendDiscount`);
+  discountAppend.onclick = function() {
+    createDiscountFromInput();
+  };
+  //createDiscountFromInput();
 };
 
 /**
@@ -359,7 +363,7 @@ function createAppendDiscountForm() {
   discountAppendHeader.innerHTML =
     "<header> <h3> İndirim Ekleme Tablosu </h3> </header>";
   let discountAppendForm = document.createElement("form");
-
+  discountAppendForm.id = "discountAppendForm";
   let discountAppendFieldsDiv = document.createElement("div"); // her bir input satırının toplanacağı div, fields
   discountAppendFieldsDiv.className = "fields";
 
@@ -372,6 +376,7 @@ function createAppendDiscountForm() {
     document.createElement("input")
   );
   discountAppendNameInput.type = "text";
+  discountAppendNameInput.id = "discountAppend-discountName";
 
   discountNameInputFieldDiv.appendChild(discountAppendNameLabel);
   discountNameInputFieldDiv.appendChild(discountAppendNameInput);
@@ -423,10 +428,23 @@ function createAppendDiscountForm() {
   discountAppendFieldsDiv.appendChild(discountTypeAmountFieldDiv);
 
   createUserTypeCheckBox(discountAppendFieldsDiv);
-  createOrganizationNameSelectList(discountAppendFieldsDiv);
+
+  let discountOrganizationFieldDiv = document.createElement("div");
+  discountOrganizationFieldDiv.className = "field";
+  discountOrganizationFieldDiv.id = "discountOrganizationFieldDiv";
+
+  createOrganizationNameSelectList(discountOrganizationFieldDiv, "discountAppend");
+  discountAppendFieldsDiv.appendChild(discountOrganizationFieldDiv);
 
   discountAppendForm.appendChild(discountAppendFieldsDiv);
   discountAppendParent.appendChild(discountAppendHeader);
+  discountAppendForm.innerHTML += `<div class="field ">
+									<ul class="actions stacked ">
+										<li><a href="" class="button fit" id="appendDiscount">İndirim
+												Ekle</a></li>
+									</ul>
+								</div>`;
+
   discountAppendParent.appendChild(discountAppendForm);
 }
 
@@ -440,7 +458,7 @@ function createPreschoolCheckboxAndDiscountInput(parentDiv) {
 
     let option = <HTMLInputElement>document.createElement("input");
     option.type = "checkbox";
-    option.id = "checkbox" + i.toString();
+    option.id = "discountAppendPreschoolCheckbox-" + i.toString();
     option.name = preschoolList[i].PreschoolName;
 
     let label = document.createElement("label");
@@ -452,17 +470,23 @@ function createPreschoolCheckboxAndDiscountInput(parentDiv) {
 
     let div2 = document.createElement("div");
     div2.className = "field half";
-    let discountAppendNameInput = <HTMLInputElement>(
+    let discountAppendPreschoolInput = <HTMLInputElement>(
       document.createElement("input")
     );
-    discountAppendNameInput.type = "text";
-    div2.appendChild(discountAppendNameInput);
+    discountAppendPreschoolInput.type = "text";
+    discountAppendPreschoolInput.id =
+      "discountAppendPreschoolText-" + i.toString();
+
+    div2.appendChild(discountAppendPreschoolInput);
 
     parentDiv.appendChild(div1);
     parentDiv.appendChild(div2);
   }
 }
 
+/**
+ *
+ */
 function createUserTypeCheckBox(parent) {
   let div = document.createElement("div");
   div.className = "field third";
@@ -514,4 +538,71 @@ function createUserTypeCheckBox(parent) {
   parent.appendChild(div3);
 }
 
+/**
+ *
+ */
+function createDiscountFromInput() {
+  
+  let discountName = <HTMLInputElement> document.getElementById("discountAppend-discountName");
+  
+  let preschoolNamesAndTheirDiscounts: Array<string | number> = new Array();
+  for (let i = 0; i < preschoolList.length; i++) {
+    let checkbox = <HTMLInputElement>(
+      document.getElementById("discountAppendPreschoolCheckbox-" + i.toString())
+    );
+    if (!checkbox.checked) continue;
+    else {
+      let text = <HTMLInputElement>(
+        document.getElementById("discountAppendPreschoolText-" + i.toString())
+      );
+      preschoolNamesAndTheirDiscounts.push(checkbox.name, text.value);
+    }
+  }
 
+  let discountType;
+  let discountTypeRadio = <HTMLInputElement>document.getElementById("discount-append-percentage-radio");
+  if(discountTypeRadio.checked)
+  {
+    discountType = DiscountType.PERCENTAGE;
+  }
+  else
+   {
+     discountType = DiscountType.AMOUNT;
+   }
+
+  let userTypes : Array<UserType> = new Array();
+  let option = <HTMLInputElement> document.getElementById("user-type-personel");
+  if(option.checked)
+    userTypes.push(UserType.PERSONEL);
+  option = <HTMLInputElement> document.getElementById("user-type-ihvan");
+  if(option.checked)
+    userTypes.push(UserType.IHVAN);
+  option = <HTMLInputElement> document.getElementById("user-type-standart");
+  if(option.checked)
+    userTypes.push(UserType.STANDART);
+
+  let organizationName : OrganizationName;
+  let a =<HTMLInputElement> document.getElementById("organizationSelect-"+"discountAppend");
+  switch (a.value)
+  {
+    case "ANADOLU": {
+      organizationName = OrganizationName.ANADOLU;
+      break;
+    }
+    case "SAGLIK": {
+      organizationName = OrganizationName.SAGLIK;
+      break;
+    }
+    default: {
+      organizationName = OrganizationName.NONE;
+    }
+  }
+  debugger;
+  database.discounts.push( {
+        DiscountName: discountName.value,
+        DiscountType: discountType,
+        UserTypes: userTypes,
+        OrganizationName: organizationName,
+        PreschoolNamesAndTheirDiscounts: preschoolNamesAndTheirDiscounts
+      });
+}
