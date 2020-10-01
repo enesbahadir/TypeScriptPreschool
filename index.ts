@@ -93,7 +93,7 @@ function createPreschoolSelectList(myParent) {
   //
 
   let selectList = document.createElement("select");
-  //selectList.id = "myPreschoolSelect";
+  selectList.id = "myPreschoolSelect";
   selectList.innerHTML = `<option value="none" selected disabled hidden required> 
           Lütfen Anaokulu Seçiniz`;
   myParent.appendChild(selectList);
@@ -275,6 +275,7 @@ function createOrganizationNameSelectList() {
  * İndirim hesaplama bölümünde kullanıcının girdiği bilgiler doğrultusunda User nesnesi oluşturan metod
  */
 function createUserFromUserInput() {
+  debugger;
   const userName = <HTMLInputElement>document.getElementById("userName");
   const preschoolChoose = <HTMLInputElement>(
     document.getElementById("myPreschoolSelect")
@@ -298,6 +299,7 @@ function createUserFromUserInput() {
   }
 
   let userTypeChoose;
+  let userTypeRadio = document.getElementById("userTypeRadio");
   const list = document.querySelectorAll("input[type=radio]");
   for (let i = 0; i < list.length; i++) {
     let item = <HTMLInputElement>list[i];
@@ -336,6 +338,9 @@ function createUserFromUserInput() {
     ` TL</h3>`;
 }
 
+/**
+ * 
+ */
 const discountAppendButton: HTMLElement = document.getElementById(
   `append-discount`
 );
@@ -343,9 +348,21 @@ discountAppendButton.onclick = function() {
   createAppendDiscountForm();
 };
 
+/**
+ * Yeni indirim ekleme için gerekli bilgilerin istendiği formunu oluşturur, 
+ * <form>
+		<div class="fields">
+      <div class="field"> ... html yapısını kullanır.
+ */
 function createAppendDiscountForm() {
   let discountAppendParent = document.getElementById("discountAppendFormDiv"); // formun oluşturulacağı div
   let discountAppendForm = document.createElement("form");
+
+  let discountAppendFieldsDiv = document.createElement("div"); // her bir input satırının toplanacağı div, fields
+  discountAppendFieldsDiv.className = "fields";
+
+  let discountNameInputFieldDiv = document.createElement("div"); // indirim isminin istendiği div, field
+  discountNameInputFieldDiv.className = "field";
 
   let discountAppendNameLabel = <HTMLElement>document.createElement("p");
   discountAppendNameLabel.innerText = "İndirim İsmi";
@@ -354,17 +371,26 @@ function createAppendDiscountForm() {
   );
   discountAppendNameInput.type = "text";
 
-  let discountAppendFormFieldPreschool = document.createElement("div");
-  discountAppendFormFieldPreschool.className = "fields";
-  createPreschoolCheckboxAndDiscountInput(discountAppendFormFieldPreschool);
+  discountNameInputFieldDiv.appendChild(discountAppendNameLabel);
+  discountNameInputFieldDiv.appendChild(discountAppendNameInput);
+  discountAppendFieldsDiv.appendChild(discountNameInputFieldDiv);
 
-  discountAppendForm.appendChild(discountAppendNameLabel);
-  discountAppendForm.appendChild(discountAppendNameInput);
+  createPreschoolCheckboxAndDiscountInput(discountAppendFieldsDiv);
 
-  discountAppendForm.appendChild(discountAppendFormFieldPreschool);
+  let discountTypeFieldDiv = document.createElement("div");
+  discountTypeFieldDiv.className = "field";
+  let discount
+
+  discountAppendFieldsDiv.appendChild(discountTypeFieldDiv);
+
+
+  discountAppendForm.appendChild(discountAppendFieldsDiv);
   discountAppendParent.appendChild(discountAppendForm);
 }
 
+/**
+ * Yeni indirim ekleme tablosunda indirimin ekleneceği anaokullarını ve miktarlarını checkbox ve text input olarak dinanik olarak doldurur.
+ */
 function createPreschoolCheckboxAndDiscountInput(parentDiv) {
   for (let i = 0; i < preschoolList.length; i++) {
     let div1 = document.createElement("div");
@@ -382,7 +408,7 @@ function createPreschoolCheckboxAndDiscountInput(parentDiv) {
     div1.appendChild(option);
     div1.appendChild(label);
 
-let div2 = document.createElement("div");
+    let div2 = document.createElement("div");
     div2.className = "field half";
     let discountAppendNameInput = <HTMLInputElement>(
       document.createElement("input")
