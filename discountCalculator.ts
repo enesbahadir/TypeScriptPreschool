@@ -8,6 +8,7 @@ export class DiscountCalculator {
    * Kullanıcı ve Anaokulu nesneleri alarak indirim hesaplamasını, indirim tipi olan yüzde ve miktar cinsinden hesaplamasını yapan metod databse sınıfıda tanımlı discount listesini kullanır.
    */
   static calculateDiscount(user: IUser, preschool: IPreschool) {
+    debugger;
     let percent = 0;
     let amount = 0;
     database.discounts.forEach(function(value, index, array) {
@@ -78,7 +79,7 @@ export class DiscountCalculator {
       let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
         preschool.PreschoolName
       );
-      return discount.PreschoolNamesAndTheirDiscounts[index + 1];
+      return <number> discount.PreschoolNamesAndTheirDiscounts[index + 1];
       
     }
     return 0;
@@ -100,7 +101,7 @@ export class DiscountCalculator {
         preschool.PreschoolName
       );
       if (index < 0) return 0;
-      return discount.PreschoolNamesAndTheirDiscounts[index + 1];
+      return <number> discount.PreschoolNamesAndTheirDiscounts[index + 1];
     }
 
     return 0;
@@ -122,7 +123,7 @@ export class DiscountCalculator {
         preschool.PreschoolName
       );
       if (index < 0) return 0;
-      return discount.PreschoolNamesAndTheirDiscounts[index + 1];
+      return <number> discount.PreschoolNamesAndTheirDiscounts[index + 1];
     }
     return 0;
   }

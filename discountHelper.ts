@@ -60,7 +60,6 @@ static createDiscountFromInput() {
       organizationName = OrganizationName.NONE;
     }
   }
-  debugger;
   database.discounts.push({
     DiscountName: discountName.value,
     DiscountType: discountType,

@@ -1,12 +1,17 @@
+import { IDiscount } from "./interface/IDiscount";
+
 export class tableHelper {
   /**
    * İndirim yönetim sistemi bölümündeki indiriö tablosunun dinamik olarak discountList üzerinden oluşturan metod
    */
   static createDiscountTable(discountList) {
-    if (document.getElementById("discountTableId")) {
-      return;
+    if (!document.getElementById("discountTableId")) {
+      tableHelper.printDiscountTable(discountList);
     }
-    let discountTableParent = document.getElementById("discountTable");
+  }
+
+  static printDiscountTable(discountList) {
+    let discountTableParent = document.getElementById("discountTableDiv");
     let table = document.createElement("table");
     let tblBody = document.createElement("tbody");
     table.id = "discountTableId";
@@ -84,7 +89,6 @@ export class tableHelper {
 
     discountTableParent.appendChild(table);
   }
-
   /**
    * Anaokulu yönetim sistemi bölümündeki anaokulu tablosunun dinamik olarak preschoolList üzerinden oluşturan metod
    */
@@ -145,10 +149,10 @@ export class tableHelper {
     myPreschoolTableParent.appendChild(table);
   }
   /**
- * @TODO Anaokulu eklendiği zaman tabloyu yenileyecek olan metod, düzenlenmesi lazım
- */
-static updatePreschoolTable(preschoolList ) {
-  const tableString: string = `
+   * @TODO Anaokulu eklendiği zaman tabloyu yenileyecek olan metod, düzenlenmesi lazım
+   */
+  static updatePreschoolTable(preschoolList) {
+    const tableString: string = `
         <table id= "table">
           <thead>
             <tr>
@@ -171,32 +175,40 @@ static updatePreschoolTable(preschoolList ) {
         </table>
       `;
 
-  const parser = new DOMParser();
-  const parse = <T extends HTMLElement>(str: string) =>
-    <T>parser.parseFromString(str, "text/html").documentElement;
-  const table = parse<HTMLTableElement>(tableString);
+    const parser = new DOMParser();
+    const parse = <T extends HTMLElement>(str: string) =>
+      <T>parser.parseFromString(str, "text/html").documentElement;
+    const table = parse<HTMLTableElement>(tableString);
 
-  preschoolList.forEach(preschool => {
-    const rowString = tableHelper.toTableString(preschool);
-    const row = parse<HTMLTableRowElement>(rowString);
-    table.createTBody().append(row);
-  });
+    preschoolList.forEach(preschool => {
+      const rowString = tableHelper.toTableString(preschool);
+      const row = parse<HTMLTableRowElement>(rowString);
+      table.createTBody().append(row);
+    });
 
-  const existingTable = document.getElementById("tableEx");
-  if (existingTable)
-    existingTable.parentElement.replaceChild(table, existingTable);
-}
+    const existingTable = document.getElementById("tableEx");
+    if (existingTable)
+      existingTable.parentElement.replaceChild(table, existingTable);
+  }
 
-/**
- * updatePreschoolTable metodunun kullandığı bir Anaokulu nesnesini tablonun hücrelerine ayıran metod
- */
-static toTableString(preschool: IPreschool): string {
-  return `<tr scope = "row">
+  /**
+   * updatePreschoolTable metodunun kullandığı bir Anaokulu nesnesini tablonun hücrelerine ayıran metod
+   */
+  static toTableString(preschool: IPreschool): string {
+    return `<tr scope = "row">
         <td>${preschool.PreschoolName}</td>
         <td>${preschool.Price}</td>
         <td>${preschool.EndOfEarlyRegistrationDate}</td>
         <td><span class="icon solid style2 major fa-cog"></span></td>
         <td><span class="icon solid style2 major fa-hashtag" ></span></td>
     </tr>`;
-}
+  }
+
+  static updateDiscountTable(discountList) {
+    debugger;
+    let element = document. getElementById("discountTableId");
+    element. parentNode. removeChild(element);
+    
+    tableHelper.createDiscountTable(discountList);
+  }
 }

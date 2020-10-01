@@ -100,6 +100,7 @@ export class formHelper {
       <div class="field"> ... html yapısını kullanır.
  */
   static createAppendDiscountForm() {
+
     let discountAppendParent = document.getElementById("discountAppendFormDiv"); // formun oluşturulacağı div
     let discountAppendHeader = document.createElement("header");
     discountAppendHeader.innerHTML =
@@ -185,7 +186,7 @@ export class formHelper {
     discountAppendParent.appendChild(discountAppendHeader);
     discountAppendForm.innerHTML += `<div class="field ">
 									<ul class="actions stacked ">
-										<li><a href="" class="button fit" id="appendDiscount">İndirim
+										<li><a class="button fit" id="appendDiscount">İndirim
 												Ekle</a></li>
 									</ul>
 								</div>`;
