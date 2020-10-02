@@ -137,15 +137,8 @@ export class tableHelper {
     tableHelper.createDiscountTable();
   }
 
-  /**
-   * Anaokulu yönetim sistemi bölümündeki anaokulu tablosunun dinamik olarak database'de tutulan preschools üzerinden oluşturan metod
-   */
-  static createPreschoolTable(preschoolList) {
-    if (document.getElementById("preschoolTableId")) {
-      return;
-    }
-
-    let myPreschoolTableParent = document.getElementById("preschoolTable"); // div
+  static printPreschoolTable(preschoolList) {
+    let myPreschoolTableParent = document.getElementById("preschoolTableDiv"); // div
 
     let table = document.createElement("table"); // <table>
     let tblBody = document.createElement("tbody"); // <tbody>
@@ -155,8 +148,8 @@ export class tableHelper {
               <th scope="col">Anaokulunun Adı</th>
               <th scope="col">Anaokulu Ücreti</th>
               <th scope="col">Erken Kayıt Dönemi Sonu</th>
-              <th scope="col">Düzenle</th>
               <th scope="col">Sil</th>
+              <th scope="col">Düzenle</th>
             </tr>
           </thead>`;
     myPreschoolTableParent.appendChild(table);
@@ -170,7 +163,7 @@ export class tableHelper {
       row.appendChild(cell);
 
       cell = document.createElement("td");
-      cellText = document.createTextNode(preschoolList[i].Price.toString());
+      cellText = document.createTextNode(preschoolList[i].Price);
       cell.appendChild(cellText);
       row.appendChild(cell);
 
@@ -182,13 +175,23 @@ export class tableHelper {
       row.appendChild(cell);
 
       cell = document.createElement("td");
-      cell.innerHTML =
-        '<td><span class="icon style2 major fa-hashtag"></span></td>';
-      row.appendChild(cell);
+      let cellButtonDelete = document.createElement("button");
+      cellButtonDelete.innerHTML = "Sil";
+    
+      cellButtonDelete.addEventListener("click", function() {
+        let confirmDelete = confirm(
+          "Anaokulu silinsin mi? Bu işlem geri alınamaz!"
+        );
+        if (confirmDelete) {
+          database.preschools = database.preschools.filter(
+            preschool => preschool.PreschoolName != preschoolList[i].PreschoolName
+          );
+          tableHelper.updatePreschoolTable();
+        }
 
-      cell = document.createElement("td");
-      cell.innerHTML =
-        '<td><span class="icon style2 major fa-cog"></span></td>';
+        return;
+      });
+      cell.appendChild(cellButtonDelete);
       row.appendChild(cell);
 
       tblBody.appendChild(row);
@@ -197,59 +200,21 @@ export class tableHelper {
     myPreschoolTableParent.appendChild(table);
   }
   /**
-   * @TODO Anaokulu eklendiği zaman tabloyu yenileyecek olan metod, düzenlenmesi lazım
+   * Anaokulu yönetim sistemi bölümündeki anaokulu tablosunun dinamik olarak database'de tutulan preschools üzerinden oluşturan metod
    */
-  static updatePreschoolTable(preschoolList) {
-    const tableString: string = `
-        <table id= "table">
-          <thead>
-            <tr>
-              <th scope="col">Anaokulunun Adı</th>
-              <th scope="col">Anaokulu Ücreti</th>
-              <th scope="col">Erken Kayıt Dönemi Sonu</th>
-              <th scope="col">Düzenle</th>
-              <th scope="col">Sil</th>
-            </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            </tr>
-          </tbody>
-        </table>
-      `;
-
-    const parser = new DOMParser();
-    const parse = <T extends HTMLElement>(str: string) =>
-      <T>parser.parseFromString(str, "text/html").documentElement;
-    const table = parse<HTMLTableElement>(tableString);
-
-    preschoolList.forEach(preschool => {
-      const rowString = tableHelper.toTableString(preschool);
-      const row = parse<HTMLTableRowElement>(rowString);
-      table.createTBody().append(row);
-    });
-
-    const existingTable = document.getElementById("tableEx");
-    if (existingTable)
-      existingTable.parentElement.replaceChild(table, existingTable);
+  static createPreschoolTable() {
+    if (!document.getElementById("preschoolTableId")) {
+      tableHelper.printPreschoolTable(database.preschools);
+    }
   }
-
   /**
-   * updatePreschoolTable metodunun kullandığı bir Anaokulu nesnesini tablonun hücrelerine ayıran metod
+   *
    */
-  static toTableString(preschool: IPreschool): string {
-    return `<tr scope = "row">
-        <td>${preschool.PreschoolName}</td>
-        <td>${preschool.Price}</td>
-        <td>${preschool.EndOfEarlyRegistrationDate}</td>
-        <td><span class="icon solid style2 major fa-cog"></span></td>
-        <td><span class="icon solid style2 major fa-hashtag" ></span></td>
-    </tr>`;
+  static updatePreschoolTable() {
+    let element = document.getElementById("preschoolTableId");
+    element.parentNode.removeChild(element);
+
+    tableHelper.printPreschoolTable(database.preschools);
   }
 
   static printHomeButton(parentDiv) {

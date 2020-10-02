@@ -3,6 +3,7 @@ import { database } from "./database";
 import { IDiscount } from "./interface/IDiscount";
 import { discountHelper } from "./discountHelper";
 import { tableHelper } from "./tableHelper";
+import { preschoolHelper } from "./preschoolHelper";
 
 /**
  * Sistemde giriş yapılacak olan formların oluşturulduğu sınıftır.
@@ -378,7 +379,7 @@ export class formHelper {
       document
         .getElementById("discountEditHeader")
         .parentNode.removeChild(document.getElementById("discountEditHeader"));
-      alert("İndirim güncellendi !");
+      alert("İndirim başarılı bir şekilde güncellendi.");
     };
   }
   /**
@@ -544,7 +545,16 @@ export class formHelper {
 
     let preschoolAppendButton = document.getElementById("appendPreschool");
     preschoolAppendButton.onclick = function() {
-      
+      preschoolHelper.createPreschoolFromInput();
+      document
+        .getElementById("preschoolAppendForm")
+        .parentNode.removeChild(document.getElementById("preschoolAppendForm"));
+      document
+        .getElementById("preschoolAppendHeader")
+        .parentNode.removeChild(document.getElementById("preschoolAppendHeader"));
+      alert("Anaokulu başarılı bir şekilde eklendi.");
+      tableHelper.updatePreschoolTable();
+
     };
   }
 
