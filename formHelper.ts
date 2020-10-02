@@ -34,7 +34,6 @@ export class formHelper {
     selectOrganizationList.innerHTML = `<option value="none" selected disabled hidden> 
           Lütfen Çalışılan Kurumu Seçiniz`;
     myOrganizationParent.appendChild(selectOrganizationList);
-    debugger;
     for (let i in OrganizationName) {
       if (isNaN(Number(i))) {
         let option = document.createElement("option");
@@ -382,5 +381,46 @@ export class formHelper {
 								</div>`;
 
     discountEditParent.appendChild(discountEditForm);
+  }
+
+  static createUserInputForm() {
+    const userInputDiv: HTMLElement = document.getElementById("userInputDiv");
+    if (!document.getElementById("userInputForm"))
+      userInputDiv.innerHTML = `					
+          <form method="post" action="#" id = "userInputForm">
+						<div class="fields">
+							<div class="field">
+								<label for="name">Kullanıcı İsmi</label>
+								<input type="text" name="name" id="userName" value="" required/>
+                    </div>
+								<div class="field" id="selectField">
+									<label for="preschool">Anaokulu</label>
+								</div>
+								<div class="field" id="selectOrganizationField">
+									<label for="orgazationName">Çalışılan Kurum</label>
+								</div>
+								<div class="field third" id="userTypeRadio">
+									<input type="radio" id="user-personel" name="priority" value="PERSONEL" checked />
+									<label for="user-personel">Personel</label>
+								</div>
+								<div class="field third">
+									<input type="radio" id="user-ihvan" name="priority" value = "IHVAN" />
+									<label for="user-ihvan">Ihvan</label>
+								</div>
+								<div class="field third">
+									<input type="radio" id="user-standart" name="priority" value = "STANDART" />
+									<label for="user-standart">Standart</label>
+								</div>
+								<div class="field ">
+									<ul class="actions stacked " id = "discountCalculateButtonUl">
+										<li><a href="#discount-result" class="button fit" id="calculate">İndirim
+												Hesapla</a></li>
+									</ul>
+								</div>
+								<div class="field ">
+									<header id="discount-result">
+									</header>
+								</div>
+					</form>`;
   }
 }

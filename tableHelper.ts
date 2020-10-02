@@ -2,20 +2,20 @@ import { database } from "./database";
 import { formHelper } from "./formHelper";
 import { IDiscount } from "./interface/IDiscount";
 /**
- * Sistemde gözükecek olan tabloların oluşturulduğu sınıftır. 
+ * Sistemde gözükecek olan tabloların oluşturulduğu sınıftır.
  */
 export class tableHelper {
   /**
    * İndirim tablosunun daha önceden sayfa olup-olmadığı kontrol eder.
    */
-  static createDiscountTable(discountList) {
+  static createDiscountTable() {
     if (!document.getElementById("discountTableId")) {
-      tableHelper.printDiscountTable(discountList);
+      tableHelper.printDiscountTable(database.discounts);
     }
   }
-/**
- * İndirim yönetim sistemi bölümündeki indirim tablosunun dinamik olarak database'de tutulan discounts üzerinden oluşturan metod
- */
+  /**
+   * İndirim yönetim sistemi bölümündeki indirim tablosunun dinamik olarak database'de tutulan discounts üzerinden oluşturan metod
+   */
   static printDiscountTable(discountList) {
     let discountTableParent = document.getElementById("discountTableDiv");
     let table = document.createElement("table");
@@ -95,8 +95,10 @@ export class tableHelper {
       cellButtonDelete.innerHTML = "Sil";
 
       cellButtonDelete.addEventListener("click", function() {
-        database.discounts = database.discounts.filter(discount => discount.DiscountName != discountList[i].DiscountName);
-        tableHelper.updateDiscountTable(database.discounts);
+        database.discounts = database.discounts.filter(
+          discount => discount.DiscountName != discountList[i].DiscountName
+        );
+        tableHelper.updateDiscountTable();
         return;
       });
       cell.appendChild(cellButtonDelete);
@@ -123,13 +125,12 @@ export class tableHelper {
   /**
    * İndirim tablosunda değişiklik yapıldığı zaman, mecvut tabloyu silerek yenisini ekler.
    */
-  static updateDiscountTable(discountList) {
+  static updateDiscountTable() {
     let element = document.getElementById("discountTableId");
     element.parentNode.removeChild(element);
 
-    tableHelper.createDiscountTable(discountList);
+    tableHelper.createDiscountTable();
   }
-
 
   /**
    * Anaokulu yönetim sistemi bölümündeki anaokulu tablosunun dinamik olarak database'de tutulan preschools üzerinden oluşturan metod
@@ -244,5 +245,18 @@ export class tableHelper {
         <td><span class="icon solid style2 major fa-cog"></span></td>
         <td><span class="icon solid style2 major fa-hashtag" ></span></td>
     </tr>`;
+  }
+
+  static printHomeButton(parentDiv) {
+    const ul = document.createElement("ul");
+    ul.className = "actions stacked";
+    const li = document.createElement("li");
+    const button = document.createElement("a");
+    button.href = "#first";
+    button.className = "button large wide smooth-scroll-middle";
+    button.innerText = "Anasayfaya Dön";
+    li.appendChild(button);
+    ul.appendChild(li);
+    parentDiv.appendChild(ul);
   }
 }

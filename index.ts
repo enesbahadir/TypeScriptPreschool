@@ -6,77 +6,108 @@ import { tableHelper } from "./tableHelper";
 import { userHelper } from "./userHelper";
 import { discountHelper } from "./discountHelper";
 
-let x : number =1;
-
+let state: number = 0;
 let preschoolList = database.createPreschoolList();
 let discountList = database.createDiscountList();
 
-const discountCalculateDiv : HTMLElement = document.getElementById("second");
+const discountCalculateDiv: HTMLElement = document.getElementById("second");
 discountCalculateDiv.style.visibility = "hidden";
 
-const discountTableDiv : HTMLElement = document.getElementById("third");
+const discountTableDiv: HTMLElement = document.getElementById("third");
 discountTableDiv.style.visibility = "hidden";
 
-const preschoolTableDiv : HTMLElement = document.getElementById("fourth");
+const preschoolTableDiv: HTMLElement = document.getElementById("fourth");
 preschoolTableDiv.style.visibility = "hidden";
 
+const discountCalculateFormButton: HTMLElement = document.getElementById(
+  "discountButton"
+);
+discountCalculateFormButton.onclick = function() {
+  let discountManagementState = document.getElementById("discountTableId");
+  if (discountManagementState != null) removeState("discountTableId");
+  
+  discountCalculateDiv.style.visibility = "visible";
+  discountTableDiv.style.visibility = "hidden";
+  preschoolTableDiv.style.visibility = "hidden";
+  if (state != 1) {
+    formHelper.createUserInputForm();
+    tableHelper.printHomeButton(
+      document.getElementById("discountCalculateButtonUl")
+    );
+    let myParent = document.getElementById("selectField");
+    formHelper.createPreschoolSelectList(myParent);
+    formHelper.createOrganizationNameSelectList(
+      document.getElementById("selectOrganizationField"),
+      "userInput"
+    );
+  }
+  const discountCalculateButton: HTMLElement = document.getElementById(
+    `calculate`
+  );
+  discountCalculateButton.onclick = function() {
+    userHelper.createUserFromUserInput();
+  };
+  state = 1;
+};
 
+//discountTableId
 
-  //discountButton
-  //discountManagementButton
-  //preschoolManagementButton
+const discountManagementButton: HTMLElement = document.getElementById(
+  "discountManagementButton"
+);
+discountManagementButton.onclick = function() {
+  let discountCalculateState = document.getElementById("userInputForm");
+  if (discountCalculateState != null) removeState("userInputForm");
+  discountCalculateDiv.style.visibility = "hidden";
+  discountTableDiv.style.visibility = "visible";
+  preschoolTableDiv.style.visibility = "hidden";
+  tableHelper.createDiscountTable(discountList);
 
-  // div.style.visibility = 'visible';
+  const discountAppendButton: HTMLElement = document.getElementById(
+    `append-discount`
+  );
+  discountAppendButton.onclick = function() {
+    if (!document.getElementById("discountAppendForm"))
+      formHelper.createAppendDiscountForm();
+    const discountAppend: HTMLElement = document.getElementById(
+      `appendDiscount`
+    );
+    discountAppend.onclick = function() {
+      discountHelper.createDiscountFromInput();
+      tableHelper.updateDiscountTable(database.discounts);
+    };
+  };
+  state = 2;
+};
 
+const reschoolManagementButton: HTMLElement = document.getElementById(
+  "preschoolManagementButton"
+);
+reschoolManagementButton.onclick = function() {
+  state = 3;
+  let discountManagementState = document.getElementById("discountTableId");
+  if (discountManagementState != null) removeState("discountTableId");
+  
+  discountCalculateDiv.style.visibility = "hidden";
+  discountTableDiv.style.visibility = "hidden";
+  preschoolTableDiv.style.visibility = "visible";
+  tableHelper.createPreschoolTable(preschoolList);
+  tableHelper.printHomeButton(preschoolTableDiv);
+};
+
+function removeState(id) {
+  let element = document.getElementById(id);
+  element.parentNode.removeChild(element);
+}
 /**
  * Sayfa ilk açıldığında indirim ve anaokulu tablolarının dinamik olarak preschoolList ve discountList üzerinden oluşmalarını ve
  * İndirim hesaplama sayfasındaki anaokulu - kurum dropdown'ların dinamik olarak dolmasını sağlayan metodlar
  */
-let myParent = document.getElementById("selectField");
-formHelper.createPreschoolSelectList(myParent);
-formHelper.createOrganizationNameSelectList(
-  document.getElementById("selectOrganizationField"),
-  "userInput"
-);
-tableHelper.createPreschoolTable(preschoolList);
-tableHelper.createDiscountTable(discountList);
-
-if (x === 1){
-  tableHelper.createDiscountTable(discountList);
-}
-else if( x === 2){
-  tableHelper.createPreschoolTable(preschoolList);
-}
 
 /**
  * İndirim Hesapla butonuna basıldığında kişi bilgilerine göre User nesnesi oluşturan ve inidrim hesaplama metodunu çağırır.
  */
-const discountCalculateButton: HTMLElement = document.getElementById(
-  `calculate`
-  );
-  discountCalculateButton.onclick = function() {
-    userHelper.createUserFromUserInput();
-};
 
 /**
  *@TODO isimlendirmeler düzeltilecek
  */
-const discountAppendButton: HTMLElement = document.getElementById(
-  `append-discount`
-  );
-  discountAppendButton.onclick = function() {
-  if (!document.getElementById("discountAppendForm"))
-    formHelper.createAppendDiscountForm();
-  const discountAppend: HTMLElement = document.getElementById(`appendDiscount`);
-  discountAppend.onclick = function() {
-    discountHelper.createDiscountFromInput();
-    tableHelper.updateDiscountTable(database.discounts);
-  };
-};
-
-
-
-
-
-
-
