@@ -1,6 +1,8 @@
 import { DiscountType, OrganizationName, UserType } from "./enum/types";
 import { database } from "./database";
 import { IDiscount } from "./interface/IDiscount";
+import { discountHelper } from "./discountHelper";
+import { tableHelper } from "./tableHelper";
 
 /**
  * Sistemde giriş yapılacak olan formların oluşturulduğu sınıftır.
@@ -288,15 +290,18 @@ export class formHelper {
       parentDiv.appendChild(div2);
     }
   }
-
+  /**
+   *
+   */
   static editDiscountForm(discount: IDiscount) {
-    debugger;
     let discountAppendForm = document.getElementById("discountAppendForm");
     if (discountAppendForm != null) {
       discountAppendForm.parentNode.removeChild(discountAppendForm);
       document
         .getElementById("discountAppendHeader")
-        .parentNode.removeChild(document.getElementById("discountAppendHeader"));
+        .parentNode.removeChild(
+          document.getElementById("discountAppendHeader")
+        );
     }
 
     if (document.getElementById("discountEditForm") != null) {
@@ -404,12 +409,28 @@ export class formHelper {
     discountEditParent.appendChild(discountEditHeader);
     discountEditForm.innerHTML += `<div class="field ">
 									<ul class="actions stacked ">
-										<li><a class="button fit" id="EditDiscount">İndirim
-												Ekle</a></li>
+										<li><a class="button fit" id="editDiscount">İndirimi
+											Düzenle</a></li>
 									</ul>
 								</div>`;
 
     discountEditParent.appendChild(discountEditForm);
+
+    const discountEditButton: HTMLElement = document.getElementById(
+      "editDiscount"
+    );
+
+    discountEditButton.onclick = function() {
+      discountHelper.editDiscountFromInput(discount);
+      tableHelper.updateDiscountTable();
+      document
+        .getElementById("discountEditForm")
+        .parentNode.removeChild(document.getElementById("discountEditForm"));
+      document
+        .getElementById("discountEditHeader")
+        .parentNode.removeChild(document.getElementById("discountEditHeader"));
+      alert("İndirim güncellendi !");
+    };
   }
 
   static createUserInputForm() {

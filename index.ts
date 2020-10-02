@@ -1,5 +1,5 @@
 import "./css/style.css";
-import "./css/fontawesome-all.min.css";
+import "./vendor/fontawesome-all.min.css";
 import { database } from "./database";
 import { formHelper } from "./formHelper";
 import { tableHelper } from "./tableHelper";
@@ -35,7 +35,7 @@ const discountCalculateFormButton: HTMLElement = document.getElementById(
 discountCalculateFormButton.onclick = function() {
   let discountManagementState = document.getElementById("discountTableId");
   if (discountManagementState != null) removeState("discountTableId");
-  
+
   discountCalculateDiv.style.visibility = "visible";
   discountTableDiv.style.visibility = "hidden";
   preschoolTableDiv.style.visibility = "hidden";
@@ -90,6 +90,8 @@ discountManagementButton.onclick = function() {
       tableHelper.updateDiscountTable();
     };
   };
+  
+
   state = 2;
 };
 
@@ -108,10 +110,7 @@ reschoolManagementButton.onclick = function() {
   tableHelper.printHomeButton(preschoolTableDiv);
 };
 
- function removeState(id) {
+function removeState(id) {
   let element = document.getElementById(id);
   element.parentNode.removeChild(element);
 }
-
-
-
