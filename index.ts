@@ -5,8 +5,13 @@ import { formHelper } from "./formHelper";
 import { tableHelper } from "./tableHelper";
 import { userHelper } from "./userHelper";
 import { discountHelper } from "./discountHelper";
-
+/**
+ * State, programın içerisde hangi bölümde işlem yaptığımız tutar.
+ */
 let state: number = 0;
+/**
+ * Sistem ilk açıldığında preschoolList ve discountList sistemde tanımlı olan anaokullarını ve indirimleri database'de bulunanan listelere aktarır.
+ */
 let preschoolList = database.createPreschoolList();
 let discountList = database.createDiscountList();
 
@@ -19,6 +24,11 @@ discountTableDiv.style.visibility = "hidden";
 const preschoolTableDiv: HTMLElement = document.getElementById("fourth");
 preschoolTableDiv.style.visibility = "hidden";
 
+/**
+ * İndirim Hesaplama butonuna tıklandığı zaman;
+ * İndirim ve anaokulu listeleri daha önceden oluşturulmuş ise onları siler,
+ * İndirim Hesaplamak için gerekli formu çağırır.
+ */
 const discountCalculateFormButton: HTMLElement = document.getElementById(
   "discountButton"
 );
@@ -50,8 +60,11 @@ discountCalculateFormButton.onclick = function() {
   state = 1;
 };
 
-//discountTableId
-
+/**
+ * İndirim Yönetim Sistemi butonuna basıldığı zaman;
+ * İndirim hesaplama formu ve anaokulu listesi oluşturulmuş ise siler,
+ * İndirim yönetim tablosunu oluşturan metodu çağırır.
+ */
 const discountManagementButton: HTMLElement = document.getElementById(
   "discountManagementButton"
 );
@@ -61,7 +74,7 @@ discountManagementButton.onclick = function() {
   discountCalculateDiv.style.visibility = "hidden";
   discountTableDiv.style.visibility = "visible";
   preschoolTableDiv.style.visibility = "hidden";
-  tableHelper.createDiscountTable(discountList);
+  tableHelper.createDiscountTable();
 
   const discountAppendButton: HTMLElement = document.getElementById(
     `append-discount`
@@ -74,7 +87,7 @@ discountManagementButton.onclick = function() {
     );
     discountAppend.onclick = function() {
       discountHelper.createDiscountFromInput();
-      tableHelper.updateDiscountTable(database.discounts);
+      tableHelper.updateDiscountTable();
     };
   };
   state = 2;
@@ -95,19 +108,10 @@ reschoolManagementButton.onclick = function() {
   tableHelper.printHomeButton(preschoolTableDiv);
 };
 
-function removeState(id) {
+ function removeState(id) {
   let element = document.getElementById(id);
   element.parentNode.removeChild(element);
 }
-/**
- * Sayfa ilk açıldığında indirim ve anaokulu tablolarının dinamik olarak preschoolList ve discountList üzerinden oluşmalarını ve
- * İndirim hesaplama sayfasındaki anaokulu - kurum dropdown'ların dinamik olarak dolmasını sağlayan metodlar
- */
 
-/**
- * İndirim Hesapla butonuna basıldığında kişi bilgilerine göre User nesnesi oluşturan ve inidrim hesaplama metodunu çağırır.
- */
 
-/**
- *@TODO isimlendirmeler düzeltilecek
- */
+

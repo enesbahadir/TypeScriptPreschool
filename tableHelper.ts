@@ -1,6 +1,5 @@
 import { database } from "./database";
 import { formHelper } from "./formHelper";
-import { IDiscount } from "./interface/IDiscount";
 /**
  * Sistemde gözükecek olan tabloların oluşturulduğu sınıftır.
  */
@@ -95,10 +94,15 @@ export class tableHelper {
       cellButtonDelete.innerHTML = "Sil";
 
       cellButtonDelete.addEventListener("click", function() {
-        database.discounts = database.discounts.filter(
+        let confirmDelete = confirm("İndirim silinsin mi? Bu işlem geri alınamaz!");
+        if(confirmDelete)
+        {
+          database.discounts = database.discounts.filter(
           discount => discount.DiscountName != discountList[i].DiscountName
         );
         tableHelper.updateDiscountTable();
+        }
+        
         return;
       });
       cell.appendChild(cellButtonDelete);
