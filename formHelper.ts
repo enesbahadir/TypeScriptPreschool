@@ -134,8 +134,18 @@ export class formHelper {
       <div class="field"> ... html yapısını kullanır.
  */
   static createAppendDiscountForm() {
+    if (document.getElementById("discountEditForm") != null) {
+      document
+        .getElementById("discountEditForm")
+        .parentNode.removeChild(document.getElementById("discountEditForm"));
+      document
+        .getElementById("discountEditHeader")
+        .parentNode.removeChild(document.getElementById("discountEditHeader"));
+    }
+
     let discountAppendParent = document.getElementById("discountAppendFormDiv"); // formun oluşturulacağı div
     let discountAppendHeader = document.createElement("header");
+    discountAppendHeader.id = "discountAppendHeader";
     discountAppendHeader.innerHTML =
       "<header> <h3> İndirim Ekleme Tablosu </h3> </header>";
     let discountAppendForm = document.createElement("form");
@@ -280,8 +290,27 @@ export class formHelper {
   }
 
   static editDiscountForm(discount: IDiscount) {
+    debugger;
+    let discountAppendForm = document.getElementById("discountAppendForm");
+    if (discountAppendForm != null) {
+      discountAppendForm.parentNode.removeChild(discountAppendForm);
+      document
+        .getElementById("discountAppendHeader")
+        .parentNode.removeChild(document.getElementById("discountAppendHeader"));
+    }
+
+    if (document.getElementById("discountEditForm") != null) {
+      document
+        .getElementById("discountEditForm")
+        .parentNode.removeChild(document.getElementById("discountEditForm"));
+      document
+        .getElementById("discountEditHeader")
+        .parentNode.removeChild(document.getElementById("discountEditHeader"));
+    }
+
     let discountEditParent = document.getElementById("discountEditFormDiv");
     let discountEditHeader = document.createElement("header");
+    discountEditHeader.id = "discountEditHeader";
     discountEditHeader.innerHTML =
       "<header> <h3> İndirim Düzenleme Tablosu </h3> </header>";
     let discountEditForm = document.createElement("form");

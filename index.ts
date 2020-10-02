@@ -87,7 +87,7 @@ reschoolManagementButton.onclick = function() {
   state = 3;
   let discountManagementState = document.getElementById("discountTableId");
   if (discountManagementState != null) removeState("discountTableId");
-  
+
   discountCalculateDiv.style.visibility = "hidden";
   discountTableDiv.style.visibility = "hidden";
   preschoolTableDiv.style.visibility = "visible";
