@@ -476,7 +476,7 @@ export class formHelper {
   }
 
   static createPreschoolAppendForm() {
-    //preschool
+    
     let preschoolAppendDiv = document.getElementById("preschoolAppendDiv");
     let preschoolAppendHeader = document.createElement("header");
     preschoolAppendHeader.id = "preschoolAppendHeader";
@@ -520,12 +520,13 @@ export class formHelper {
     preschoolDateInputFieldDiv.className = "field";
 
     let preschoolAppendDateLabel = <HTMLElement>document.createElement("p");
-    preschoolAppendDateLabel.innerText = "Anaokulu Ücreti";
+    preschoolAppendDateLabel.innerText = "Anaokulu Erken Kayıt Bitiş Tarihi";
     let preschoolAppendDateInput = <HTMLInputElement>(
       document.createElement("input")
     );
     preschoolAppendDateInput.type = "text";
     preschoolAppendDateInput.id = "preschoolAppendDate";
+    preschoolAppendDateInput.placeholder = "AA/GG/YYYY";
 
     preschoolDateInputFieldDiv.appendChild(preschoolAppendDateLabel);
     preschoolDateInputFieldDiv.appendChild(preschoolAppendDateInput);
@@ -541,7 +542,10 @@ export class formHelper {
 								</div>`;
     preschoolAppendDiv.appendChild(preschoolAppendForm);
 
-
+    let preschoolAppendButton = document.getElementById("appendPreschool");
+    preschoolAppendButton.onclick = function() {
+      
+    };
   }
 
   static createPreschoolEditForm(preschool: IPreschool) {}

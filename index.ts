@@ -109,6 +109,12 @@ reschoolManagementButton.onclick = function() {
   discountTableDiv.style.display = "none";
   preschoolTableDiv.style.display = "inline";
   tableHelper.createPreschoolTable(preschoolList);
+
+  const preschoolAppendButton = document.getElementById("appendPreschoolForm");
+  preschoolAppendButton.onclick = function () {
+    if (!document.getElementById("preschoolAppendForm"))
+    formHelper.createPreschoolAppendForm();
+  };
 };
 
 function removeState(id) {
