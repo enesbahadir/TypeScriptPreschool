@@ -177,14 +177,15 @@ export class tableHelper {
       cell = document.createElement("td");
       let cellButtonDelete = document.createElement("button");
       cellButtonDelete.innerHTML = "Sil";
-    
+
       cellButtonDelete.addEventListener("click", function() {
         let confirmDelete = confirm(
           "Anaokulu silinsin mi? Bu işlem geri alınamaz!"
         );
         if (confirmDelete) {
           database.preschools = database.preschools.filter(
-            preschool => preschool.PreschoolName != preschoolList[i].PreschoolName
+            preschool =>
+              preschool.PreschoolName != preschoolList[i].PreschoolName
           );
           tableHelper.updatePreschoolTable();
         }
@@ -194,6 +195,15 @@ export class tableHelper {
       cell.appendChild(cellButtonDelete);
       row.appendChild(cell);
 
+      cell = document.createElement("td");
+      let cellButtonEdit = document.createElement("button");
+      cellButtonEdit.innerHTML = "Düzenle";
+      cellButtonEdit.addEventListener("click", function() {
+        formHelper.createPreschoolEditForm(preschoolList[i]);
+        return;
+      });
+      cell.appendChild(cellButtonEdit);
+      row.appendChild(cell);
       tblBody.appendChild(row);
     }
     table.appendChild(tblBody);

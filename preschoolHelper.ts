@@ -17,7 +17,8 @@ export class preschoolHelper {
 
   static editPreschoolFromInput(preschool : IPreschool)
   {
-    let preschoolName = <HTMLInputElement> document.getElementById("preschoolAppendName");
+    debugger;
+    let preschoolName = <HTMLInputElement> document.getElementById("preschoolEditName");
     let preschoolPrice = <HTMLInputElement> document.getElementById("preschoolEditPrice");
     let preschoolRegistrationDate = <HTMLInputElement> document.getElementById("preschoolEditDate");
 

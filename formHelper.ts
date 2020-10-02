@@ -559,7 +559,6 @@ export class formHelper {
   }
 
   static createPreschoolEditForm(preschool: IPreschool) {
-
     let preschoolEditDiv = document.getElementById("preschoolEditDiv");
     let preschoolEditHeader = document.createElement("header");
     preschoolEditHeader.id = "preschoolEditHeader";
@@ -620,9 +619,22 @@ export class formHelper {
 
     preschoolEditForm.appendChild(preschoolEditFieldsDiv);
     preschoolEditDiv.appendChild(preschoolEditHeader);
-   
+    preschoolEditForm.innerHTML += `<div class="field ">
+									<ul class="actions stacked ">
+										<li><a class="button fit" id="editPreschool">Anaokulunu
+											Düzenle</a></li>
+									</ul>
+								</div>`;
     preschoolEditDiv.appendChild(preschoolEditForm);
 
-    
+    const preschoolEditButton: HTMLElement = document.getElementById(
+      "editPreschool"
+    );
+
+    preschoolEditButton.onclick = function() {
+      preschoolHelper.editPreschoolFromInput(preschool);
+      tableHelper.updatePreschoolTable();
+
+    };
   }
 }
