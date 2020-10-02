@@ -474,4 +474,75 @@ export class formHelper {
 								</div>
 					</form>`;
   }
+
+  static createPreschoolAppendForm() {
+    //preschool
+    let preschoolAppendDiv = document.getElementById("preschoolAppendDiv");
+    let preschoolAppendHeader = document.createElement("header");
+    preschoolAppendHeader.id = "preschoolAppendHeader";
+    preschoolAppendHeader.innerHTML =
+      "<header> <h3> Anaokulu Ekleme Tablosu </h3> </header>";
+    let preschoolAppendForm = document.createElement("form");
+    preschoolAppendForm.id = "preschoolAppendForm";
+    let preschoolAppendFieldsDiv = document.createElement("div");
+    preschoolAppendFieldsDiv.className = "fields";
+    let preschoolNameInputFieldDiv = document.createElement("div");
+    preschoolNameInputFieldDiv.className = "field";
+
+    let preschoolAppendNameLabel = <HTMLElement>document.createElement("p");
+    preschoolAppendNameLabel.innerText = "Anaokulu İsmi";
+    let preschoolAppendNameInput = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    preschoolAppendNameInput.type = "text";
+    preschoolAppendNameInput.id = "preschoolAppendName";
+
+    preschoolNameInputFieldDiv.appendChild(preschoolAppendNameLabel);
+    preschoolNameInputFieldDiv.appendChild(preschoolAppendNameInput);
+    preschoolAppendFieldsDiv.appendChild(preschoolNameInputFieldDiv);
+
+    let preschoolPriceInputFieldDiv = document.createElement("div");
+    preschoolPriceInputFieldDiv.className = "field";
+
+    let preschoolAppendPriceLabel = <HTMLElement>document.createElement("p");
+    preschoolAppendPriceLabel.innerText = "Anaokulu Ücreti";
+    let preschoolAppendPriceInput = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    preschoolAppendPriceInput.type = "text";
+    preschoolAppendPriceInput.id = "preschoolAppendPrice";
+
+    preschoolPriceInputFieldDiv.appendChild(preschoolAppendPriceLabel);
+    preschoolPriceInputFieldDiv.appendChild(preschoolAppendPriceInput);
+    preschoolAppendFieldsDiv.appendChild(preschoolPriceInputFieldDiv);
+
+    let preschoolDateInputFieldDiv = document.createElement("div");
+    preschoolDateInputFieldDiv.className = "field";
+
+    let preschoolAppendDateLabel = <HTMLElement>document.createElement("p");
+    preschoolAppendDateLabel.innerText = "Anaokulu Ücreti";
+    let preschoolAppendDateInput = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    preschoolAppendDateInput.type = "text";
+    preschoolAppendDateInput.id = "preschoolAppendDate";
+
+    preschoolDateInputFieldDiv.appendChild(preschoolAppendDateLabel);
+    preschoolDateInputFieldDiv.appendChild(preschoolAppendDateInput);
+    preschoolAppendFieldsDiv.appendChild(preschoolDateInputFieldDiv);
+
+    preschoolAppendForm.appendChild(preschoolAppendFieldsDiv);
+    preschoolAppendDiv.appendChild(preschoolAppendHeader);
+    preschoolAppendForm.innerHTML += `<div class="field ">
+									<ul class="actions stacked ">
+										<li><a class="button fit" id="appendPreschool">Anaokulu
+												Ekle</a></li>
+									</ul>
+								</div>`;
+    preschoolAppendDiv.appendChild(preschoolAppendForm);
+
+
+  }
+
+  static createPreschoolEditForm(preschool: IPreschool) {}
 }

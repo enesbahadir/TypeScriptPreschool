@@ -16,13 +16,13 @@ let preschoolList = database.createPreschoolList();
 let discountList = database.createDiscountList();
 
 const discountCalculateDiv: HTMLElement = document.getElementById("second");
-discountCalculateDiv.style.visibility = "hidden";
+discountCalculateDiv.style.display = "none";
 
 const discountTableDiv: HTMLElement = document.getElementById("third");
-discountTableDiv.style.visibility = "hidden";
+discountTableDiv.style.display = "none";
 
 const preschoolTableDiv: HTMLElement = document.getElementById("fourth");
-preschoolTableDiv.style.visibility = "hidden";
+preschoolTableDiv.style.display = "none";
 
 /**
  * İndirim Hesaplama butonuna tıklandığı zaman;
@@ -36,9 +36,9 @@ discountCalculateFormButton.onclick = function() {
   let discountManagementState = document.getElementById("discountTableId");
   if (discountManagementState != null) removeState("discountTableId");
 
-  discountCalculateDiv.style.visibility = "visible";
-  discountTableDiv.style.visibility = "hidden";
-  preschoolTableDiv.style.visibility = "hidden";
+  discountCalculateDiv.style.display = "inline";
+  discountTableDiv.style.display = "none";
+  preschoolTableDiv.style.display = "none";
   if (state != 1) {
     formHelper.createUserInputForm();
     tableHelper.printHomeButton(
@@ -71,9 +71,9 @@ const discountManagementButton: HTMLElement = document.getElementById(
 discountManagementButton.onclick = function() {
   let discountCalculateState = document.getElementById("userInputForm");
   if (discountCalculateState != null) removeState("userInputForm");
-  discountCalculateDiv.style.visibility = "hidden";
-  discountTableDiv.style.visibility = "visible";
-  preschoolTableDiv.style.visibility = "hidden";
+  discountCalculateDiv.style.display = "none";
+  discountTableDiv.style.display = "inline";
+  preschoolTableDiv.style.display = "none";
   tableHelper.createDiscountTable();
 
   const discountAppendButton: HTMLElement = document.getElementById(
@@ -105,17 +105,10 @@ reschoolManagementButton.onclick = function() {
   let discountManagementState = document.getElementById("discountTableId");
   if (discountManagementState != null) removeState("discountTableId");
 
-  discountCalculateDiv.style.visibility = "hidden";
-  discountTableDiv.style.visibility = "hidden";
-  preschoolTableDiv.style.visibility = "visible";
+  discountCalculateDiv.style.display = "none";
+  discountTableDiv.style.display = "none";
+  preschoolTableDiv.style.display = "inline";
   tableHelper.createPreschoolTable(preschoolList);
-  if (!document.getElementById("preschoolHomeUl")) {
-    let ul = document.createElement("ul");
-    ul.className = "actions fit";
-    ul.id = "preschoolHomeUl";
-    preschoolTableDiv.appendChild(ul);
-    tableHelper.printHomeButton(ul);
-  }
 };
 
 function removeState(id) {
