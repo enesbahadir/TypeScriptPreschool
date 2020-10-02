@@ -46,6 +46,8 @@ export class formHelper {
           }
         }
       }
+
+      
     }
   }
 
@@ -278,7 +280,6 @@ export class formHelper {
 
     let discountEditNameLabel = <HTMLElement>document.createElement("p");
     discountEditNameLabel.innerText = "İndirim İsmi";
-    debugger;
     let discountEditNameInput = <HTMLInputElement>(
       document.createElement("input")
     );

@@ -6,6 +6,8 @@ import { tableHelper } from "./tableHelper";
 import { userHelper } from "./userHelper";
 import { discountHelper } from "./discountHelper";
 
+let x : number =1;
+
 let preschoolList = database.createPreschoolList();
 let discountList = database.createDiscountList();
 /**
@@ -18,8 +20,15 @@ formHelper.createOrganizationNameSelectList(
   document.getElementById("selectOrganizationField"),
   "userInput"
 );
-tableHelper.createDiscountTable(discountList);
 tableHelper.createPreschoolTable(preschoolList);
+tableHelper.createDiscountTable(discountList);
+
+if (x === 1){
+  tableHelper.createDiscountTable(discountList);
+}
+else if( x === 2){
+  tableHelper.createPreschoolTable(preschoolList);
+}
 
 /**
  * İndirim Hesapla butonuna basıldığında kişi bilgilerine göre User nesnesi oluşturan ve inidrim hesaplama metodunu çağırır.
