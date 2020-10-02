@@ -129,6 +129,7 @@ export class formHelper {
     parent.appendChild(div2);
     parent.appendChild(div3);
   }
+
   /**
  * Yeni indirim ekleme için gerekli bilgilerin istendiği formunu oluşturur, 
  * <form>
@@ -237,58 +238,6 @@ export class formHelper {
 								</div>`;
 
     discountAppendParent.appendChild(discountAppendForm);
-  }
-  /**
-   * Yeni indirim ekleme tablosunda indirimin ekleneceği anaokullarını ve miktarlarını checkbox ve text input olarak dinanik olarak doldurur.
-   */
-  static createPreschoolCheckboxAndDiscountInput(parentDiv, discount?) {
-    for (let i = 0; i < database.preschools.length; i++) {
-      let div1 = document.createElement("div");
-      div1.className = "field half";
-
-      let option = <HTMLInputElement>document.createElement("input");
-      option.type = "checkbox";
-      option.id = "discountAppendPreschoolCheckbox-" + i.toString();
-      option.name = database.preschools[i].PreschoolName;
-
-      let label = document.createElement("label");
-      label.setAttribute("for", option.id);
-      let labelText = document.createTextNode(
-        database.preschools[i].PreschoolName
-      );
-      label.appendChild(labelText);
-      div1.appendChild(option);
-      div1.appendChild(label);
-
-      let div2 = document.createElement("div");
-      div2.className = "field half";
-      let discountAppendPreschoolInput = <HTMLInputElement>(
-        document.createElement("input")
-      );
-      discountAppendPreschoolInput.type = "text";
-      discountAppendPreschoolInput.id =
-        "discountAppendPreschoolText-" + i.toString();
-
-      if (discount) {
-        if (
-          discount.PreschoolNamesAndTheirDiscounts.includes(
-            database.preschools[i].PreschoolName
-          )
-        ) {
-          option.defaultChecked = true;
-          let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
-            database.preschools[i].PreschoolName
-          );
-          discountAppendPreschoolInput.defaultValue =
-            discount.PreschoolNamesAndTheirDiscounts[index + 1];
-        }
-      }
-
-      div2.appendChild(discountAppendPreschoolInput);
-
-      parentDiv.appendChild(div1);
-      parentDiv.appendChild(div2);
-    }
   }
   /**
    *
@@ -431,6 +380,58 @@ export class formHelper {
         .parentNode.removeChild(document.getElementById("discountEditHeader"));
       alert("İndirim güncellendi !");
     };
+  }
+  /**
+   * Yeni indirim ekleme tablosunda indirimin ekleneceği anaokullarını ve miktarlarını checkbox ve text input olarak dinanik olarak doldurur.
+   */
+  static createPreschoolCheckboxAndDiscountInput(parentDiv, discount?) {
+    for (let i = 0; i < database.preschools.length; i++) {
+      let div1 = document.createElement("div");
+      div1.className = "field half";
+
+      let option = <HTMLInputElement>document.createElement("input");
+      option.type = "checkbox";
+      option.id = "discountAppendPreschoolCheckbox-" + i.toString();
+      option.name = database.preschools[i].PreschoolName;
+
+      let label = document.createElement("label");
+      label.setAttribute("for", option.id);
+      let labelText = document.createTextNode(
+        database.preschools[i].PreschoolName
+      );
+      label.appendChild(labelText);
+      div1.appendChild(option);
+      div1.appendChild(label);
+
+      let div2 = document.createElement("div");
+      div2.className = "field half";
+      let discountAppendPreschoolInput = <HTMLInputElement>(
+        document.createElement("input")
+      );
+      discountAppendPreschoolInput.type = "text";
+      discountAppendPreschoolInput.id =
+        "discountAppendPreschoolText-" + i.toString();
+
+      if (discount) {
+        if (
+          discount.PreschoolNamesAndTheirDiscounts.includes(
+            database.preschools[i].PreschoolName
+          )
+        ) {
+          option.defaultChecked = true;
+          let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
+            database.preschools[i].PreschoolName
+          );
+          discountAppendPreschoolInput.defaultValue =
+            discount.PreschoolNamesAndTheirDiscounts[index + 1];
+        }
+      }
+
+      div2.appendChild(discountAppendPreschoolInput);
+
+      parentDiv.appendChild(div1);
+      parentDiv.appendChild(div2);
+    }
   }
 
   static createUserInputForm() {

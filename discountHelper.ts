@@ -52,8 +52,8 @@ export class discountHelper {
       "discountEdit"
     );
 
-    let index = database.discounts.indexOf(discount);
-    database.discounts[index] = {
+    let indexOfDiscount = database.discounts.indexOf(discount);
+    database.discounts[indexOfDiscount] = {
       DiscountName: discountName.value,
       DiscountType: discountType,
       UserTypes: userTypes,
@@ -111,6 +111,7 @@ export class discountHelper {
   }
 
   static getOrganizationName(id) {
+    
     let organizationName: OrganizationName;
     let a = <HTMLInputElement>(
       document.getElementById("organizationSelect-" + id)

@@ -94,15 +94,16 @@ export class tableHelper {
       cellButtonDelete.innerHTML = "Sil";
 
       cellButtonDelete.addEventListener("click", function() {
-        let confirmDelete = confirm("İndirim silinsin mi? Bu işlem geri alınamaz!");
-        if(confirmDelete)
-        {
-          database.discounts = database.discounts.filter(
-          discount => discount.DiscountName != discountList[i].DiscountName
+        let confirmDelete = confirm(
+          "İndirim silinsin mi? Bu işlem geri alınamaz!"
         );
-        tableHelper.updateDiscountTable();
+        if (confirmDelete) {
+          database.discounts = database.discounts.filter(
+            discount => discount.DiscountName != discountList[i].DiscountName
+          );
+          tableHelper.updateDiscountTable();
         }
-        
+
         return;
       });
       cell.appendChild(cellButtonDelete);
@@ -252,15 +253,12 @@ export class tableHelper {
   }
 
   static printHomeButton(parentDiv) {
-    const ul = document.createElement("ul");
-    ul.className = "actions stacked";
     const li = document.createElement("li");
     const button = document.createElement("a");
     button.href = "#first";
-    button.className = "button large wide smooth-scroll-middle";
+    button.className = "button fit";
     button.innerText = "Anasayfaya Dön";
     li.appendChild(button);
-    ul.appendChild(li);
-    parentDiv.appendChild(ul);
+    parentDiv.appendChild(li);
   }
 }

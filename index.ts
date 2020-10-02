@@ -90,11 +90,13 @@ discountManagementButton.onclick = function() {
       tableHelper.updateDiscountTable();
     };
   };
-  
 
   state = 2;
 };
 
+/**
+ *
+ */
 const reschoolManagementButton: HTMLElement = document.getElementById(
   "preschoolManagementButton"
 );
@@ -107,7 +109,13 @@ reschoolManagementButton.onclick = function() {
   discountTableDiv.style.visibility = "hidden";
   preschoolTableDiv.style.visibility = "visible";
   tableHelper.createPreschoolTable(preschoolList);
-  tableHelper.printHomeButton(preschoolTableDiv);
+  if (!document.getElementById("preschoolHomeUl")) {
+    let ul = document.createElement("ul");
+    ul.className = "actions fit";
+    ul.id = "preschoolHomeUl";
+    preschoolTableDiv.appendChild(ul);
+    tableHelper.printHomeButton(ul);
+  }
 };
 
 function removeState(id) {
