@@ -1,5 +1,6 @@
 import { DiscountType, OrganizationName, UserType } from "./enum/types";
 import { database } from "./database";
+import { IDiscount } from "./interface/IDiscount";
 
 /**
  * Sistemde giriş yapılacak olan formların oluşturulduğu sınıftır.
@@ -27,18 +28,23 @@ export class formHelper {
   /**
    * İndirim hesaplama bölümünde kullanıcının, indirimin hesaplayanacağı kurumun dinamik olarak enum sınıfları içerisindeki OrganizationName'den dropdown olarak dolduran metod.
    */
-  static createOrganizationNameSelectList(myOrganizationParent, id) {
+  static createOrganizationNameSelectList(myOrganizationParent, id, discount?) {
     let selectOrganizationList = document.createElement("select");
     selectOrganizationList.id = "organizationSelect-" + id;
     selectOrganizationList.innerHTML = `<option value="none" selected disabled hidden> 
           Lütfen Çalışılan Kurumu Seçiniz`;
     myOrganizationParent.appendChild(selectOrganizationList);
-
+    debugger;
     for (let i in OrganizationName) {
       if (isNaN(Number(i))) {
         let option = document.createElement("option");
         option.text = i;
         selectOrganizationList.appendChild(option);
+        if (discount) {
+          if (discount.OrganizationName == i) {
+            option.defaultSelected = true;
+          }
+        }
       }
     }
   }
@@ -46,7 +52,7 @@ export class formHelper {
   /**
    * Kişi tiplerini checkbox olarak tek satırda 3 hücre olacak şekilde pararmetre olarak alınan parent nesnesine child olarak ekler.
    */
-  static createUserTypeCheckBox(parent) {
+  static createUserTypeCheckBox(parent, discount?) {
     let div = document.createElement("div");
     div.className = "field third";
 
@@ -92,6 +98,15 @@ export class formHelper {
     div3.appendChild(option3);
     div3.appendChild(label3);
 
+    if (discount) {
+      if (discount.UserTypes.includes(UserType.PERSONEL))
+        option.defaultChecked = true;
+      if (discount.UserTypes.includes(UserType.IHVAN))
+        option2.defaultChecked = true;
+      if (discount.UserTypes.includes(UserType.STANDART))
+        option3.defaultChecked = true;
+    }
+
     parent.appendChild(div);
     parent.appendChild(div2);
     parent.appendChild(div3);
@@ -103,7 +118,6 @@ export class formHelper {
       <div class="field"> ... html yapısını kullanır.
  */
   static createAppendDiscountForm() {
-
     let discountAppendParent = document.getElementById("discountAppendFormDiv"); // formun oluşturulacağı div
     let discountAppendHeader = document.createElement("header");
     discountAppendHeader.innerHTML =
@@ -199,7 +213,7 @@ export class formHelper {
   /**
    * Yeni indirim ekleme tablosunda indirimin ekleneceği anaokullarını ve miktarlarını checkbox ve text input olarak dinanik olarak doldurur.
    */
-  static createPreschoolCheckboxAndDiscountInput(parentDiv) {
+  static createPreschoolCheckboxAndDiscountInput(parentDiv, discount?) {
     for (let i = 0; i < database.preschools.length; i++) {
       let div1 = document.createElement("div");
       div1.className = "field half";
@@ -227,10 +241,130 @@ export class formHelper {
       discountAppendPreschoolInput.id =
         "discountAppendPreschoolText-" + i.toString();
 
+      if (discount) {
+        if (
+          discount.PreschoolNamesAndTheirDiscounts.includes(
+            database.preschools[i].PreschoolName
+          )
+        ) {
+          option.defaultChecked = true;
+          let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
+            database.preschools[i].PreschoolName
+          );
+          discountAppendPreschoolInput.defaultValue =
+            discount.PreschoolNamesAndTheirDiscounts[index + 1];
+        }
+      }
+
       div2.appendChild(discountAppendPreschoolInput);
 
       parentDiv.appendChild(div1);
       parentDiv.appendChild(div2);
     }
+  }
+
+  static editDiscountForm(discount: IDiscount) {
+    let discountEditParent = document.getElementById("discountEditFormDiv");
+    let discountEditHeader = document.createElement("header");
+    discountEditHeader.innerHTML =
+      "<header> <h3> İndirim Düzenleme Tablosu </h3> </header>";
+    let discountEditForm = document.createElement("form");
+    discountEditForm.id = "discountEditForm";
+    let discountEditFieldsDiv = document.createElement("div"); // her bir input satırının toplanacağı div, fields
+    discountEditFieldsDiv.className = "fields";
+
+    let discountNameInputFieldDiv = document.createElement("div"); // indirim isminin istendiği div, field
+    discountNameInputFieldDiv.className = "field";
+
+    let discountEditNameLabel = <HTMLElement>document.createElement("p");
+    discountEditNameLabel.innerText = "İndirim İsmi";
+    debugger;
+    let discountEditNameInput = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    discountEditNameInput.type = "text";
+    discountEditNameInput.id = "discountEdit-discountName";
+    discountEditNameInput.defaultValue = discount.DiscountName;
+
+    discountNameInputFieldDiv.appendChild(discountEditNameLabel);
+    discountNameInputFieldDiv.appendChild(discountEditNameInput);
+    discountEditFieldsDiv.appendChild(discountNameInputFieldDiv);
+
+    formHelper.createPreschoolCheckboxAndDiscountInput(
+      discountEditFieldsDiv,
+      discount
+    );
+
+    let discountTypePercentFieldDiv = document.createElement("div");
+    discountTypePercentFieldDiv.className = "field half";
+    let discountTypePercentRadio = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    discountTypePercentRadio.type = "radio";
+    discountTypePercentRadio.name = "priority";
+    discountTypePercentRadio.value = "PERCENTAGE";
+    discountTypePercentRadio.id = "discount-Edit-percentage-radio";
+    if (discount.DiscountType == DiscountType.PERCENTAGE)
+      discountTypePercentRadio.defaultChecked = true;
+
+    let discountTypePercentRadioLabel = document.createElement("label");
+    discountTypePercentRadioLabel.setAttribute(
+      "for",
+      "discount-Edit-percentage-radio"
+    );
+    discountTypePercentRadioLabel.innerText = "Yüzde";
+
+    let discountTypeAmountFieldDiv = document.createElement("div");
+    discountTypeAmountFieldDiv.className = "field half";
+
+    let discountTypeAmountRadio = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    discountTypeAmountRadio.type = "radio";
+    discountTypeAmountRadio.name = "priority";
+    discountTypeAmountRadio.value = "AMOUNT";
+    discountTypeAmountRadio.id = "discount-Edit-amount-radio";
+
+    let discountTypeAmountRadioLabel = document.createElement("label");
+    discountTypeAmountRadioLabel.setAttribute(
+      "for",
+      "discount-Edit-amount-radio"
+    );
+    discountTypeAmountRadioLabel.innerText = "Miktar";
+
+    if (discount.DiscountType == DiscountType.AMOUNT)
+      discountTypeAmountRadio.defaultChecked = true;
+
+    discountTypePercentFieldDiv.appendChild(discountTypePercentRadio);
+    discountTypePercentFieldDiv.appendChild(discountTypePercentRadioLabel);
+    discountTypeAmountFieldDiv.appendChild(discountTypeAmountRadio);
+    discountTypeAmountFieldDiv.appendChild(discountTypeAmountRadioLabel);
+
+    discountEditFieldsDiv.appendChild(discountTypePercentFieldDiv);
+    discountEditFieldsDiv.appendChild(discountTypeAmountFieldDiv);
+
+    formHelper.createUserTypeCheckBox(discountEditFieldsDiv, discount);
+
+    let discountOrganizationFieldDiv = document.createElement("div");
+    discountOrganizationFieldDiv.className = "field";
+    discountOrganizationFieldDiv.id = "discountOrganizationFieldDiv";
+
+    formHelper.createOrganizationNameSelectList(
+      discountOrganizationFieldDiv,
+      "discountEdit", 
+      discount
+    );
+    discountEditFieldsDiv.appendChild(discountOrganizationFieldDiv);
+
+    discountEditForm.appendChild(discountEditFieldsDiv);
+    discountEditParent.appendChild(discountEditHeader);
+    discountEditForm.innerHTML += `<div class="field ">
+									<ul class="actions stacked ">
+										<li><a class="button fit" id="EditDiscount">İndirim
+												Ekle</a></li>
+									</ul>
+								</div>`;
+
+    discountEditParent.appendChild(discountEditForm);
   }
 }

@@ -1,4 +1,5 @@
 import { database } from "./database";
+import { formHelper } from "./formHelper";
 import { IDiscount } from "./interface/IDiscount";
 /**
  * Sistemde gözükecek olan tabloların oluşturulduğu sınıftır. 
@@ -26,8 +27,8 @@ export class tableHelper {
 									<th>İndirimin Uygulancağı Anaokulu ve Miktarı</th>
                   <th>İndirim Tipi</th>
 									<th>Uygulanacağı Kişi Tipi</th>
-									<th>Düzenle</th>
 									<th>Sil</th>
+									<th>Düzenle</th>
 								</tr>
 							</thead>`;
     discountTableParent.appendChild(table);
@@ -89,16 +90,27 @@ export class tableHelper {
       cell.appendChild(cellText);
       row.appendChild(cell);
 
-      let cellButton = document.createElement("button");
+      let cellButtonDelete = document.createElement("button");
       cell = document.createElement("td");
-      cellButton.innerHTML = "Sil";
+      cellButtonDelete.innerHTML = "Sil";
 
-      cellButton.addEventListener("click", function() {
+      cellButtonDelete.addEventListener("click", function() {
         database.discounts = database.discounts.filter(discount => discount.DiscountName != discountList[i].DiscountName);
         tableHelper.updateDiscountTable(database.discounts);
         return;
       });
-      cell.appendChild(cellButton);
+      cell.appendChild(cellButtonDelete);
+      row.appendChild(cell);
+
+      let cellButtonEdit = document.createElement("button");
+      cell = document.createElement("td");
+      cellButtonEdit.innerHTML = "Düzenle";
+
+      cellButtonEdit.addEventListener("click", function() {
+        formHelper.editDiscountForm(discountList[i]);
+        return;
+      });
+      cell.appendChild(cellButtonEdit);
       row.appendChild(cell);
 
       tblBody.appendChild(row);
@@ -233,5 +245,4 @@ export class tableHelper {
         <td><span class="icon solid style2 major fa-hashtag" ></span></td>
     </tr>`;
   }
-  
 }
