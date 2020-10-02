@@ -40,14 +40,29 @@ export class formHelper {
         let option = document.createElement("option");
         option.text = i;
         selectOrganizationList.appendChild(option);
+
         if (discount) {
-          if (discount.OrganizationName == i) {
+          let org = discount.OrganizationName;
+          let dis;
+          switch (org) {
+            case 0: {
+              dis = "SAGLIK";
+              break;
+            }
+            case 1: {
+              dis = "ANADOLU";
+              break;
+            }
+            case 2: {
+              dis = "NONE";
+              break;
+            }
+          }
+          if (dis === i) {
             option.defaultSelected = true;
           }
         }
       }
-
-      
     }
   }
 
@@ -275,8 +290,8 @@ export class formHelper {
     let discountEditFieldsDiv = document.createElement("div"); // her bir input satırının toplanacağı div, fields
     discountEditFieldsDiv.className = "fields";
 
-    let discountNameInputFieldDiv = document.createElement("div"); // indirim isminin istendiği div, field
-    discountNameInputFieldDiv.className = "field";
+    let discountEditNameInputFieldDiv = document.createElement("div"); // indirim isminin istendiği div, field
+    discountEditNameInputFieldDiv.className = "field";
 
     let discountEditNameLabel = <HTMLElement>document.createElement("p");
     discountEditNameLabel.innerText = "İndirim İsmi";
@@ -287,17 +302,17 @@ export class formHelper {
     discountEditNameInput.id = "discountEdit-discountName";
     discountEditNameInput.defaultValue = discount.DiscountName;
 
-    discountNameInputFieldDiv.appendChild(discountEditNameLabel);
-    discountNameInputFieldDiv.appendChild(discountEditNameInput);
-    discountEditFieldsDiv.appendChild(discountNameInputFieldDiv);
+    discountEditNameInputFieldDiv.appendChild(discountEditNameLabel);
+    discountEditNameInputFieldDiv.appendChild(discountEditNameInput);
+    discountEditFieldsDiv.appendChild(discountEditNameInputFieldDiv);
 
     formHelper.createPreschoolCheckboxAndDiscountInput(
       discountEditFieldsDiv,
       discount
     );
 
-    let discountTypePercentFieldDiv = document.createElement("div");
-    discountTypePercentFieldDiv.className = "field half";
+    let discountEditTypePercentFieldDiv = document.createElement("div");
+    discountEditTypePercentFieldDiv.className = "field half";
     let discountTypePercentRadio = <HTMLInputElement>(
       document.createElement("input")
     );
@@ -315,8 +330,8 @@ export class formHelper {
     );
     discountTypePercentRadioLabel.innerText = "Yüzde";
 
-    let discountTypeAmountFieldDiv = document.createElement("div");
-    discountTypeAmountFieldDiv.className = "field half";
+    let discountEditTypeAmountFieldDiv = document.createElement("div");
+    discountEditTypeAmountFieldDiv.className = "field half";
 
     let discountTypeAmountRadio = <HTMLInputElement>(
       document.createElement("input")
@@ -336,13 +351,13 @@ export class formHelper {
     if (discount.DiscountType == DiscountType.AMOUNT)
       discountTypeAmountRadio.defaultChecked = true;
 
-    discountTypePercentFieldDiv.appendChild(discountTypePercentRadio);
-    discountTypePercentFieldDiv.appendChild(discountTypePercentRadioLabel);
-    discountTypeAmountFieldDiv.appendChild(discountTypeAmountRadio);
-    discountTypeAmountFieldDiv.appendChild(discountTypeAmountRadioLabel);
+    discountEditTypePercentFieldDiv.appendChild(discountTypePercentRadio);
+    discountEditTypePercentFieldDiv.appendChild(discountTypePercentRadioLabel);
+    discountEditTypeAmountFieldDiv.appendChild(discountTypeAmountRadio);
+    discountEditTypeAmountFieldDiv.appendChild(discountTypeAmountRadioLabel);
 
-    discountEditFieldsDiv.appendChild(discountTypePercentFieldDiv);
-    discountEditFieldsDiv.appendChild(discountTypeAmountFieldDiv);
+    discountEditFieldsDiv.appendChild(discountEditTypePercentFieldDiv);
+    discountEditFieldsDiv.appendChild(discountEditTypeAmountFieldDiv);
 
     formHelper.createUserTypeCheckBox(discountEditFieldsDiv, discount);
 
@@ -352,7 +367,7 @@ export class formHelper {
 
     formHelper.createOrganizationNameSelectList(
       discountOrganizationFieldDiv,
-      "discountEdit", 
+      "discountEdit",
       discount
     );
     discountEditFieldsDiv.appendChild(discountOrganizationFieldDiv);

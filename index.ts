@@ -10,6 +10,24 @@ let x : number =1;
 
 let preschoolList = database.createPreschoolList();
 let discountList = database.createDiscountList();
+
+const discountCalculateDiv : HTMLElement = document.getElementById("second");
+discountCalculateDiv.style.visibility = "hidden";
+
+const discountTableDiv : HTMLElement = document.getElementById("third");
+discountTableDiv.style.visibility = "hidden";
+
+const preschoolTableDiv : HTMLElement = document.getElementById("fourth");
+preschoolTableDiv.style.visibility = "hidden";
+
+
+
+  //discountButton
+  //discountManagementButton
+  //preschoolManagementButton
+
+  // div.style.visibility = 'visible';
+
 /**
  * Sayfa ilk açıldığında indirim ve anaokulu tablolarının dinamik olarak preschoolList ve discountList üzerinden oluşmalarını ve
  * İndirim hesaplama sayfasındaki anaokulu - kurum dropdown'ların dinamik olarak dolmasını sağlayan metodlar
