@@ -15,6 +15,20 @@ export class preschoolHelper {
     
   }
 
+  static editPreschoolFromInput(preschool : IPreschool)
+  {
+    let preschoolName = <HTMLInputElement> document.getElementById("preschoolAppendName");
+    let preschoolPrice = <HTMLInputElement> document.getElementById("preschoolEditPrice");
+    let preschoolRegistrationDate = <HTMLInputElement> document.getElementById("preschoolEditDate");
+
+    let indexOfPreschool = database.preschools.indexOf(preschool);
+    database.preschools[indexOfPreschool] = {
+      PreschoolName : preschoolName.value,
+      Price : Number(preschoolPrice.value),
+      EndOfEarlyRegistrationDate : preschoolRegistrationDate.value
+    };
+  }
+
     
   
 }

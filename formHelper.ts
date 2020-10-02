@@ -477,7 +477,6 @@ export class formHelper {
   }
 
   static createPreschoolAppendForm() {
-    
     let preschoolAppendDiv = document.getElementById("preschoolAppendDiv");
     let preschoolAppendHeader = document.createElement("header");
     preschoolAppendHeader.id = "preschoolAppendHeader";
@@ -551,12 +550,79 @@ export class formHelper {
         .parentNode.removeChild(document.getElementById("preschoolAppendForm"));
       document
         .getElementById("preschoolAppendHeader")
-        .parentNode.removeChild(document.getElementById("preschoolAppendHeader"));
+        .parentNode.removeChild(
+          document.getElementById("preschoolAppendHeader")
+        );
       alert("Anaokulu başarılı bir şekilde eklendi.");
       tableHelper.updatePreschoolTable();
-
     };
   }
 
-  static createPreschoolEditForm(preschool: IPreschool) {}
+  static createPreschoolEditForm(preschool: IPreschool) {
+
+    let preschoolEditDiv = document.getElementById("preschoolEditDiv");
+    let preschoolEditHeader = document.createElement("header");
+    preschoolEditHeader.id = "preschoolEditHeader";
+    preschoolEditHeader.innerHTML =
+      "<header> <h3> Anaokulu Düzenleme Tablosu </h3> </header>";
+    let preschoolEditForm = document.createElement("form");
+    preschoolEditForm.id = "preschoolEditForm";
+    let preschoolEditFieldsDiv = document.createElement("div");
+    preschoolEditFieldsDiv.className = "fields";
+    let preschoolNameInputFieldDiv = document.createElement("div");
+    preschoolNameInputFieldDiv.className = "field";
+
+    let preschoolEditNameLabel = <HTMLElement>document.createElement("p");
+    preschoolEditNameLabel.innerText = "Anaokulu İsmi";
+    let preschoolEditNameInput = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    preschoolEditNameInput.type = "text";
+    preschoolEditNameInput.id = "preschoolEditName";
+    preschoolEditNameInput.defaultValue = preschool.PreschoolName;
+
+    preschoolNameInputFieldDiv.appendChild(preschoolEditNameLabel);
+    preschoolNameInputFieldDiv.appendChild(preschoolEditNameInput);
+    preschoolEditFieldsDiv.appendChild(preschoolNameInputFieldDiv);
+
+    let preschoolPriceInputFieldDiv = document.createElement("div");
+    preschoolPriceInputFieldDiv.className = "field";
+
+    let preschoolEditPriceLabel = <HTMLElement>document.createElement("p");
+    preschoolEditPriceLabel.innerText = "Anaokulu Ücreti";
+    let preschoolEditPriceInput = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    preschoolEditPriceInput.type = "text";
+    preschoolEditPriceInput.id = "preschoolEditPrice";
+    preschoolEditPriceInput.defaultValue = preschool.Price.toString();
+
+    preschoolPriceInputFieldDiv.appendChild(preschoolEditPriceLabel);
+    preschoolPriceInputFieldDiv.appendChild(preschoolEditPriceInput);
+    preschoolEditFieldsDiv.appendChild(preschoolPriceInputFieldDiv);
+
+    let preschoolDateInputFieldDiv = document.createElement("div");
+    preschoolDateInputFieldDiv.className = "field";
+
+    let preschoolEditDateLabel = <HTMLElement>document.createElement("p");
+    preschoolEditDateLabel.innerText = "Anaokulu Erken Kayıt Bitiş Tarihi";
+    let preschoolEditDateInput = <HTMLInputElement>(
+      document.createElement("input")
+    );
+    preschoolEditDateInput.type = "text";
+    preschoolEditDateInput.id = "preschoolEditDate";
+    preschoolEditDateInput.placeholder = "AA/GG/YYYY";
+    preschoolEditDateInput.defaultValue = preschool.EndOfEarlyRegistrationDate;
+
+    preschoolDateInputFieldDiv.appendChild(preschoolEditDateLabel);
+    preschoolDateInputFieldDiv.appendChild(preschoolEditDateInput);
+    preschoolEditFieldsDiv.appendChild(preschoolDateInputFieldDiv);
+
+    preschoolEditForm.appendChild(preschoolEditFieldsDiv);
+    preschoolEditDiv.appendChild(preschoolEditHeader);
+   
+    preschoolEditDiv.appendChild(preschoolEditForm);
+
+    
+  }
 }
