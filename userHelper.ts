@@ -48,6 +48,19 @@ export class userHelper {
     const discountResult: HTMLElement = document.getElementById(
       `discount-result`
     );
+    if(discount == NaN || discount == null)
+    {
+      discountResult.innerHTML =
+      `<p>` +
+      preschool.PreschoolName +
+      ` Anaokulunun ücreti ` +
+      preschool.Price +
+      ` TL'dir. Sizin ödemeniz gereken ücret</p>
+                    <h3 >` +
+      preschool.Price +
+      ` TL</h3>`;
+    }
+     else
     discountResult.innerHTML =
       `<p>` +
       preschool.PreschoolName +
@@ -57,5 +70,7 @@ export class userHelper {
                     <h3 >` +
       discount +
       ` TL</h3>`;
+      
   }
+  
 }
