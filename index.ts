@@ -108,12 +108,12 @@ reschoolManagementButton.onclick = function() {
   discountCalculateDiv.style.display = "none";
   discountTableDiv.style.display = "none";
   preschoolTableDiv.style.display = "inline";
-  tableHelper.createPreschoolTable(preschoolList);
+  tableHelper.createPreschoolTable();
 
   const preschoolAppendButton = document.getElementById("appendPreschoolForm");
-  preschoolAppendButton.onclick = function () {
+  preschoolAppendButton.onclick = function() {
     if (!document.getElementById("preschoolAppendForm"))
-    formHelper.createPreschoolAppendForm();
+      formHelper.createPreschoolAppendForm();
   };
 };
 

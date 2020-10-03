@@ -1,4 +1,5 @@
 import { database } from "./database";
+import { DiscountType } from "./enum/types";
 import { formHelper } from "./formHelper";
 /**
  * Sistemde gözükecek olan tabloların oluşturulduğu sınıftır.
@@ -37,21 +38,29 @@ export class tableHelper {
       let cellText = document.createTextNode(discountList[i].DiscountName);
       cell.appendChild(cellText);
       row.appendChild(cell);
-
       cell = document.createElement("td");
-      for (
-        let j = 0, k = 1;
-        j <= discountList[i].PreschoolNamesAndTheirDiscounts.length / 2;
-        j += 2, k += 2
+      let countOfPreschools = 0;
+      if (
+        (discountList[i].PreschoolNamesAndTheirDiscounts.length / 2) % 2 != 0 &&
+        discountList[i].PreschoolNamesAndTheirDiscounts.length != 2
       ) {
+        countOfPreschools =
+          discountList[i].PreschoolNamesAndTheirDiscounts.length / 2 + 1;
+      } else {
+        countOfPreschools =
+          discountList[i].PreschoolNamesAndTheirDiscounts.length / 2;
+      }
+      for (let j = 0, k = 1; j <= countOfPreschools; j += 2, k += 2) {
         let cellString = discountList[i].PreschoolNamesAndTheirDiscounts[
           j
         ].toString();
-        cellString += " ";
+        cellString += "   ";
         cellString += discountList[i].PreschoolNamesAndTheirDiscounts[
           k
         ].toString();
-        cellString += "-";
+        if (discountList[i].DiscountType == DiscountType.PERCENTAGE)
+          cellString += "% ";
+        else cellString += "TL ";
         cellText = document.createTextNode(cellString);
         cell.appendChild(cellText);
       }

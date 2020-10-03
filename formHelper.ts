@@ -477,6 +477,15 @@ export class formHelper {
   }
 
   static createPreschoolAppendForm() {
+    if (document.getElementById("preschoolEditForm") != null) {
+      document
+        .getElementById("preschoolEditForm")
+        .parentNode.removeChild(document.getElementById("preschoolEditForm"));
+      document
+        .getElementById("preschoolEditHeader")
+        .parentNode.removeChild(document.getElementById("preschoolEditHeader"));
+    }
+
     let preschoolAppendDiv = document.getElementById("preschoolAppendDiv");
     let preschoolAppendHeader = document.createElement("header");
     preschoolAppendHeader.id = "preschoolAppendHeader";
@@ -559,6 +568,24 @@ export class formHelper {
   }
 
   static createPreschoolEditForm(preschool: IPreschool) {
+    let preschoolAppendForm = document.getElementById("preschoolAppendForm");
+    if (preschoolAppendForm != null) {
+      preschoolAppendForm.parentNode.removeChild(preschoolAppendForm);
+      document
+        .getElementById("preschoolAppendHeader")
+        .parentNode.removeChild(
+          document.getElementById("preschoolAppendHeader")
+        );
+    }
+
+    if (document.getElementById("preschoolEditForm") != null) {
+      document
+        .getElementById("preschoolEditForm")
+        .parentNode.removeChild(document.getElementById("preschoolEditForm"));
+      document
+        .getElementById("preschoolEditHeader")
+        .parentNode.removeChild(document.getElementById("preschoolEditHeader"));
+    }
     let preschoolEditDiv = document.getElementById("preschoolEditDiv");
     let preschoolEditHeader = document.createElement("header");
     preschoolEditHeader.id = "preschoolEditHeader";
@@ -633,8 +660,14 @@ export class formHelper {
 
     preschoolEditButton.onclick = function() {
       preschoolHelper.editPreschoolFromInput(preschool);
+      document
+        .getElementById("preschoolEditForm")
+        .parentNode.removeChild(document.getElementById("preschoolEditForm"));
+      document
+        .getElementById("preschoolEditHeader")
+        .parentNode.removeChild(document.getElementById("preschoolEditHeader"));
+      alert("Anaokulu başarılı bir şekilde düzenlendi.");
       tableHelper.updatePreschoolTable();
-
     };
   }
 }
