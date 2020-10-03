@@ -20,6 +20,8 @@ section, summary, time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;}
 
+
+
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
 	display: block;}
@@ -111,7 +113,7 @@ input, select, textarea {
 /* Type */
 
 	html {
-		font-size: 18pt;
+		font-size: 16pt;
 	}
 
 		@media screen and (max-width: 1680px) {
@@ -3468,10 +3470,17 @@ input, select, textarea {
 			-webkit-flex-shrink: 1;
 			-ms-flex-shrink: 1;
 			flex-shrink: 1;
-			width: 50%;
+      width: 50%;
 			max-width: 48rem;
 			margin: 0 auto;
 		}
+
+    .banner.style1 .content img {
+				
+				width: 50%;
+				height: 100%;
+				border-radius: 0;
+			}
 
 		.banner.style1 .image {
 			-moz-flex-grow: 0;
