@@ -237,7 +237,7 @@ export class formHelper {
 												Ekle</a></li>
 									</ul>
 								</div>`;
-
+    
     discountAppendParent.appendChild(discountAppendForm);
   }
   /**

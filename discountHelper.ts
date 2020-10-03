@@ -31,6 +31,14 @@ export class discountHelper {
       OrganizationName: organizationName,
       PreschoolNamesAndTheirDiscounts: preschoolNamesAndTheirDiscounts
     });
+    
+    alert("İndirim başarılı bir şekilde eklendi.");
+     document
+        .getElementById("discountAppendForm")
+        .parentNode.removeChild(document.getElementById("discountAppendForm"));
+      document
+        .getElementById("discountAppendHeader")
+        .parentNode.removeChild(document.getElementById("discountAppendHeader"));
   }
 
   static editDiscountFromInput(discount: IDiscount) {

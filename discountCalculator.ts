@@ -11,8 +11,8 @@ export class DiscountCalculator {
    * Kullanıcı ve Anaokulu nesneleri alarak indirim hesaplamasını, indirim tipi olan yüzde ve miktar cinsinden hesaplamasını yapan metod databse sınıfıda tanımlı discount listesini kullanır.
    */
   static calculateDiscount(user: IUser, preschool: IPreschool) {
-    let percent : number = 0 ;
-    let amount : number = 0;
+    let percent: number = 0;
+    let amount: number = 0;
     database.discounts.forEach(function(value, index, array) {
       switch (value.DiscountType) {
         case DiscountType.PERCENTAGE: {
@@ -80,8 +80,7 @@ export class DiscountCalculator {
       let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
         preschool.PreschoolName
       );
-      return Number( discount.PreschoolNamesAndTheirDiscounts[index + 1]);
-      
+      return Number(discount.PreschoolNamesAndTheirDiscounts[index + 1]);
     }
     return Number(0);
   }
@@ -102,7 +101,7 @@ export class DiscountCalculator {
         preschool.PreschoolName
       );
       if (index < 0) return Number(0);
-      return Number( discount.PreschoolNamesAndTheirDiscounts[index + 1]);
+      return Number(discount.PreschoolNamesAndTheirDiscounts[index + 1]);
     }
 
     return Number(0);
@@ -124,7 +123,7 @@ export class DiscountCalculator {
         preschool.PreschoolName
       );
       if (index < 0) return Number(0);
-      return Number( discount.PreschoolNamesAndTheirDiscounts[index + 1]);
+      return Number(discount.PreschoolNamesAndTheirDiscounts[index + 1]);
     }
     return Number(0);
   }
@@ -136,11 +135,12 @@ export class DiscountCalculator {
     amount: number,
     preschool: IPreschool
   ) {
+    if (percent > 100) return 0;
     return Number(preschool.Price - (preschool.Price * percent) / 100 - amount);
   }
 
   /**
-   * Anaokulunun erken kayıt tarihini bugün ile kıyaslayarak 
+   * Anaokulunun erken kayıt tarihini bugün ile kıyaslayarak
    */
   static calculateEarlyRegistration(preschool: IPreschool) {
     let preschoolEarltRegistrationDate = new Date(
