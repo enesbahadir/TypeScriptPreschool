@@ -6,7 +6,7 @@ import { PreschoolListFromAPI } from "./PreschoolListFromAPI";
 /**
  * Sistemde kullanıcak olan Anaokulu ve İndirim listelerinin saklandığı ve oluşturulduğu sınıf
  */
-export class database {
+export class Database {
   static preschools: Array<IPreschool> = new Array();
   static discounts: Array<IDiscount> = new Array();
   /**

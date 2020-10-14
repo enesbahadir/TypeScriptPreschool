@@ -1,4 +1,4 @@
-import { database } from "./database";
+import { Database } from "./Database";
 import { IDiscount } from "./interface/IDiscount";
 import { IPreschool } from "./interface/IPreschool";
 import { IUser } from "./interface/IUser";
@@ -14,7 +14,7 @@ export class DiscountCalculator {
   static calculateDiscount(user: IUser, preschool: IPreschool) {
     let percent: number = 0;
     let amount: number = 0;
-    database.discounts.forEach(function(value, index, array) {
+    Database.discounts.forEach(function(value, index, array) {
       switch (value.DiscountType) {
         case DiscountType.PERCENTAGE: {
           percent += DiscountCalculator.executeCalculateMethods(

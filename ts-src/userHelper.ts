@@ -1,4 +1,4 @@
-import { database } from "./database";
+import { Database } from "./Database";
 import { DiscountCalculator } from "./discountCalculator";
 import { OrganizationName, UserType } from "./enum/types";
 import { User } from "./User";
@@ -43,7 +43,7 @@ export class userHelper {
     if (userPersonelRadio.checked) userTypeChoose = UserType.STANDART;
 
     let user = new User(userName.value, userTypeChoose, organizationChoose);
-    let preschool = database.preschools[preschoolChoose.value];
+    let preschool = Database.preschools[preschoolChoose.value];
     let discount = DiscountCalculator.calculateDiscount(user, preschool);
     const discountResult: HTMLElement = document.getElementById(
       `discount-result`

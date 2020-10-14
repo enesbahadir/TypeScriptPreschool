@@ -1,5 +1,5 @@
 import { DiscountType, OrganizationName, UserType } from "./enum/types";
-import { database } from "./database";
+import { Database } from "./Database";
 import { IDiscount } from "./interface/IDiscount";
 import { IPreschool } from "./interface/IPreschool";
 import { discountHelper } from "./discountHelper";
@@ -21,10 +21,10 @@ export class formHelper {
           Lütfen Anaokulu Seçiniz`;
     myParent.appendChild(selectList);
 
-    for (let i = 0; i < database.preschools.length; i++) {
+    for (let i = 0; i < Database.preschools.length; i++) {
       let option = document.createElement("option");
       option.value = i.toString();
-      option.text = database.preschools[i].PreschoolName;
+      option.text = Database.preschools[i].PreschoolName;
       selectList.appendChild(option);
     }
   }
@@ -387,19 +387,19 @@ export class formHelper {
    * Yeni indirim ekleme tablosunda indirimin ekleneceği anaokullarını ve miktarlarını checkbox ve text input olarak dinanik olarak doldurur.
    */
   static createPreschoolCheckboxAndDiscountInput(parentDiv, discount?) {
-    for (let i = 0; i < database.preschools.length; i++) {
+    for (let i = 0; i < Database.preschools.length; i++) {
       let div1 = document.createElement("div");
       div1.className = "field half";
 
       let option = <HTMLInputElement>document.createElement("input");
       option.type = "checkbox";
       option.id = "discountAppendPreschoolCheckbox-" + i.toString();
-      option.name = database.preschools[i].PreschoolName;
+      option.name = Database.preschools[i].PreschoolName;
 
       let label = document.createElement("label");
       label.setAttribute("for", option.id);
       let labelText = document.createTextNode(
-        database.preschools[i].PreschoolName
+        Database.preschools[i].PreschoolName
       );
       label.appendChild(labelText);
       div1.appendChild(option);
@@ -417,12 +417,12 @@ export class formHelper {
       if (discount) {
         if (
           discount.PreschoolNamesAndTheirDiscounts.includes(
-            database.preschools[i].PreschoolName
+            Database.preschools[i].PreschoolName
           )
         ) {
           option.defaultChecked = true;
           let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
-            database.preschools[i].PreschoolName
+            Database.preschools[i].PreschoolName
           );
           discountAppendPreschoolInput.defaultValue =
             discount.PreschoolNamesAndTheirDiscounts[index + 1];

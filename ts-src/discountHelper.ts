@@ -1,4 +1,4 @@
-import { database } from "./database";
+import { Database } from "./Database";
 import { DiscountType, OrganizationName, UserType } from "./enum/types";
 import { IDiscount } from "./interface/IDiscount";
 import { IPreschool } from "./interface/IPreschool";
@@ -25,7 +25,7 @@ export class discountHelper {
       "discountAppend"
     );
 
-    database.discounts.push({
+    Database.discounts.push({
       DiscountName: discountName.value,
       DiscountType: discountType,
       UserTypes: userTypes,
@@ -61,8 +61,8 @@ export class discountHelper {
       "discountEdit"
     );
 
-    let indexOfDiscount = database.discounts.indexOf(discount);
-    database.discounts[indexOfDiscount] = {
+    let indexOfDiscount = Database.discounts.indexOf(discount);
+    Database.discounts[indexOfDiscount] = {
       DiscountName: discountName.value,
       DiscountType: discountType,
       UserTypes: userTypes,
@@ -77,7 +77,7 @@ export class discountHelper {
 
   static getpreschoolNamesAndTheirDiscounts() {
     let preschoolNamesAndTheirDiscounts: Array<string | number> = new Array();
-    for (let i = 0; i < database.preschools.length; i++) {
+    for (let i = 0; i < Database.preschools.length; i++) {
       let checkbox = <HTMLInputElement>(
         document.getElementById(
           "discountAppendPreschoolCheckbox-" + i.toString()

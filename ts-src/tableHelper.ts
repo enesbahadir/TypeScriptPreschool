@@ -1,4 +1,4 @@
-import { database } from "./database";
+import { Database } from "./Database";
 import { DiscountType } from "./enum/types";
 import { formHelper } from "./formHelper";
 
@@ -12,7 +12,7 @@ export class tableHelper {
    */
   static createDiscountTable() {
     if (!document.getElementById("discountTableId")) {
-      tableHelper.printDiscountTable(database.discounts);
+      tableHelper.printDiscountTable(Database.discounts);
     }
   }
   /**
@@ -109,7 +109,7 @@ export class tableHelper {
           "İndirim silinsin mi? Bu işlem geri alınamaz!"
         );
         if (confirmDelete) {
-          database.discounts = database.discounts.filter(
+          Database.discounts = Database.discounts.filter(
             discount => discount.DiscountName != discountList[i].DiscountName
           );
           tableHelper.updateDiscountTable();
@@ -228,7 +228,7 @@ export class tableHelper {
    */
   static createPreschoolTable() {
     if (!document.getElementById("preschoolTableId")) {
-      tableHelper.printPreschoolTable(database.preschools);
+      tableHelper.printPreschoolTable(Database.preschools);
     }
   }
   /**
@@ -239,7 +239,7 @@ export class tableHelper {
     let element = document.getElementById("preschoolTableId");
     element.parentNode.removeChild(element);
 
-    tableHelper.printPreschoolTable(database.preschools);
+    tableHelper.printPreschoolTable(Database.preschools);
   }
 
   static printHomeButton(parentDiv) {

@@ -1,4 +1,4 @@
-import { database } from "./database";
+import { Database } from "./Database";
 import { IPreschool } from "./interface/IPreschool";
 import { Preschool } from "./Preschool";
 import { PreschoolManagementAPI } from "./PreschoolManagementAPI";
@@ -16,7 +16,7 @@ export class preschoolHelper {
     );
 
     let newPreschool = new Preschool(preschoolName.value, preschoolRegistrationDate.value, 
-      Number(preschoolPrice.value), database.preschools.length+1);
+      Number(preschoolPrice.value), Database.preschools.length+1);
     PreschoolManagementAPI.createPreschoolWithAPI(newPreschool);
 
     /*database.preschools.push({
@@ -37,7 +37,7 @@ export class preschoolHelper {
       document.getElementById("preschoolEditDate")
     );
 
-    let indexOfPreschool = database.preschools.indexOf(preschool);
+    let indexOfPreschool = Database.preschools.indexOf(preschool);
     let newPreschool = new Preschool(preschoolName.value, preschoolRegistrationDate.value, 
       Number(preschoolPrice.value),indexOfPreschool+1);
     PreschoolManagementAPI.editPreschoolWithAPI(newPreschool,indexOfPreschool+1);

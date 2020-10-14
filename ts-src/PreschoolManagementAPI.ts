@@ -1,5 +1,5 @@
 import { IPreschool } from "./interface/IPreschool";
-import { database } from "./database";
+import { Database } from "./Database";
 import { PreschoolListFromAPI } from "./PreschoolListFromAPI";
 import { tableHelper } from "./tableHelper";
 
@@ -18,7 +18,7 @@ export class PreschoolManagementAPI {
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		xhr.send(IPreschool);
 		window.location.reload();
-		database.createPreschoolList();
+		Database.createPreschoolList();
 	}
 
 	/**
@@ -31,7 +31,7 @@ export class PreschoolManagementAPI {
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		xhr.send(IPreschool);
 		window.location.reload();
-		database.createPreschoolList();
+		Database.createPreschoolList();
 	}
 
 	/**
@@ -44,7 +44,7 @@ export class PreschoolManagementAPI {
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		xhr.send();
 		window.location.reload();
-		database.createPreschoolList();
+		Database.createPreschoolList();
 	}
 	
 

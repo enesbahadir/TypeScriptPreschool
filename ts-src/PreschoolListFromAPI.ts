@@ -2,7 +2,6 @@ import { IPreschool } from "./interface/IPreschool";
 
 export class PreschoolListFromAPI {
 	static getPreschoolsUsingXhr(){
-		debugger;
 		let xhr = new XMLHttpRequest();
 		let preschools: Array<IPreschool> = new Array();
 		xhr.open("GET", 'http://localhost:8080/preschools/');
