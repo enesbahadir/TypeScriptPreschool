@@ -47,4 +47,24 @@ export class preschoolHelper {
       EndOfEarlyRegistrationDate: preschoolRegistrationDate.value
     };*/
   }
+
+   static getPreschoolNameWithId (id : Number)  
+  {
+    let result = "";
+     Database.preschools.forEach((preschool => {
+       if(preschool.Id === id )
+         result = preschool.PreschoolName;
+     }))
+     return result;
+  }
+
+  static getPreschoolWithId (id : Number)  
+  {
+    let result;
+     Database.preschools.forEach((preschool => {
+       if(preschool.Id === id )
+         result = preschool;
+     }))
+     return result;
+  }
 }

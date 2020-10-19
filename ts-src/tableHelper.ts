@@ -1,6 +1,10 @@
 import { Database } from "./Database";
 import { DiscountType } from "./enum/types";
 import { formHelper } from "./formHelper";
+import { DiscountFormHelper } from "./DiscountFormHelper";
+import { PreschoolFormHelper } from "./PreschoolFormHelper";
+import { preschoolHelper } from "./preschoolHelper";
+
 
 import { PreschoolManagementAPI } from "./PreschoolManagementAPI";
 /**
@@ -41,26 +45,13 @@ export class tableHelper {
       cell.appendChild(cellText);
       row.appendChild(cell);
       cell = document.createElement("td");
-      let countOfPreschools = 0;
-      if (
-        (discountList[i].PreschoolNamesAndTheirDiscounts.length / 2) % 2 != 0 &&
-        discountList[i].PreschoolNamesAndTheirDiscounts.length != 2
-      ) {
-        countOfPreschools =
-          discountList[i].PreschoolNamesAndTheirDiscounts.length / 2 + 1;
-      } else {
-        countOfPreschools =
-          discountList[i].PreschoolNamesAndTheirDiscounts.length / 2;
-      }
-      for (let j = 0, k = 1; j <= countOfPreschools; j += 2, k += 2) {
-        let cellString = discountList[i].PreschoolNamesAndTheirDiscounts[
-          j
-        ].toString();
+      for (let j = 0; j < discountList[i].DiscountValues.length; j++) {
+        let preschool = discountList[i].DiscountValues[j].preschool;
+        let cellString = preschool.preschoolName;
         cellString += "   ";
-        cellString += discountList[i].PreschoolNamesAndTheirDiscounts[
-          k
-        ].toString();
-        if (discountList[i].DiscountType == DiscountType.PERCENTAGE)
+        cellString += discountList[i].DiscountValues[j].value;
+
+        if (discountList[i].DiscountType == "PERCENTAGE")
           cellString += "% ";
         else cellString += "TL ";
         cellText = document.createTextNode(cellString);
@@ -80,15 +71,15 @@ export class tableHelper {
       let cellString = "";
       for (let j = 0; j < discountList[i].UserTypes.length; j++) {
         switch (discountList[i].UserTypes[j]) {
-          case 0: {
+          case "PERSONEL": {
             cellString += "Personel- ";
             break;
           }
-          case 1: {
+          case "IHVAN": {
             cellString += "Ihvan- ";
             break;
           }
-          case 2: {
+          case "STANDART": {
             cellString += "Standart";
             break;
           }
@@ -125,7 +116,7 @@ export class tableHelper {
       cellButtonEdit.innerHTML = "Düzenle";
 
       cellButtonEdit.addEventListener("click", function() {
-        formHelper.editDiscountForm(discountList[i]);
+        DiscountFormHelper.editDiscountForm(discountList[i]);
         return;
       });
       cell.appendChild(cellButtonEdit);
@@ -137,6 +128,8 @@ export class tableHelper {
 
     discountTableParent.appendChild(table);
   }
+
+ 
 
   /**
    * İndirim tablosunda değişiklik yapıldığı zaman, mecvut tabloyu silerek yenisini ekler.
@@ -213,7 +206,7 @@ export class tableHelper {
       let cellButtonEdit = document.createElement("button");
       cellButtonEdit.innerHTML = "Düzenle";
       cellButtonEdit.addEventListener("click", function() {
-        formHelper.createPreschoolEditForm(preschoolList[i]);
+        PreschoolFormHelper.createPreschoolEditForm(preschoolList[i]);
         return;
       });
       cell.appendChild(cellButtonEdit);
@@ -235,7 +228,6 @@ export class tableHelper {
    *
    */
   static updatePreschoolTable() {
-    debugger;
     let element = document.getElementById("preschoolTableId");
     element.parentNode.removeChild(element);
 

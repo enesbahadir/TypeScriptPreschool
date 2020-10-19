@@ -2,38 +2,35 @@ import { Database } from "./Database";
 import { DiscountType, OrganizationName, UserType } from "./enum/types";
 import { IDiscount } from "./interface/IDiscount";
 import { IPreschool } from "./interface/IPreschool";
+import { IDiscountValues } from "./interface/IDiscountValues";
+import { Discount } from "./Discount";
+import { DiscountManagementAPI } from "./DiscountManagementAPI";
+import { DiscountValues } from "./model/DiscountValues";
+import { preschoolHelper } from "./preschoolHelper";
 
 /**
  * İndirim ekleme işleminin yapıldığı sınıftır.
  */
-export class discountHelper {
+export class DiscountHelper {
   /**
    *  Kullanıcının girdiği bilgiler ile yeni indirim tanımlar. Yeni indirimi databse'de tutulan Anaokulu Listesine ekler.
    */
   static createDiscountFromInput() {
-    let discountName = discountHelper.getDiscountName(
+    let discountName = DiscountHelper.getDiscountName(
       "discountAppend-discountName"
     );
-    let preschoolNamesAndTheirDiscounts: Array<
-      string | number
-    > = discountHelper.getpreschoolNamesAndTheirDiscounts();
-    let discountType = discountHelper.getdiscountType(
+    let discountType = DiscountHelper.getdiscountType(
       "discount-append-percentage-radio"
     );
-    let userTypes: Array<UserType> = discountHelper.getUserTypes();
-    let organizationName: OrganizationName = discountHelper.getOrganizationName(
+    let organizationName = DiscountHelper.getOrganizationName(
       "discountAppend"
     );
+    let newDiscount = new Discount(discountName.value, discountType, DiscountHelper.getUserTypes(),
+     organizationName, DiscountHelper.getpreschoolNamesAndTheirDiscounts());
 
-    Database.discounts.push({
-      DiscountName: discountName.value,
-      DiscountType: discountType,
-      UserTypes: userTypes,
-      OrganizationName: organizationName,
-      PreschoolNamesAndTheirDiscounts: preschoolNamesAndTheirDiscounts
-    });
-    
-    alert("İndirim başarılı bir şekilde eklendi.");
+    DiscountManagementAPI.createDiscountWithAPI(newDiscount);
+     
+    //alert("İndirim başarılı bir şekilde eklendi.");
      document
         .getElementById("discountAppendForm")
         .parentNode.removeChild(document.getElementById("discountAppendForm"));
@@ -43,32 +40,33 @@ export class discountHelper {
   }
 
   static editDiscountFromInput(discount: IDiscount) {
-    let discountName = discountHelper.getDiscountName(
+    let discountName = DiscountHelper.getDiscountName(
       "discountEdit-discountName"
     );
 
     let preschoolNamesAndTheirDiscounts: Array<
-      string | number
-    > = discountHelper.getpreschoolNamesAndTheirDiscounts();
+      IDiscountValues
+    > = DiscountHelper.getpreschoolNamesAndTheirDiscounts();
 
-    let discountType = discountHelper.getdiscountType(
+    let discountType = DiscountHelper.getdiscountType(
       "discount-Edit-percentage-radio"
     );
 
-    let userTypes = discountHelper.getUserTypes();
+    let userTypes = DiscountHelper.getUserTypes();
 
-    let organizationName: OrganizationName = discountHelper.getOrganizationName(
+    let organizationName: OrganizationName = DiscountHelper.getOrganizationName(
       "discountEdit"
     );
 
     let indexOfDiscount = Database.discounts.indexOf(discount);
-    Database.discounts[indexOfDiscount] = {
+   /* Database.discounts[indexOfDiscount] = {
       DiscountName: discountName.value,
       DiscountType: discountType,
       UserTypes: userTypes,
       OrganizationName: organizationName,
       PreschoolNamesAndTheirDiscounts: preschoolNamesAndTheirDiscounts
-    };
+    }; 
+    */
   }
 
   static getDiscountName(id) {
@@ -76,7 +74,7 @@ export class discountHelper {
   }
 
   static getpreschoolNamesAndTheirDiscounts() {
-    let preschoolNamesAndTheirDiscounts: Array<string | number> = new Array();
+    let discountValues : Array<IDiscountValues> = new Array();
     for (let i = 0; i < Database.preschools.length; i++) {
       let checkbox = <HTMLInputElement>(
         document.getElementById(
@@ -88,25 +86,28 @@ export class discountHelper {
         let text = <HTMLInputElement>(
           document.getElementById("discountAppendPreschoolText-" + i.toString())
         );
-        preschoolNamesAndTheirDiscounts.push(checkbox.name, text.value);
+        let tempDiscountValue : IDiscountValues = new DiscountValues(Database.discountValues.length+1, 
+          preschoolHelper.getPreschoolWithId(Number(checkbox.value)),Number(text.value) );
+        discountValues.push(
+          DiscountManagementAPI.createDiscountValuesAPI(tempDiscountValue));
       }
     }
-    return preschoolNamesAndTheirDiscounts;
+    return discountValues;
   }
 
   static getdiscountType(id) {
     let discountType;
     let discountTypeRadio = <HTMLInputElement>document.getElementById(id);
     if (discountTypeRadio.checked) {
-      discountType = DiscountType.PERCENTAGE;
+      discountType = "PERCENTAGE";
     } else {
-      discountType = DiscountType.AMOUNT;
+      discountType = "AMOUNT";
     }
     return discountType;
   }
 
   static getUserTypes() {
-    let userTypes: Array<UserType> = new Array();
+    let userTypes : Array<UserType> = new Array();
     let option = <HTMLInputElement>(
       document.getElementById("user-type-personel")
     );
@@ -115,7 +116,7 @@ export class discountHelper {
     option = <HTMLInputElement>document.getElementById("user-type-ihvan");
     if (option.checked) userTypes.push(UserType.IHVAN);
     option = <HTMLInputElement>document.getElementById("user-type-standart");
-    if (option.checked) userTypes.push(UserType.STANDART);
+    if (option.checked) userTypes.push(UserType.IHVAN);
     return userTypes;
   }
 

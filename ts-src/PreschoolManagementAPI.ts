@@ -18,6 +18,8 @@ export class PreschoolManagementAPI {
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		xhr.send(IPreschool);
 		window.location.reload();
+		if (!Number(event.target.status) >= 200 && Number(event.target.status) < 400)
+			console.log('error');
 		Database.createPreschoolList();
 	}
 
@@ -31,6 +33,8 @@ export class PreschoolManagementAPI {
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		xhr.send(IPreschool);
 		window.location.reload();
+		if (!Number(event.target.status) >= 200 && Number(event.target.status) < 400)
+			console.log('error');
 		Database.createPreschoolList();
 	}
 
@@ -44,6 +48,8 @@ export class PreschoolManagementAPI {
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
 		xhr.send();
 		window.location.reload();
+		if (!Number(event.target.status) >= 200 && Number(event.target.status) < 400)
+			console.log('error');
 		Database.createPreschoolList();
 	}
 	

@@ -1,5 +1,5 @@
 import { Database } from "./Database";
-import { DiscountCalculator } from "./discountCalculator";
+import { DiscountCalculator } from "./DiscountCalculator";
 import { OrganizationName, UserType } from "./enum/types";
 import { User } from "./User";
 

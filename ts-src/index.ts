@@ -1,7 +1,10 @@
 import { formHelper } from "./formHelper";
+import { DiscountFormHelper } from "./DiscountFormHelper";
+import { PreschoolFormHelper } from "./PreschoolFormHelper";
+
 import { tableHelper } from "./tableHelper";
 import { userHelper } from "./userHelper";
-import { discountHelper } from "./discountHelper";
+import { DiscountHelper } from "./DiscountHelper";
 import { Database } from "./Database";
 import { PreschoolListFromAPI } from "./PreschoolListFromAPI";
 
@@ -17,6 +20,7 @@ let state: number = 0;
  */
 let preschoolList = Database.createPreschoolList();
 let discountList = Database.createDiscountList();
+let discountValuesList = Database.createDiscountValuesList();
 
 const discountCalculateDiv: HTMLElement = document.getElementById("second");
 discountCalculateDiv.style.display = "none";
@@ -84,12 +88,12 @@ discountManagementButton.onclick = function() {
   );
   discountAppendButton.onclick = function() {
     if (!document.getElementById("discountAppendForm"))
-      formHelper.createAppendDiscountForm();
+      DiscountFormHelper.createAppendDiscountForm();
     const discountAppend: HTMLElement = document.getElementById(
       `appendDiscount`
     );
     discountAppend.onclick = function() {
-      discountHelper.createDiscountFromInput();
+      DiscountHelper.createDiscountFromInput();
       tableHelper.updateDiscountTable();
     };
   };
@@ -116,7 +120,7 @@ reschoolManagementButton.onclick = function() {
   const preschoolAppendButton = document.getElementById("appendPreschoolForm");
   preschoolAppendButton.onclick = function() {
     if (!document.getElementById("preschoolAppendForm"))
-      formHelper.createPreschoolAppendForm();
+      PreschoolFormHelper.createPreschoolAppendForm();
   };
 };
 

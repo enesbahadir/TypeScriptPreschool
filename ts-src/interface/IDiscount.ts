@@ -1,4 +1,5 @@
 import { DiscountType, UserType, OrganizationName } from "./../enum/types"; 
+import { DiscountValues } from "./../model/DiscountValues";
 
 /**
  * İndirim sınıfına erişmek için kullanılan interface
@@ -9,7 +10,7 @@ export interface IDiscount {
    DiscountType : DiscountType;
    UserTypes : Array<UserType>;
    OrganizationName : OrganizationName;
-   PreschoolNamesAndTheirDiscounts :Array <string | number>;
-
+   DiscountValues :Array <IDiscountValues>;
+   Id : number;
 
 }

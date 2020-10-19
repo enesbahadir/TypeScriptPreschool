@@ -12,9 +12,18 @@ export class DiscountCalculator {
    * Kullanıcı ve Anaokulu nesneleri alarak indirim hesaplamasını, indirim tipi olan yüzde ve miktar cinsinden hesaplamasını yapan metod databse sınıfıda tanımlı discount listesini kullanır.
    */
   static calculateDiscount(user: IUser, preschool: IPreschool) {
+    
     let percent: number = 0;
     let amount: number = 0;
     Database.discounts.forEach(function(value, index, array) {
+      if(value.DiscountType == "PERCENTAGE")
+      {
+         percent += DiscountCalculator.executeCalculateMethods(
+            user,
+            preschool,
+            value
+          );
+      }
       switch (value.DiscountType) {
         case DiscountType.PERCENTAGE: {
           percent += DiscountCalculator.executeCalculateMethods(
@@ -74,16 +83,19 @@ export class DiscountCalculator {
     discount: IDiscount,
     preschool: IPreschool
   ) {
+    let result = 0;
+    debugger;
     if (
       DiscountCalculator.calculateEarlyRegistration(preschool) &&
-      discount.DiscountName == "Erken Kayıt İndirimi"
+      discount.DiscountName == "Erken Kayıt Indirimi"
     ) {
-      let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
-        preschool.PreschoolName
-      );
-      return Number(discount.PreschoolNamesAndTheirDiscounts[index + 1]);
+      
+      discount.DiscountValues.forEach((discountValue) => {
+        if(discountValue.preschool.id == preschool.Id)
+          result = Number(discountValue.value);
+          });
     }
-    return Number(0);
+    return result;
   }
   /**
    * Kişi tip indirimni hesaplar, kişiye özel indirim çalışılan kurum seçilmeden ve tek bir kişi tipi seçilmiş olduğunda hesaplamaktadır.
@@ -93,19 +105,18 @@ export class DiscountCalculator {
     user: IUser,
     preschool: IPreschool
   ) {
+    let result = 0;
     if (
       discount.UserTypes.length == 1 &&
       discount.UserTypes.includes(user.TypeOfUser) &&
       discount.OrganizationName == OrganizationName.NONE
     ) {
-      let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
-        preschool.PreschoolName
-      );
-      if (index < 0) return Number(0);
-      return Number(discount.PreschoolNamesAndTheirDiscounts[index + 1]);
+      discount.DiscountValues.forEach((discountValue) => {
+        if(discountValue.preschool.id == preschool.Id)
+          result = Number(discountValue.value);
+          });
     }
-
-    return Number(0);
+    return result;
   }
   /**
    * Çalışılan kurum indirimini hesaplar, Kurumun NONE olmaması, kullanıcının girdiği kurum ile indirimin kurumunun aynı olması ve indirim listesinde kurumun bulunması kontrollerini sağlar.
@@ -115,18 +126,18 @@ export class DiscountCalculator {
     user: IUser,
     preschool: IPreschool
   ) {
+    let result = 0;
     if (
       discount.OrganizationName != OrganizationName.NONE &&
       discount.OrganizationName == user.OrganizationOfUser &&
       discount.UserTypes.includes(user.TypeOfUser)
     ) {
-      let index = discount.PreschoolNamesAndTheirDiscounts.indexOf(
-        preschool.PreschoolName
-      );
-      if (index < 0) return Number(0);
-      return Number(discount.PreschoolNamesAndTheirDiscounts[index + 1]);
+      discount.DiscountValues.forEach((discountValue) => {
+        if(discountValue.preschool.id == preschool.Id)
+          result = Number(discountValue.value);
+          });
     }
-    return Number(0);
+    return result;
   }
   /**
    * Yüzde ve miktar olarak hesaplanan indirimlerin anaokulu ücretine uygulanmış halini dönen metod
