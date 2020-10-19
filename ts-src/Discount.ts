@@ -1,4 +1,7 @@
 import { IDiscount } from "./interface/IDiscount";
+import { IDiscountValues } from "./interface/IDiscountValues";
+import { DiscountValues } from "./model/DiscountValues";
+
 import { DiscountType, OrganizationName, UserType } from "./enum/types";
 
 /**
@@ -10,16 +13,27 @@ export class Discount implements IDiscount {
   private _discountType : DiscountType;
   private _userTypes : Array<UserType>;
   private _organizationName : OrganizationName;
-  private _preschoolNamesAndTheirDiscounts : Array <string | number>;
+  private _discountValues : Array <IDiscountValues>;
+  private _id : number;
 
-  constructor(discountName : string, discountType : DiscountType, userTypes : Array<UserType>, organizationName : OrganizationName, preschoolNamesAndTheirDiscounts :Array<string | number>) {
+  constructor(discountName : string, discountType : DiscountType, userTypes : Array<UserType>, 
+    organizationName : OrganizationName, discountValues :Array<IDiscountValues>) {
     this._discountName = discountName;
     this._discountType = discountType;
     this._userTypes = userTypes;
     this._organizationName = organizationName;
-    this._preschoolNamesAndTheirDiscounts = preschoolNamesAndTheirDiscounts;
+    this._discountValues = discountValues;
   }
 
+  get Id() {
+    return this._id;
+  }
+
+  set Id(id : number)
+  {
+    this._id = id;
+  }
+  
   get DiscountName() {
     return this._discountName;
   }
@@ -52,11 +66,11 @@ export class Discount implements IDiscount {
     this._organizationName = organizationName;
   }
 
-  get PreschoolNamesAndTheirDiscounts () {
-    return this._preschoolNamesAndTheirDiscounts;
+  get IDiscountValues () {
+    return this._discountValues;
   }
 
-  set PreschoolNamesAndTheirDiscounts ( preschoolNamesAndTheirDiscounts) {
-    this._preschoolNamesAndTheirDiscounts = preschoolNamesAndTheirDiscounts;
+  set IDiscountValues ( discountValues) {
+    this._discountValues = discountValues;
   }
 }
