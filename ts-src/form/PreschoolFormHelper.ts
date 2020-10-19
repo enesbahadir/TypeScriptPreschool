@@ -1,6 +1,6 @@
-import { preschoolHelper } from "./preschoolHelper";
-import { tableHelper } from "./tableHelper";
-import { IPreschool } from "./interface/IPreschool";
+import { PreschoolHelper } from "./../model/PreschoolHelper";
+import { TableHelper } from "./../table/TableHelper";
+import { IPreschool } from "./../interface/IPreschool";
 
 export class PreschoolFormHelper {
 
@@ -81,7 +81,7 @@ export class PreschoolFormHelper {
 
     let preschoolAppendButton = document.getElementById("appendPreschool");
     preschoolAppendButton.onclick = function() {
-      preschoolHelper.createPreschoolFromInput();
+      PreschoolHelper.createPreschoolFromInput();
       document
         .getElementById("preschoolAppendForm")
         .parentNode.removeChild(document.getElementById("preschoolAppendForm"));
@@ -91,7 +91,7 @@ export class PreschoolFormHelper {
           document.getElementById("preschoolAppendHeader")
         );
       alert("Anaokulu başarılı bir şekilde eklendi.");
-      tableHelper.updatePreschoolTable();
+      TableHelper.updatePreschoolTable();
     };
   }
 
@@ -187,7 +187,7 @@ export class PreschoolFormHelper {
     );
 
     preschoolEditButton.onclick = function() {
-      preschoolHelper.editPreschoolFromInput(preschool);
+      PreschoolHelper.editPreschoolFromInput(preschool);
       document
         .getElementById("preschoolEditForm")
         .parentNode.removeChild(document.getElementById("preschoolEditForm"));
@@ -195,7 +195,7 @@ export class PreschoolFormHelper {
         .getElementById("preschoolEditHeader")
         .parentNode.removeChild(document.getElementById("preschoolEditHeader"));
       alert("Anaokulu başarılı bir şekilde düzenlendi.");
-      tableHelper.updatePreschoolTable();
+      TableHelper.updatePreschoolTable();
     };
   }
 }

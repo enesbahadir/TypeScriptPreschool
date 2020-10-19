@@ -1,7 +1,6 @@
-import { IPreschool } from "./interface/IPreschool";
-import { Database } from "./Database";
+import { IPreschool } from "./../interface/IPreschool";
+import { Database } from "./../data/Database";
 import { PreschoolListFromAPI } from "./PreschoolListFromAPI";
-import { tableHelper } from "./tableHelper";
 
 /**
 *	Anaokulu ekleme, silme ve düzenleme işlemlerini API üzerinden yapan sınıftır.

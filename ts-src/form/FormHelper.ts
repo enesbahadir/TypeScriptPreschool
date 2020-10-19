@@ -1,15 +1,15 @@
-import { DiscountType, OrganizationName, UserType } from "./enum/types";
-import { Database } from "./Database";
-import { IDiscount } from "./interface/IDiscount";
-import { IPreschool } from "./interface/IPreschool";
-import { DiscountHelper } from "./DiscountHelper";
-import { tableHelper } from "./tableHelper";
-import { preschoolHelper } from "./preschoolHelper";
+import { DiscountType, OrganizationName, UserType } from "./../enum/Types";
+import { Database } from "./../data/Database";
+import { IDiscount } from "./../interface/IDiscount";
+import { IPreschool } from "./../interface/IPreschool";
+import { DiscountHelper } from "./../model/DiscountHelper";
+import { TableHelper } from "./../table/TableHelper";
+import { PreschoolHelper } from "./../model/PreschoolHelper";
 
 /**
  * Sistemde giriş yapılacak olan formların oluşturulduğu sınıftır.
  */
-export class formHelper {
+export class FormHelper {
   /**
    * İndirim hesaplama bölümünde kullanıcının, indirimin hesaplayanacağı anaokulunu dinamik olarak preschoolList üzerinden
    * dropdown olarak dolduran metod.

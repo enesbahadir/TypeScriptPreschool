@@ -1,5 +1,5 @@
 import { DiscountType, UserType, OrganizationName } from "./../enum/types"; 
-import { DiscountValues } from "./../model/DiscountValues";
+import { IDiscountValues } from "./IDiscountValues";
 
 /**
  * İndirim sınıfına erişmek için kullanılan interface
@@ -14,3 +14,4 @@ export interface IDiscount {
    Id : number;
 
 }
+

@@ -1,12 +1,12 @@
-import { Database } from "./Database";
-import { DiscountType, OrganizationName, UserType } from "./enum/types";
-import { IDiscount } from "./interface/IDiscount";
-import { IPreschool } from "./interface/IPreschool";
-import { IDiscountValues } from "./interface/IDiscountValues";
+import { Database } from "./../data/Database";
+import { DiscountType, OrganizationName, UserType } from "./../enum/Types";
+import { IDiscount } from "./../interface/IDiscount";
+import { IPreschool } from "./../interface/IPreschool";
+import { IDiscountValues } from "./../interface/IDiscountValues";
 import { Discount } from "./Discount";
-import { DiscountManagementAPI } from "./DiscountManagementAPI";
-import { DiscountValues } from "./model/DiscountValues";
-import { preschoolHelper } from "./preschoolHelper";
+import { DiscountManagementAPI } from "./../api/DiscountManagementAPI";
+import { DiscountValues } from "./../model/DiscountValues";
+import { PreschoolHelper } from "./PreschoolHelper";
 
 /**
  * İndirim ekleme işleminin yapıldığı sınıftır.
@@ -87,7 +87,7 @@ export class DiscountHelper {
           document.getElementById("discountAppendPreschoolText-" + i.toString())
         );
         let tempDiscountValue : IDiscountValues = new DiscountValues(Database.discountValues.length+1, 
-          preschoolHelper.getPreschoolWithId(Number(checkbox.value)),Number(text.value) );
+          PreschoolHelper.getPreschoolWithId(Number(checkbox.value)),Number(text.value) );
         discountValues.push(
           DiscountManagementAPI.createDiscountValuesAPI(tempDiscountValue));
       }

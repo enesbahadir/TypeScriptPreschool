@@ -1,8 +1,8 @@
-import { IDiscount } from "./interface/IDiscount";
-import { IDiscountValues } from "./interface/IDiscountValues";
-import { DiscountValues } from "./model/DiscountValues";
+import { IDiscount } from "./../interface/IDiscount";
+import { IDiscountValues } from "./../interface/IDiscountValues";
+import { DiscountValues } from "./DiscountValues";
 
-import { DiscountType, OrganizationName, UserType } from "./enum/types";
+import { DiscountType, OrganizationName, UserType } from "./../enum/Types";
 
 /**
  * Sistemde kullanılan indirimlerin bilgilerinin saklandığı sınıf
@@ -66,11 +66,11 @@ export class Discount implements IDiscount {
     this._organizationName = organizationName;
   }
 
-  get IDiscountValues () {
+  get DiscountValues () {
     return this._discountValues;
   }
 
-  set IDiscountValues ( discountValues) {
+  set DiscountValues ( discountValues) {
     this._discountValues = discountValues;
   }
 }

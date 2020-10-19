@@ -1,5 +1,5 @@
-import { IDiscount } from "./interface/IDiscount";
-import { DiscountValues } from "./model/DiscountValues";
+import { IDiscount } from "./../interface/IDiscount";
+import { DiscountValues } from "./../model/DiscountValues";
 
 
 export class DiscountListFromAPI {

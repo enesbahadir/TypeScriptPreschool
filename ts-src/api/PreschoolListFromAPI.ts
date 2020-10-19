@@ -1,4 +1,4 @@
-import { IPreschool } from "./interface/IPreschool";
+import { IPreschool } from "./../interface/IPreschool";
 
 export class PreschoolListFromAPI {
 	static getPreschoolsUsingXhr(){

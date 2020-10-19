@@ -1,6 +1,6 @@
-import { Database } from "./Database";
-import { DiscountCalculator } from "./DiscountCalculator";
-import { OrganizationName, UserType } from "./enum/types";
+import { Database } from "./../data/Database";
+import { DiscountCalculator } from "./../DiscountCalculator";
+import { OrganizationName, UserType } from "./../enum/Types";
 import { User } from "./User";
 
 export class userHelper {

@@ -1,4 +1,4 @@
-import { IPreschool } from "./interface/IPreschool";
+import { IPreschool } from "./../interface/IPreschool";
 /**
  * Sistemde kullanılan anaokulu sınıfının bilgilerinin saklandığı sınıf
  */

@@ -1,9 +1,9 @@
-import { Database } from "./Database";
-import { IPreschool } from "./interface/IPreschool";
+import { Database } from "./../data/Database";
+import { IPreschool } from "./../interface/IPreschool";
 import { Preschool } from "./Preschool";
-import { PreschoolManagementAPI } from "./PreschoolManagementAPI";
+import { PreschoolManagementAPI } from "./../api/PreschoolManagementAPI";
 
-export class preschoolHelper {
+export class PreschoolHelper {
   static createPreschoolFromInput() {
     let preschoolName = <HTMLInputElement>(
       document.getElementById("preschoolAppendName")

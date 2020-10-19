@@ -1,7 +1,7 @@
-import { IDiscount } from "./interface/IDiscount";
-import { DiscountValues } from "./model/DiscountValues";
-import { Database } from "./Database";
-import { Discount } from "./Discount";
+import { IDiscount } from "./../interface/IDiscount";
+import { DiscountValues } from "./../model/DiscountValues";
+import { Database } from "./../data/Database";
+import { Discount } from "./../model/Discount";
 
 
 export class DiscountManagementAPI

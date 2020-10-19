@@ -1,5 +1,5 @@
-import { IUser } from "./interface/IUser";
-import { UserType, OrganizationName } from "./enum/types";
+import { IUser } from "./../interface/IUser";
+import { UserType, OrganizationName } from "./../enum/Types";
 /**
  * Sistemde kullanılan kişi bilgilerinin saklandığı sınıf
  */

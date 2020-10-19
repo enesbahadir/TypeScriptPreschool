@@ -1,22 +1,20 @@
-import { Database } from "./Database";
-import { DiscountType } from "./enum/types";
-import { formHelper } from "./formHelper";
-import { DiscountFormHelper } from "./DiscountFormHelper";
-import { PreschoolFormHelper } from "./PreschoolFormHelper";
-import { preschoolHelper } from "./preschoolHelper";
-
-
-import { PreschoolManagementAPI } from "./PreschoolManagementAPI";
+import { Database } from "./../data/Database";
+import { DiscountType } from "./../enum/Types";
+import { FormHelper } from "./../form/FormHelper";
+import { DiscountFormHelper } from "./../form/DiscountFormHelper";
+import { PreschoolFormHelper } from "./../form/PreschoolFormHelper";
+import { PreschoolHelper } from "./../model/PreschoolHelper";
+import { PreschoolManagementAPI } from "./../api/PreschoolManagementAPI";
 /**
  * Sistemde gözükecek olan tabloların oluşturulduğu sınıftır.
  */
-export class tableHelper {
+export class TableHelper {
   /**
    * İndirim tablosunun daha önceden sayfa olup-olmadığı kontrol eder.
    */
   static createDiscountTable() {
     if (!document.getElementById("discountTableId")) {
-      tableHelper.printDiscountTable(Database.discounts);
+      TableHelper.printDiscountTable(Database.discounts);
     }
   }
   /**
@@ -103,7 +101,7 @@ export class tableHelper {
           Database.discounts = Database.discounts.filter(
             discount => discount.DiscountName != discountList[i].DiscountName
           );
-          tableHelper.updateDiscountTable();
+          TableHelper.updateDiscountTable();
         }
 
         return;
@@ -138,7 +136,7 @@ export class tableHelper {
     let element = document.getElementById("discountTableId");
     element.parentNode.removeChild(element);
 
-    tableHelper.createDiscountTable();
+    TableHelper.createDiscountTable();
   }
 
   static printPreschoolTable(preschoolList) {
@@ -194,7 +192,7 @@ export class tableHelper {
               preschool.PreschoolName != preschoolList[i].PreschoolName
           );
           */
-          tableHelper.updatePreschoolTable();
+          TableHelper.updatePreschoolTable();
         }
 
         return;
@@ -221,7 +219,7 @@ export class tableHelper {
    */
   static createPreschoolTable() {
     if (!document.getElementById("preschoolTableId")) {
-      tableHelper.printPreschoolTable(Database.preschools);
+      TableHelper.printPreschoolTable(Database.preschools);
     }
   }
   /**
@@ -231,7 +229,7 @@ export class tableHelper {
     let element = document.getElementById("preschoolTableId");
     element.parentNode.removeChild(element);
 
-    tableHelper.printPreschoolTable(Database.preschools);
+    TableHelper.printPreschoolTable(Database.preschools);
   }
 
   static printHomeButton(parentDiv) {

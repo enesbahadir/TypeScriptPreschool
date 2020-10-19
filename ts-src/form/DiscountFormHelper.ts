@@ -1,10 +1,10 @@
-import { DiscountType, OrganizationName, UserType } from "./enum/types";
-import { Database } from "./Database";
-import { IDiscount } from "./interface/IDiscount";
-import { IPreschool } from "./interface/IPreschool";
-import { formHelper } from "./formHelper";
-import { DiscountHelper } from "./DiscountHelper";
-import { tableHelper } from "./tableHelper";
+import { DiscountType, OrganizationName, UserType } from "./../enum/types";
+import { Database } from "./../data/Database";
+import { IDiscount } from "./../interface/IDiscount";
+import { IPreschool } from "./../interface/IPreschool";
+import { FormHelper } from "./FormHelper";
+import { DiscountHelper } from "./../model/DiscountHelper";
+import { TableHelper } from "./../table/TableHelper";
 
 export class DiscountFormHelper {
 
@@ -49,7 +49,7 @@ export class DiscountFormHelper {
     discountNameInputFieldDiv.appendChild(discountAppendNameInput);
     discountAppendFieldsDiv.appendChild(discountNameInputFieldDiv);
 
-    formHelper.createPreschoolCheckboxAndDiscountInput(discountAppendFieldsDiv);
+    FormHelper.createPreschoolCheckboxAndDiscountInput(discountAppendFieldsDiv);
 
     let discountTypePercentFieldDiv = document.createElement("div");
     discountTypePercentFieldDiv.className = "field half";
@@ -94,13 +94,13 @@ export class DiscountFormHelper {
     discountAppendFieldsDiv.appendChild(discountTypePercentFieldDiv);
     discountAppendFieldsDiv.appendChild(discountTypeAmountFieldDiv);
 
-    formHelper.createUserTypeCheckBox(discountAppendFieldsDiv);
+    FormHelper.createUserTypeCheckBox(discountAppendFieldsDiv);
 
     let discountOrganizationFieldDiv = document.createElement("div");
     discountOrganizationFieldDiv.className = "field";
     discountOrganizationFieldDiv.id = "discountOrganizationFieldDiv";
 
-    formHelper.createOrganizationNameSelectList(
+    FormHelper.createOrganizationNameSelectList(
       discountOrganizationFieldDiv,
       "discountAppend"
     );
@@ -167,7 +167,7 @@ export class DiscountFormHelper {
     discountEditNameInputFieldDiv.appendChild(discountEditNameInput);
     discountEditFieldsDiv.appendChild(discountEditNameInputFieldDiv);
 
-    formHelper.createPreschoolCheckboxAndDiscountInput(
+    FormHelper.createPreschoolCheckboxAndDiscountInput(
       discountEditFieldsDiv,
       discount
     );
@@ -220,13 +220,13 @@ export class DiscountFormHelper {
     discountEditFieldsDiv.appendChild(discountEditTypePercentFieldDiv);
     discountEditFieldsDiv.appendChild(discountEditTypeAmountFieldDiv);
 
-    formHelper.createUserTypeCheckBox(discountEditFieldsDiv, discount);
+    FormHelper.createUserTypeCheckBox(discountEditFieldsDiv, discount);
 
     let discountOrganizationFieldDiv = document.createElement("div");
     discountOrganizationFieldDiv.className = "field";
     discountOrganizationFieldDiv.id = "discountOrganizationFieldDiv";
 
-    formHelper.createOrganizationNameSelectList(
+    FormHelper.createOrganizationNameSelectList(
       discountOrganizationFieldDiv,
       "discountEdit",
       discount
@@ -250,7 +250,7 @@ export class DiscountFormHelper {
 
     discountEditButton.onclick = function() {
       DiscountHelper.editDiscountFromInput(discount);
-      tableHelper.updateDiscountTable();
+      TableHelper.updateDiscountTable();
       document
         .getElementById("discountEditForm")
         .parentNode.removeChild(document.getElementById("discountEditForm"));

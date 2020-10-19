@@ -1,9 +1,9 @@
-import { IDiscount } from "./interface/IDiscount";
-import { IPreschool } from "./interface/IPreschool";
-import { DiscountType, UserType, OrganizationName } from "./enum/types";
-import { PreschoolListFromAPI } from "./PreschoolListFromAPI";
-import { DiscountListFromAPI } from "./DiscountListFromAPI";
-import { DiscountValues } from "./model/DiscountValues";
+import { IDiscount } from "./../interface/IDiscount";
+import { IPreschool } from "./../interface/IPreschool";
+import { DiscountType, UserType, OrganizationName } from "./../enum/Types";
+import { PreschoolListFromAPI } from "./../api/PreschoolListFromAPI";
+import { DiscountListFromAPI } from "./../api/DiscountListFromAPI";
+import { DiscountValues } from "./../model/DiscountValues";
 
 /**
  * Sistemde kullanıcak olan Anaokulu ve İndirim listelerinin saklandığı ve oluşturulduğu sınıf
