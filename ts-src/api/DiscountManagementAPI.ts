@@ -20,26 +20,27 @@ export class DiscountManagementAPI
 		Database.createDiscountList();
 	}
 
-	static createDiscountValuesAPI(IDiscountValues)
+	static createDiscountValuesAPI(discountValues)
 	{
 		debugger;
 		let xhr = new XMLHttpRequest();
-		xhr.open("POST", 'http://localhost:8080/values/',false);
+		xhr.open("POST", 'http://localhost:8080/values/');
 		xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-		xhr.send(IDiscountValues);
+		let discountValuesJSON = JSON.stringify(discountValues);
+		xhr.send(discountValues);
 		xhr.onload = (event) => {
 			let data = JSON.parse(event.target.response);
 			if (Number(event.target.status) >= 200 && Number(event.target.status) < 400)
 			{
-				IDiscountValues.Id = data.id;
-				IDiscountValues.Preschool = data.preschool;
-				IDiscountValues.Value = data.Value;
+				discountValues.Id = data.id;
+				discountValues.Preschool = data.preschool;
+				discountValues.Value = data.value;
 			}
 			else {
 				console.log('error');
 			  }
 		};	
 		//window.location.reload();
-		return IDiscountValues;
+		return discountValues;
 	}
 }

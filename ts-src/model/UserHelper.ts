@@ -3,7 +3,7 @@ import { DiscountCalculator } from "./../DiscountCalculator";
 import { OrganizationName, UserType } from "./../enum/Types";
 import { User } from "./User";
 
-export class userHelper {
+export class UserHelper {
   /**
    * İndirim hesaplama bölümünde kullanıcının girdiği bilgiler doğrultusunda User nesnesi oluşturan metod
    */

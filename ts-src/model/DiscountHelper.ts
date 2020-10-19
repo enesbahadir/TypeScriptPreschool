@@ -25,10 +25,10 @@ export class DiscountHelper {
     let organizationName = DiscountHelper.getOrganizationName(
       "discountAppend"
     );
-    let newDiscount = new Discount(discountName.value, discountType, DiscountHelper.getUserTypes(),
+    let newDiscount : IDiscount = new Discount(discountName.value, discountType, DiscountHelper.getUserTypes(),
      organizationName, DiscountHelper.getpreschoolNamesAndTheirDiscounts());
 
-    DiscountManagementAPI.createDiscountWithAPI(newDiscount);
+    //DiscountManagementAPI.createDiscountWithAPI(newDiscount);
      
     //alert("İndirim başarılı bir şekilde eklendi.");
      document

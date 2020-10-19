@@ -117,7 +117,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
   }
 
   return newRequire;
-})({"ts-src/enum/types.ts":[function(require,module,exports) {
+})({"ts-src/enum/Types.ts":[function(require,module,exports) {
 "use strict";
 /**
  * Sistemde tanımlı kişi tiplerini, İndirim tiplerinin ve Kurumların Listelendiği enum sınıfları
@@ -149,7 +149,7 @@ var OrganizationName;
   OrganizationName[OrganizationName["ANADOLU"] = 1] = "ANADOLU";
   OrganizationName[OrganizationName["NONE"] = 2] = "NONE";
 })(OrganizationName = exports.OrganizationName || (exports.OrganizationName = {}));
-},{}],"ts-src/PreschoolListFromAPI.ts":[function(require,module,exports) {
+},{}],"ts-src/api/PreschoolListFromAPI.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -206,7 +206,7 @@ var PreschoolListFromAPI = /*#__PURE__*/function () {
 }();
 
 exports.PreschoolListFromAPI = PreschoolListFromAPI;
-},{}],"ts-src/DiscountListFromAPI.ts":[function(require,module,exports) {
+},{}],"ts-src/api/DiscountListFromAPI.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -292,7 +292,7 @@ var DiscountListFromAPI = /*#__PURE__*/function () {
 }();
 
 exports.DiscountListFromAPI = DiscountListFromAPI;
-},{}],"ts-src/Database.ts":[function(require,module,exports) {
+},{}],"ts-src/data/Database.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -306,9 +306,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Database = void 0;
 
-var PreschoolListFromAPI_1 = require("./PreschoolListFromAPI");
+var PreschoolListFromAPI_1 = require("./../api/PreschoolListFromAPI");
 
-var DiscountListFromAPI_1 = require("./DiscountListFromAPI");
+var DiscountListFromAPI_1 = require("./../api/DiscountListFromAPI");
 /**
  * Sistemde kullanıcak olan Anaokulu ve İndirim listelerinin saklandığı ve oluşturulduğu sınıf
  */
@@ -424,7 +424,7 @@ exports.Database = Database;
 Database.preschools = new Array();
 Database.discounts = new Array();
 Database.discountValues = new Array();
-},{"./PreschoolListFromAPI":"ts-src/PreschoolListFromAPI.ts","./DiscountListFromAPI":"ts-src/DiscountListFromAPI.ts"}],"ts-src/formHelper.ts":[function(require,module,exports) {
+},{"./../api/PreschoolListFromAPI":"ts-src/api/PreschoolListFromAPI.ts","./../api/DiscountListFromAPI":"ts-src/api/DiscountListFromAPI.ts"}],"ts-src/form/FormHelper.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -436,22 +436,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.formHelper = void 0;
+exports.FormHelper = void 0;
 
-var types_1 = require("./enum/types");
+var Types_1 = require("./../enum/Types");
 
-var Database_1 = require("./Database");
+var Database_1 = require("./../data/Database");
 /**
  * Sistemde giriş yapılacak olan formların oluşturulduğu sınıftır.
  */
 
 
-var formHelper = /*#__PURE__*/function () {
-  function formHelper() {
-    _classCallCheck(this, formHelper);
+var FormHelper = /*#__PURE__*/function () {
+  function FormHelper() {
+    _classCallCheck(this, FormHelper);
   }
 
-  _createClass(formHelper, null, [{
+  _createClass(FormHelper, null, [{
     key: "createPreschoolSelectList",
 
     /**
@@ -483,7 +483,7 @@ var formHelper = /*#__PURE__*/function () {
       selectOrganizationList.innerHTML = "<option value=\"none\" selected disabled hidden> \n          L\xFCtfen \xC7al\u0131\u015F\u0131lan Kurumu Se\xE7iniz";
       myOrganizationParent.appendChild(selectOrganizationList);
 
-      for (var i in types_1.OrganizationName) {
+      for (var i in Types_1.OrganizationName) {
         if (isNaN(Number(i))) {
           var option = document.createElement("option");
           option.text = i;
@@ -565,9 +565,9 @@ var formHelper = /*#__PURE__*/function () {
       div3.appendChild(label3);
 
       if (discount) {
-        if (discount.UserTypes.includes(types_1.UserType.PERSONEL)) option.defaultChecked = true;
-        if (discount.UserTypes.includes(types_1.UserType.IHVAN)) option2.defaultChecked = true;
-        if (discount.UserTypes.includes(types_1.UserType.STANDART)) option3.defaultChecked = true;
+        if (discount.UserTypes.includes(Types_1.UserType.PERSONEL)) option.defaultChecked = true;
+        if (discount.UserTypes.includes(Types_1.UserType.IHVAN)) option2.defaultChecked = true;
+        if (discount.UserTypes.includes(Types_1.UserType.STANDART)) option3.defaultChecked = true;
       }
 
       parent.appendChild(div);
@@ -622,11 +622,43 @@ var formHelper = /*#__PURE__*/function () {
     }
   }]);
 
-  return formHelper;
+  return FormHelper;
 }();
 
-exports.formHelper = formHelper;
-},{"./enum/types":"ts-src/enum/types.ts","./Database":"ts-src/Database.ts"}],"ts-src/Discount.ts":[function(require,module,exports) {
+exports.FormHelper = FormHelper;
+},{"./../enum/Types":"ts-src/enum/Types.ts","./../data/Database":"ts-src/data/Database.ts"}],"ts-src/enum/types.ts":[function(require,module,exports) {
+"use strict";
+/**
+ * Sistemde tanımlı kişi tiplerini, İndirim tiplerinin ve Kurumların Listelendiği enum sınıfları
+ */
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.OrganizationName = exports.DiscountType = exports.UserType = void 0;
+var UserType;
+
+(function (UserType) {
+  UserType[UserType["PERSONEL"] = 0] = "PERSONEL";
+  UserType[UserType["IHVAN"] = 1] = "IHVAN";
+  UserType[UserType["STANDART"] = 2] = "STANDART";
+})(UserType = exports.UserType || (exports.UserType = {}));
+
+var DiscountType;
+
+(function (DiscountType) {
+  DiscountType[DiscountType["PERCENTAGE"] = 0] = "PERCENTAGE";
+  DiscountType[DiscountType["AMOUNT"] = 1] = "AMOUNT";
+})(DiscountType = exports.DiscountType || (exports.DiscountType = {}));
+
+var OrganizationName;
+
+(function (OrganizationName) {
+  OrganizationName[OrganizationName["SAGLIK"] = 0] = "SAGLIK";
+  OrganizationName[OrganizationName["ANADOLU"] = 1] = "ANADOLU";
+  OrganizationName[OrganizationName["NONE"] = 2] = "NONE";
+})(OrganizationName = exports.OrganizationName || (exports.OrganizationName = {}));
+},{}],"ts-src/model/Discount.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -695,7 +727,7 @@ var Discount = /*#__PURE__*/function () {
       this._organizationName = organizationName;
     }
   }, {
-    key: "IDiscountValues",
+    key: "DiscountValues",
     get: function get() {
       return this._discountValues;
     },
@@ -708,7 +740,7 @@ var Discount = /*#__PURE__*/function () {
 }();
 
 exports.Discount = Discount;
-},{}],"ts-src/DiscountManagementAPI.ts":[function(require,module,exports) {
+},{}],"ts-src/api/DiscountManagementAPI.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -722,7 +754,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DiscountManagementAPI = void 0;
 
-var Database_1 = require("./Database");
+var Database_1 = require("./../data/Database");
 
 var DiscountManagementAPI = /*#__PURE__*/function () {
   function DiscountManagementAPI() {
@@ -742,27 +774,28 @@ var DiscountManagementAPI = /*#__PURE__*/function () {
     }
   }, {
     key: "createDiscountValuesAPI",
-    value: function createDiscountValuesAPI(IDiscountValues) {
+    value: function createDiscountValuesAPI(discountValues) {
       debugger;
       var xhr = new XMLHttpRequest();
-      xhr.open("POST", 'http://localhost:8080/values/', false);
+      xhr.open("POST", 'http://localhost:8080/values/');
       xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      xhr.send(IDiscountValues);
+      var discountValuesJSON = JSON.stringify(discountValues);
+      xhr.send(discountValues);
 
       xhr.onload = function (event) {
         var data = JSON.parse(event.target.response);
 
         if (Number(event.target.status) >= 200 && Number(event.target.status) < 400) {
-          IDiscountValues.Id = data.id;
-          IDiscountValues.Preschool = data.preschool;
-          IDiscountValues.Value = data.Value;
+          discountValues.Id = data.id;
+          discountValues.Preschool = data.preschool;
+          discountValues.Value = data.value;
         } else {
           console.log('error');
         }
       }; //window.location.reload();
 
 
-      return IDiscountValues;
+      return discountValues;
     }
   }]);
 
@@ -770,7 +803,7 @@ var DiscountManagementAPI = /*#__PURE__*/function () {
 }();
 
 exports.DiscountManagementAPI = DiscountManagementAPI;
-},{"./Database":"ts-src/Database.ts"}],"ts-src/model/DiscountValues.ts":[function(require,module,exports) {
+},{"./../data/Database":"ts-src/data/Database.ts"}],"ts-src/model/DiscountValues.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -823,7 +856,7 @@ var DiscountValues = /*#__PURE__*/function () {
 }();
 
 exports.DiscountValues = DiscountValues;
-},{}],"ts-src/Preschool.ts":[function(require,module,exports) {
+},{}],"ts-src/model/Preschool.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -910,7 +943,7 @@ var Preschool = /*#__PURE__*/function () {
 }();
 
 exports.Preschool = Preschool;
-},{}],"ts-src/PreschoolManagementAPI.ts":[function(require,module,exports) {
+},{}],"ts-src/api/PreschoolManagementAPI.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -924,7 +957,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PreschoolManagementAPI = void 0;
 
-var Database_1 = require("./Database");
+var Database_1 = require("./../data/Database");
 /**
 *	Anaokulu ekleme, silme ve düzenleme işlemlerini API üzerinden yapan sınıftır.
 */
@@ -986,7 +1019,7 @@ var PreschoolManagementAPI = /*#__PURE__*/function () {
 }();
 
 exports.PreschoolManagementAPI = PreschoolManagementAPI;
-},{"./Database":"ts-src/Database.ts"}],"ts-src/preschoolHelper.ts":[function(require,module,exports) {
+},{"./../data/Database":"ts-src/data/Database.ts"}],"ts-src/model/PreschoolHelper.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -998,20 +1031,20 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.preschoolHelper = void 0;
+exports.PreschoolHelper = void 0;
 
-var Database_1 = require("./Database");
+var Database_1 = require("./../data/Database");
 
 var Preschool_1 = require("./Preschool");
 
-var PreschoolManagementAPI_1 = require("./PreschoolManagementAPI");
+var PreschoolManagementAPI_1 = require("./../api/PreschoolManagementAPI");
 
-var preschoolHelper = /*#__PURE__*/function () {
-  function preschoolHelper() {
-    _classCallCheck(this, preschoolHelper);
+var PreschoolHelper = /*#__PURE__*/function () {
+  function PreschoolHelper() {
+    _classCallCheck(this, PreschoolHelper);
   }
 
-  _createClass(preschoolHelper, null, [{
+  _createClass(PreschoolHelper, null, [{
     key: "createPreschoolFromInput",
     value: function createPreschoolFromInput() {
       var preschoolName = document.getElementById("preschoolAppendName");
@@ -1060,11 +1093,11 @@ var preschoolHelper = /*#__PURE__*/function () {
     }
   }]);
 
-  return preschoolHelper;
+  return PreschoolHelper;
 }();
 
-exports.preschoolHelper = preschoolHelper;
-},{"./Database":"ts-src/Database.ts","./Preschool":"ts-src/Preschool.ts","./PreschoolManagementAPI":"ts-src/PreschoolManagementAPI.ts"}],"ts-src/DiscountHelper.ts":[function(require,module,exports) {
+exports.PreschoolHelper = PreschoolHelper;
+},{"./../data/Database":"ts-src/data/Database.ts","./Preschool":"ts-src/model/Preschool.ts","./../api/PreschoolManagementAPI":"ts-src/api/PreschoolManagementAPI.ts"}],"ts-src/model/DiscountHelper.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1078,17 +1111,17 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DiscountHelper = void 0;
 
-var Database_1 = require("./Database");
+var Database_1 = require("./../data/Database");
 
-var types_1 = require("./enum/types");
+var Types_1 = require("./../enum/Types");
 
 var Discount_1 = require("./Discount");
 
-var DiscountManagementAPI_1 = require("./DiscountManagementAPI");
+var DiscountManagementAPI_1 = require("./../api/DiscountManagementAPI");
 
-var DiscountValues_1 = require("./model/DiscountValues");
+var DiscountValues_1 = require("./../model/DiscountValues");
 
-var preschoolHelper_1 = require("./preschoolHelper");
+var PreschoolHelper_1 = require("./PreschoolHelper");
 /**
  * İndirim ekleme işleminin yapıldığı sınıftır.
  */
@@ -1109,8 +1142,8 @@ var DiscountHelper = /*#__PURE__*/function () {
       var discountName = DiscountHelper.getDiscountName("discountAppend-discountName");
       var discountType = DiscountHelper.getdiscountType("discount-append-percentage-radio");
       var organizationName = DiscountHelper.getOrganizationName("discountAppend");
-      var newDiscount = new Discount_1.Discount(discountName.value, discountType, DiscountHelper.getUserTypes(), organizationName, DiscountHelper.getpreschoolNamesAndTheirDiscounts());
-      DiscountManagementAPI_1.DiscountManagementAPI.createDiscountWithAPI(newDiscount); //alert("İndirim başarılı bir şekilde eklendi.");
+      var newDiscount = new Discount_1.Discount(discountName.value, discountType, DiscountHelper.getUserTypes(), organizationName, DiscountHelper.getpreschoolNamesAndTheirDiscounts()); //DiscountManagementAPI.createDiscountWithAPI(newDiscount);
+      //alert("İndirim başarılı bir şekilde eklendi.");
 
       document.getElementById("discountAppendForm").parentNode.removeChild(document.getElementById("discountAppendForm"));
       document.getElementById("discountAppendHeader").parentNode.removeChild(document.getElementById("discountAppendHeader"));
@@ -1147,7 +1180,7 @@ var DiscountHelper = /*#__PURE__*/function () {
         var checkbox = document.getElementById("discountAppendPreschoolCheckbox-" + i.toString());
         if (!checkbox.checked) continue;else {
           var text = document.getElementById("discountAppendPreschoolText-" + i.toString());
-          var tempDiscountValue = new DiscountValues_1.DiscountValues(Database_1.Database.discountValues.length + 1, preschoolHelper_1.preschoolHelper.getPreschoolWithId(Number(checkbox.value)), Number(text.value));
+          var tempDiscountValue = new DiscountValues_1.DiscountValues(Database_1.Database.discountValues.length + 1, PreschoolHelper_1.PreschoolHelper.getPreschoolWithId(Number(checkbox.value)), Number(text.value));
           discountValues.push(DiscountManagementAPI_1.DiscountManagementAPI.createDiscountValuesAPI(tempDiscountValue));
         }
       }
@@ -1173,11 +1206,11 @@ var DiscountHelper = /*#__PURE__*/function () {
     value: function getUserTypes() {
       var userTypes = new Array();
       var option = document.getElementById("user-type-personel");
-      if (option.checked) userTypes.push(types_1.UserType.PERSONEL);
+      if (option.checked) userTypes.push(Types_1.UserType.PERSONEL);
       option = document.getElementById("user-type-ihvan");
-      if (option.checked) userTypes.push(types_1.UserType.IHVAN);
+      if (option.checked) userTypes.push(Types_1.UserType.IHVAN);
       option = document.getElementById("user-type-standart");
-      if (option.checked) userTypes.push(types_1.UserType.IHVAN);
+      if (option.checked) userTypes.push(Types_1.UserType.IHVAN);
       return userTypes;
     }
   }, {
@@ -1189,19 +1222,19 @@ var DiscountHelper = /*#__PURE__*/function () {
       switch (a.value) {
         case "ANADOLU":
           {
-            organizationName = types_1.OrganizationName.ANADOLU;
+            organizationName = Types_1.OrganizationName.ANADOLU;
             break;
           }
 
         case "SAGLIK":
           {
-            organizationName = types_1.OrganizationName.SAGLIK;
+            organizationName = Types_1.OrganizationName.SAGLIK;
             break;
           }
 
         default:
           {
-            organizationName = types_1.OrganizationName.NONE;
+            organizationName = Types_1.OrganizationName.NONE;
           }
       }
 
@@ -1213,7 +1246,7 @@ var DiscountHelper = /*#__PURE__*/function () {
 }();
 
 exports.DiscountHelper = DiscountHelper;
-},{"./Database":"ts-src/Database.ts","./enum/types":"ts-src/enum/types.ts","./Discount":"ts-src/Discount.ts","./DiscountManagementAPI":"ts-src/DiscountManagementAPI.ts","./model/DiscountValues":"ts-src/model/DiscountValues.ts","./preschoolHelper":"ts-src/preschoolHelper.ts"}],"ts-src/PreschoolFormHelper.ts":[function(require,module,exports) {
+},{"./../data/Database":"ts-src/data/Database.ts","./../enum/Types":"ts-src/enum/Types.ts","./Discount":"ts-src/model/Discount.ts","./../api/DiscountManagementAPI":"ts-src/api/DiscountManagementAPI.ts","./../model/DiscountValues":"ts-src/model/DiscountValues.ts","./PreschoolHelper":"ts-src/model/PreschoolHelper.ts"}],"ts-src/form/PreschoolFormHelper.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1227,9 +1260,9 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.PreschoolFormHelper = void 0;
 
-var preschoolHelper_1 = require("./preschoolHelper");
+var PreschoolHelper_1 = require("./../model/PreschoolHelper");
 
-var tableHelper_1 = require("./tableHelper");
+var TableHelper_1 = require("./../table/TableHelper");
 
 var PreschoolFormHelper = /*#__PURE__*/function () {
   function PreschoolFormHelper() {
@@ -1290,11 +1323,11 @@ var PreschoolFormHelper = /*#__PURE__*/function () {
       var preschoolAppendButton = document.getElementById("appendPreschool");
 
       preschoolAppendButton.onclick = function () {
-        preschoolHelper_1.preschoolHelper.createPreschoolFromInput();
+        PreschoolHelper_1.PreschoolHelper.createPreschoolFromInput();
         document.getElementById("preschoolAppendForm").parentNode.removeChild(document.getElementById("preschoolAppendForm"));
         document.getElementById("preschoolAppendHeader").parentNode.removeChild(document.getElementById("preschoolAppendHeader"));
         alert("Anaokulu başarılı bir şekilde eklendi.");
-        tableHelper_1.tableHelper.updatePreschoolTable();
+        TableHelper_1.TableHelper.updatePreschoolTable();
       };
     }
   }, {
@@ -1361,11 +1394,11 @@ var PreschoolFormHelper = /*#__PURE__*/function () {
       var preschoolEditButton = document.getElementById("editPreschool");
 
       preschoolEditButton.onclick = function () {
-        preschoolHelper_1.preschoolHelper.editPreschoolFromInput(preschool);
+        PreschoolHelper_1.PreschoolHelper.editPreschoolFromInput(preschool);
         document.getElementById("preschoolEditForm").parentNode.removeChild(document.getElementById("preschoolEditForm"));
         document.getElementById("preschoolEditHeader").parentNode.removeChild(document.getElementById("preschoolEditHeader"));
         alert("Anaokulu başarılı bir şekilde düzenlendi.");
-        tableHelper_1.tableHelper.updatePreschoolTable();
+        TableHelper_1.TableHelper.updatePreschoolTable();
       };
     }
   }]);
@@ -1374,7 +1407,7 @@ var PreschoolFormHelper = /*#__PURE__*/function () {
 }();
 
 exports.PreschoolFormHelper = PreschoolFormHelper;
-},{"./preschoolHelper":"ts-src/preschoolHelper.ts","./tableHelper":"ts-src/tableHelper.ts"}],"ts-src/tableHelper.ts":[function(require,module,exports) {
+},{"./../model/PreschoolHelper":"ts-src/model/PreschoolHelper.ts","./../table/TableHelper":"ts-src/table/TableHelper.ts"}],"ts-src/table/TableHelper.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1386,26 +1419,26 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.tableHelper = void 0;
+exports.TableHelper = void 0;
 
-var Database_1 = require("./Database");
+var Database_1 = require("./../data/Database");
 
-var DiscountFormHelper_1 = require("./DiscountFormHelper");
+var DiscountFormHelper_1 = require("./../form/DiscountFormHelper");
 
-var PreschoolFormHelper_1 = require("./PreschoolFormHelper");
+var PreschoolFormHelper_1 = require("./../form/PreschoolFormHelper");
 
-var PreschoolManagementAPI_1 = require("./PreschoolManagementAPI");
+var PreschoolManagementAPI_1 = require("./../api/PreschoolManagementAPI");
 /**
  * Sistemde gözükecek olan tabloların oluşturulduğu sınıftır.
  */
 
 
-var tableHelper = /*#__PURE__*/function () {
-  function tableHelper() {
-    _classCallCheck(this, tableHelper);
+var TableHelper = /*#__PURE__*/function () {
+  function TableHelper() {
+    _classCallCheck(this, TableHelper);
   }
 
-  _createClass(tableHelper, null, [{
+  _createClass(TableHelper, null, [{
     key: "createDiscountTable",
 
     /**
@@ -1413,7 +1446,7 @@ var tableHelper = /*#__PURE__*/function () {
      */
     value: function createDiscountTable() {
       if (!document.getElementById("discountTableId")) {
-        tableHelper.printDiscountTable(Database_1.Database.discounts);
+        TableHelper.printDiscountTable(Database_1.Database.discounts);
       }
     }
     /**
@@ -1491,7 +1524,7 @@ var tableHelper = /*#__PURE__*/function () {
             Database_1.Database.discounts = Database_1.Database.discounts.filter(function (discount) {
               return discount.DiscountName != discountList[i].DiscountName;
             });
-            tableHelper.updateDiscountTable();
+            TableHelper.updateDiscountTable();
           }
 
           return;
@@ -1526,7 +1559,7 @@ var tableHelper = /*#__PURE__*/function () {
     value: function updateDiscountTable() {
       var element = document.getElementById("discountTableId");
       element.parentNode.removeChild(element);
-      tableHelper.createDiscountTable();
+      TableHelper.createDiscountTable();
     }
   }, {
     key: "printPreschoolTable",
@@ -1573,7 +1606,7 @@ var tableHelper = /*#__PURE__*/function () {
             );
             */
 
-            tableHelper.updatePreschoolTable();
+            TableHelper.updatePreschoolTable();
           }
 
           return;
@@ -1607,7 +1640,7 @@ var tableHelper = /*#__PURE__*/function () {
     key: "createPreschoolTable",
     value: function createPreschoolTable() {
       if (!document.getElementById("preschoolTableId")) {
-        tableHelper.printPreschoolTable(Database_1.Database.preschools);
+        TableHelper.printPreschoolTable(Database_1.Database.preschools);
       }
     }
     /**
@@ -1619,7 +1652,7 @@ var tableHelper = /*#__PURE__*/function () {
     value: function updatePreschoolTable() {
       var element = document.getElementById("preschoolTableId");
       element.parentNode.removeChild(element);
-      tableHelper.printPreschoolTable(Database_1.Database.preschools);
+      TableHelper.printPreschoolTable(Database_1.Database.preschools);
     }
   }, {
     key: "printHomeButton",
@@ -1634,11 +1667,11 @@ var tableHelper = /*#__PURE__*/function () {
     }
   }]);
 
-  return tableHelper;
+  return TableHelper;
 }();
 
-exports.tableHelper = tableHelper;
-},{"./Database":"ts-src/Database.ts","./DiscountFormHelper":"ts-src/DiscountFormHelper.ts","./PreschoolFormHelper":"ts-src/PreschoolFormHelper.ts","./PreschoolManagementAPI":"ts-src/PreschoolManagementAPI.ts"}],"ts-src/DiscountFormHelper.ts":[function(require,module,exports) {
+exports.TableHelper = TableHelper;
+},{"./../data/Database":"ts-src/data/Database.ts","./../form/DiscountFormHelper":"ts-src/form/DiscountFormHelper.ts","./../form/PreschoolFormHelper":"ts-src/form/PreschoolFormHelper.ts","./../api/PreschoolManagementAPI":"ts-src/api/PreschoolManagementAPI.ts"}],"ts-src/form/DiscountFormHelper.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1652,13 +1685,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DiscountFormHelper = void 0;
 
-var types_1 = require("./enum/types");
+var types_1 = require("./../enum/types");
 
-var formHelper_1 = require("./formHelper");
+var FormHelper_1 = require("./FormHelper");
 
-var DiscountHelper_1 = require("./DiscountHelper");
+var DiscountHelper_1 = require("./../model/DiscountHelper");
 
-var tableHelper_1 = require("./tableHelper");
+var TableHelper_1 = require("./../table/TableHelper");
 
 var DiscountFormHelper = /*#__PURE__*/function () {
   function DiscountFormHelper() {
@@ -1701,7 +1734,7 @@ var DiscountFormHelper = /*#__PURE__*/function () {
       discountNameInputFieldDiv.appendChild(discountAppendNameLabel);
       discountNameInputFieldDiv.appendChild(discountAppendNameInput);
       discountAppendFieldsDiv.appendChild(discountNameInputFieldDiv);
-      formHelper_1.formHelper.createPreschoolCheckboxAndDiscountInput(discountAppendFieldsDiv);
+      FormHelper_1.FormHelper.createPreschoolCheckboxAndDiscountInput(discountAppendFieldsDiv);
       var discountTypePercentFieldDiv = document.createElement("div");
       discountTypePercentFieldDiv.className = "field half";
       var discountTypePercentRadio = document.createElement("input");
@@ -1728,11 +1761,11 @@ var DiscountFormHelper = /*#__PURE__*/function () {
       discountTypeAmountFieldDiv.appendChild(discountTypeAmountRadioLabel);
       discountAppendFieldsDiv.appendChild(discountTypePercentFieldDiv);
       discountAppendFieldsDiv.appendChild(discountTypeAmountFieldDiv);
-      formHelper_1.formHelper.createUserTypeCheckBox(discountAppendFieldsDiv);
+      FormHelper_1.FormHelper.createUserTypeCheckBox(discountAppendFieldsDiv);
       var discountOrganizationFieldDiv = document.createElement("div");
       discountOrganizationFieldDiv.className = "field";
       discountOrganizationFieldDiv.id = "discountOrganizationFieldDiv";
-      formHelper_1.formHelper.createOrganizationNameSelectList(discountOrganizationFieldDiv, "discountAppend");
+      FormHelper_1.FormHelper.createOrganizationNameSelectList(discountOrganizationFieldDiv, "discountAppend");
       discountAppendFieldsDiv.appendChild(discountOrganizationFieldDiv);
       discountAppendForm.appendChild(discountAppendFieldsDiv);
       discountAppendParent.appendChild(discountAppendHeader);
@@ -1779,7 +1812,7 @@ var DiscountFormHelper = /*#__PURE__*/function () {
       discountEditNameInputFieldDiv.appendChild(discountEditNameLabel);
       discountEditNameInputFieldDiv.appendChild(discountEditNameInput);
       discountEditFieldsDiv.appendChild(discountEditNameInputFieldDiv);
-      formHelper_1.formHelper.createPreschoolCheckboxAndDiscountInput(discountEditFieldsDiv, discount);
+      FormHelper_1.FormHelper.createPreschoolCheckboxAndDiscountInput(discountEditFieldsDiv, discount);
       var discountEditTypePercentFieldDiv = document.createElement("div");
       discountEditTypePercentFieldDiv.className = "field half";
       var discountTypePercentRadio = document.createElement("input");
@@ -1808,11 +1841,11 @@ var DiscountFormHelper = /*#__PURE__*/function () {
       discountEditTypeAmountFieldDiv.appendChild(discountTypeAmountRadioLabel);
       discountEditFieldsDiv.appendChild(discountEditTypePercentFieldDiv);
       discountEditFieldsDiv.appendChild(discountEditTypeAmountFieldDiv);
-      formHelper_1.formHelper.createUserTypeCheckBox(discountEditFieldsDiv, discount);
+      FormHelper_1.FormHelper.createUserTypeCheckBox(discountEditFieldsDiv, discount);
       var discountOrganizationFieldDiv = document.createElement("div");
       discountOrganizationFieldDiv.className = "field";
       discountOrganizationFieldDiv.id = "discountOrganizationFieldDiv";
-      formHelper_1.formHelper.createOrganizationNameSelectList(discountOrganizationFieldDiv, "discountEdit", discount);
+      FormHelper_1.FormHelper.createOrganizationNameSelectList(discountOrganizationFieldDiv, "discountEdit", discount);
       discountEditFieldsDiv.appendChild(discountOrganizationFieldDiv);
       discountEditForm.appendChild(discountEditFieldsDiv);
       discountEditParent.appendChild(discountEditHeader);
@@ -1822,7 +1855,7 @@ var DiscountFormHelper = /*#__PURE__*/function () {
 
       discountEditButton.onclick = function () {
         DiscountHelper_1.DiscountHelper.editDiscountFromInput(discount);
-        tableHelper_1.tableHelper.updateDiscountTable();
+        TableHelper_1.TableHelper.updateDiscountTable();
         document.getElementById("discountEditForm").parentNode.removeChild(document.getElementById("discountEditForm"));
         document.getElementById("discountEditHeader").parentNode.removeChild(document.getElementById("discountEditHeader"));
         alert("İndirim başarılı bir şekilde güncellendi.");
@@ -1834,7 +1867,7 @@ var DiscountFormHelper = /*#__PURE__*/function () {
 }();
 
 exports.DiscountFormHelper = DiscountFormHelper;
-},{"./enum/types":"ts-src/enum/types.ts","./formHelper":"ts-src/formHelper.ts","./DiscountHelper":"ts-src/DiscountHelper.ts","./tableHelper":"ts-src/tableHelper.ts"}],"ts-src/DiscountCalculator.ts":[function(require,module,exports) {
+},{"./../enum/types":"ts-src/enum/types.ts","./FormHelper":"ts-src/form/FormHelper.ts","./../model/DiscountHelper":"ts-src/model/DiscountHelper.ts","./../table/TableHelper":"ts-src/table/TableHelper.ts"}],"ts-src/DiscountCalculator.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -1848,7 +1881,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.DiscountCalculator = void 0;
 
-var Database_1 = require("./Database");
+var Database_1 = require("./data/Database");
 
 var types_1 = require("./enum/types");
 /**
@@ -1913,7 +1946,6 @@ var DiscountCalculator = /*#__PURE__*/function () {
     key: "calculateEarlyRegistrationDiscount",
     value: function calculateEarlyRegistrationDiscount(discount, preschool) {
       var result = 0;
-      debugger;
 
       if (DiscountCalculator.calculateEarlyRegistration(preschool) && discount.DiscountName == "Erken Kayıt Indirimi") {
         discount.DiscountValues.forEach(function (discountValue) {
@@ -1984,7 +2016,7 @@ var DiscountCalculator = /*#__PURE__*/function () {
 }();
 
 exports.DiscountCalculator = DiscountCalculator;
-},{"./Database":"ts-src/Database.ts","./enum/types":"ts-src/enum/types.ts"}],"ts-src/User.ts":[function(require,module,exports) {
+},{"./data/Database":"ts-src/data/Database.ts","./enum/types":"ts-src/enum/types.ts"}],"ts-src/model/User.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2040,7 +2072,7 @@ var User = /*#__PURE__*/function () {
 }();
 
 exports.User = User;
-},{}],"ts-src/userHelper.ts":[function(require,module,exports) {
+},{}],"ts-src/model/UserHelper.ts":[function(require,module,exports) {
 "use strict";
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -2052,22 +2084,22 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.userHelper = void 0;
+exports.UserHelper = void 0;
 
-var Database_1 = require("./Database");
+var Database_1 = require("./../data/Database");
 
-var DiscountCalculator_1 = require("./DiscountCalculator");
+var DiscountCalculator_1 = require("./../DiscountCalculator");
 
-var types_1 = require("./enum/types");
+var Types_1 = require("./../enum/Types");
 
 var User_1 = require("./User");
 
-var userHelper = /*#__PURE__*/function () {
-  function userHelper() {
-    _classCallCheck(this, userHelper);
+var UserHelper = /*#__PURE__*/function () {
+  function UserHelper() {
+    _classCallCheck(this, UserHelper);
   }
 
-  _createClass(userHelper, null, [{
+  _createClass(UserHelper, null, [{
     key: "createUserFromUserInput",
 
     /**
@@ -2082,29 +2114,29 @@ var userHelper = /*#__PURE__*/function () {
       switch (organizationChooseInput.value) {
         case "ANADOLU":
           {
-            organizationChoose = types_1.OrganizationName.ANADOLU;
+            organizationChoose = Types_1.OrganizationName.ANADOLU;
             break;
           }
 
         case "SAGLIK":
           {
-            organizationChoose = types_1.OrganizationName.SAGLIK;
+            organizationChoose = Types_1.OrganizationName.SAGLIK;
             break;
           }
 
         default:
           {
-            organizationChoose = types_1.OrganizationName.NONE;
+            organizationChoose = Types_1.OrganizationName.NONE;
           }
       }
 
       var userTypeChoose;
       var userPersonelRadio = document.getElementById("user-personel");
-      if (userPersonelRadio.checked) userTypeChoose = types_1.UserType.PERSONEL;
+      if (userPersonelRadio.checked) userTypeChoose = Types_1.UserType.PERSONEL;
       userPersonelRadio = document.getElementById("user-ihvan");
-      if (userPersonelRadio.checked) userTypeChoose = types_1.UserType.IHVAN;
+      if (userPersonelRadio.checked) userTypeChoose = Types_1.UserType.IHVAN;
       userPersonelRadio = document.getElementById("user-standart");
-      if (userPersonelRadio.checked) userTypeChoose = types_1.UserType.STANDART;
+      if (userPersonelRadio.checked) userTypeChoose = Types_1.UserType.STANDART;
       var user = new User_1.User(userName.value, userTypeChoose, organizationChoose);
       var preschool = Database_1.Database.preschools[preschoolChoose.value];
       var discount = DiscountCalculator_1.DiscountCalculator.calculateDiscount(user, preschool);
@@ -2116,30 +2148,30 @@ var userHelper = /*#__PURE__*/function () {
     }
   }]);
 
-  return userHelper;
+  return UserHelper;
 }();
 
-exports.userHelper = userHelper;
-},{"./Database":"ts-src/Database.ts","./DiscountCalculator":"ts-src/DiscountCalculator.ts","./enum/types":"ts-src/enum/types.ts","./User":"ts-src/User.ts"}],"ts-src/index.ts":[function(require,module,exports) {
+exports.UserHelper = UserHelper;
+},{"./../data/Database":"ts-src/data/Database.ts","./../DiscountCalculator":"ts-src/DiscountCalculator.ts","./../enum/Types":"ts-src/enum/Types.ts","./User":"ts-src/model/User.ts"}],"ts-src/index.ts":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var formHelper_1 = require("./formHelper");
+var FormHelper_1 = require("./form/FormHelper");
 
-var DiscountFormHelper_1 = require("./DiscountFormHelper");
+var DiscountFormHelper_1 = require("./form/DiscountFormHelper");
 
-var PreschoolFormHelper_1 = require("./PreschoolFormHelper");
+var PreschoolFormHelper_1 = require("./form/PreschoolFormHelper");
 
-var tableHelper_1 = require("./tableHelper");
+var TableHelper_1 = require("./table/TableHelper");
 
-var userHelper_1 = require("./userHelper");
+var UserHelper_1 = require("./model/UserHelper");
 
-var DiscountHelper_1 = require("./DiscountHelper");
+var DiscountHelper_1 = require("./model/DiscountHelper");
 
-var Database_1 = require("./Database");
+var Database_1 = require("./data/Database");
 /**
  * State, programın içerisde hangi bölümde işlem yaptığımız tutar.
  */
@@ -2175,17 +2207,17 @@ discountCalculateFormButton.onclick = function () {
   preschoolTableDiv.style.display = "none";
 
   if (state != 1) {
-    formHelper_1.formHelper.createUserInputForm();
-    tableHelper_1.tableHelper.printHomeButton(document.getElementById("discountCalculateButtonUl"));
+    FormHelper_1.FormHelper.createUserInputForm();
+    TableHelper_1.TableHelper.printHomeButton(document.getElementById("discountCalculateButtonUl"));
     var myParent = document.getElementById("selectField");
-    formHelper_1.formHelper.createPreschoolSelectList(myParent);
-    formHelper_1.formHelper.createOrganizationNameSelectList(document.getElementById("selectOrganizationField"), "userInput");
+    FormHelper_1.FormHelper.createPreschoolSelectList(myParent);
+    FormHelper_1.FormHelper.createOrganizationNameSelectList(document.getElementById("selectOrganizationField"), "userInput");
   }
 
   var discountCalculateButton = document.getElementById("calculate");
 
   discountCalculateButton.onclick = function () {
-    userHelper_1.userHelper.createUserFromUserInput();
+    UserHelper_1.UserHelper.createUserFromUserInput();
   };
 
   state = 1;
@@ -2205,7 +2237,7 @@ discountManagementButton.onclick = function () {
   discountCalculateDiv.style.display = "none";
   discountTableDiv.style.display = "inline";
   preschoolTableDiv.style.display = "none";
-  tableHelper_1.tableHelper.createDiscountTable();
+  TableHelper_1.TableHelper.createDiscountTable();
   var discountAppendButton = document.getElementById("append-discount");
 
   discountAppendButton.onclick = function () {
@@ -2214,7 +2246,7 @@ discountManagementButton.onclick = function () {
 
     discountAppend.onclick = function () {
       DiscountHelper_1.DiscountHelper.createDiscountFromInput();
-      tableHelper_1.tableHelper.updateDiscountTable();
+      TableHelper_1.TableHelper.updateDiscountTable();
     };
   };
 
@@ -2234,7 +2266,7 @@ reschoolManagementButton.onclick = function () {
   discountCalculateDiv.style.display = "none";
   discountTableDiv.style.display = "none";
   preschoolTableDiv.style.display = "inline";
-  tableHelper_1.tableHelper.createPreschoolTable();
+  TableHelper_1.TableHelper.createPreschoolTable();
   var preschoolAppendButton = document.getElementById("appendPreschoolForm");
 
   preschoolAppendButton.onclick = function () {
@@ -2246,7 +2278,7 @@ function removeState(id) {
   var element = document.getElementById(id);
   element.parentNode.removeChild(element);
 }
-},{"./formHelper":"ts-src/formHelper.ts","./DiscountFormHelper":"ts-src/DiscountFormHelper.ts","./PreschoolFormHelper":"ts-src/PreschoolFormHelper.ts","./tableHelper":"ts-src/tableHelper.ts","./userHelper":"ts-src/userHelper.ts","./DiscountHelper":"ts-src/DiscountHelper.ts","./Database":"ts-src/Database.ts"}],"../../AppData/Roaming/npm-cache/_npx/13248/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"./form/FormHelper":"ts-src/form/FormHelper.ts","./form/DiscountFormHelper":"ts-src/form/DiscountFormHelper.ts","./form/PreschoolFormHelper":"ts-src/form/PreschoolFormHelper.ts","./table/TableHelper":"ts-src/table/TableHelper.ts","./model/UserHelper":"ts-src/model/UserHelper.ts","./model/DiscountHelper":"ts-src/model/DiscountHelper.ts","./data/Database":"ts-src/data/Database.ts"}],"../../AppData/Roaming/npm-cache/_npx/11580/node_modules/parcel/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -2274,7 +2306,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51691" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "54621" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};
@@ -2450,5 +2482,5 @@ function hmrAcceptRun(bundle, id) {
     return true;
   }
 }
-},{}]},{},["../../AppData/Roaming/npm-cache/_npx/13248/node_modules/parcel/src/builtins/hmr-runtime.js","ts-src/index.ts"], null)
+},{}]},{},["../../AppData/Roaming/npm-cache/_npx/11580/node_modules/parcel/src/builtins/hmr-runtime.js","ts-src/index.ts"], null)
 //# sourceMappingURL=/ts-src.92bb75dc.js.map

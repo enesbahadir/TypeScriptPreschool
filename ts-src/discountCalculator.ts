@@ -1,4 +1,4 @@
-import { Database } from "./Database";
+import { Database } from "./data/Database";
 import { IDiscount } from "./interface/IDiscount";
 import { IPreschool } from "./interface/IPreschool";
 import { IUser } from "./interface/IUser";
@@ -84,7 +84,6 @@ export class DiscountCalculator {
     preschool: IPreschool
   ) {
     let result = 0;
-    debugger;
     if (
       DiscountCalculator.calculateEarlyRegistration(preschool) &&
       discount.DiscountName == "Erken Kayıt Indirimi"

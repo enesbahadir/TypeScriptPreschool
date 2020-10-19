@@ -1,13 +1,12 @@
-import { formHelper } from "./formHelper";
-import { DiscountFormHelper } from "./DiscountFormHelper";
-import { PreschoolFormHelper } from "./PreschoolFormHelper";
+import { FormHelper } from "./form/FormHelper";
+import { DiscountFormHelper } from "./form/DiscountFormHelper";
+import { PreschoolFormHelper } from "./form/PreschoolFormHelper";
 
-import { tableHelper } from "./tableHelper";
-import { userHelper } from "./userHelper";
-import { DiscountHelper } from "./DiscountHelper";
-import { Database } from "./Database";
-import { PreschoolListFromAPI } from "./PreschoolListFromAPI";
-
+import { TableHelper } from "./table/TableHelper";
+import { UserHelper } from "./model/UserHelper";
+import { DiscountHelper } from "./model/DiscountHelper";
+import { Database } from "./data/Database";
+import { PreschoolListFromAPI } from "./api/PreschoolListFromAPI";
 
 
 /**
@@ -47,13 +46,13 @@ discountCalculateFormButton.onclick = function() {
   discountTableDiv.style.display = "none";
   preschoolTableDiv.style.display = "none";
   if (state != 1) {
-    formHelper.createUserInputForm();
-    tableHelper.printHomeButton(
+    FormHelper.createUserInputForm();
+    TableHelper.printHomeButton(
       document.getElementById("discountCalculateButtonUl")
     );
     let myParent = document.getElementById("selectField");
-    formHelper.createPreschoolSelectList(myParent);
-    formHelper.createOrganizationNameSelectList(
+    FormHelper.createPreschoolSelectList(myParent);
+    FormHelper.createOrganizationNameSelectList(
       document.getElementById("selectOrganizationField"),
       "userInput"
     );
@@ -62,7 +61,7 @@ discountCalculateFormButton.onclick = function() {
     `calculate`
   );
   discountCalculateButton.onclick = function() {
-    userHelper.createUserFromUserInput();
+    UserHelper.createUserFromUserInput();
   };
   state = 1;
 };
@@ -81,7 +80,7 @@ discountManagementButton.onclick = function() {
   discountCalculateDiv.style.display = "none";
   discountTableDiv.style.display = "inline";
   preschoolTableDiv.style.display = "none";
-  tableHelper.createDiscountTable();
+  TableHelper.createDiscountTable();
 
   const discountAppendButton: HTMLElement = document.getElementById(
     `append-discount`
@@ -94,7 +93,7 @@ discountManagementButton.onclick = function() {
     );
     discountAppend.onclick = function() {
       DiscountHelper.createDiscountFromInput();
-      tableHelper.updateDiscountTable();
+      TableHelper.updateDiscountTable();
     };
   };
 
@@ -115,7 +114,7 @@ reschoolManagementButton.onclick = function() {
   discountCalculateDiv.style.display = "none";
   discountTableDiv.style.display = "none";
   preschoolTableDiv.style.display = "inline";
-  tableHelper.createPreschoolTable();
+  TableHelper.createPreschoolTable();
 
   const preschoolAppendButton = document.getElementById("appendPreschoolForm");
   preschoolAppendButton.onclick = function() {
